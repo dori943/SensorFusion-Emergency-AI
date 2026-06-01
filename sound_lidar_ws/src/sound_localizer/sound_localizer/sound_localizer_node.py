@@ -112,13 +112,8 @@ class SoundLocalizerNode(Node):
         if dev is None:
             self.get_logger().warn('XVF3000 USB 장치를 찾지 못했습니다.')
             return None
-        for cfg in dev:
-            for intf in cfg:
-                if dev.is_kernel_driver_active(intf.bInterfaceNumber):
-                    try:
-                        dev.detach_kernel_driver(intf.bInterfaceNumber)
-                    except usb.core.USBError:
-                        pass
+        # Keep kernel drivers attached so the ALSA audio capture interface
+        # remains visible to sounddevice.
         self.get_logger().info('XVF3000 USB 연결 완료 → DoA 하드웨어 모드')
         return XVF3000Tuning(dev)
 

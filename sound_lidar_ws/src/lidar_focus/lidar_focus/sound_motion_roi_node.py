@@ -5,10 +5,8 @@ from rclpy.qos import HistoryPolicy, QoSProfile, ReliabilityPolicy
 from sensor_msgs.msg import PointCloud2
 from visualization_msgs.msg import Marker, MarkerArray
 from std_msgs.msg import ColorRGBA
-from geometry_msgs.msg import Point
 import sensor_msgs_py.point_cloud2 as pc2
 from sound_interfaces.msg import SoundEvent
-from sklearn.cluster import DBSCAN
 
 
 def read_xyz(msg):
@@ -167,10 +165,11 @@ class SoundMotionRoiNode(Node):
         if len(fine) < min_pts:
             return []
 
-        labels = DBSCAN(
+        labels = self._dbscan_labels(
+            fine,
             eps=self.get_parameter("cluster_eps").value,
             min_samples=min_pts,
-        ).fit_predict(fine)
+        )
 
         clusters = []
         for label in np.unique(labels):
@@ -180,6 +179,48 @@ class SoundMotionRoiNode(Node):
 
         self.get_logger().debug(f"Stage2: {len(clusters)} clusters from {len(fine)} pts")
         return clusters
+
+    def _dbscan_labels(self, points, eps, min_samples):
+        n = len(points)
+        labels = -np.ones(n, dtype=np.int32)
+        visited = np.zeros(n, dtype=bool)
+        cluster_id = 0
+        eps2 = eps * eps
+
+        for i in range(n):
+            if visited[i]:
+                continue
+            visited[i] = True
+            neighbors = self._region_query(points, i, eps2)
+            if len(neighbors) < min_samples:
+                continue
+
+            labels[i] = cluster_id
+            seeds = list(neighbors)
+            seed_set = set(seeds)
+            j = 0
+            while j < len(seeds):
+                q = seeds[j]
+                if not visited[q]:
+                    visited[q] = True
+                    q_neighbors = self._region_query(points, q, eps2)
+                    if len(q_neighbors) >= min_samples:
+                        for nb in q_neighbors:
+                            if nb not in seed_set:
+                                seeds.append(nb)
+                                seed_set.add(nb)
+                if labels[q] < 0:
+                    labels[q] = cluster_id
+                j += 1
+
+            cluster_id += 1
+
+        return labels
+
+    def _region_query(self, points, idx, eps2):
+        diff = points - points[idx]
+        dist2 = np.einsum("ij,ij->i", diff, diff)
+        return np.flatnonzero(dist2 <= eps2)
 
     def _publish_clusters(self, clusters, header):
         # merge all cluster points into one cloud for visualization

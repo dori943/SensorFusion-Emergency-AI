@@ -1,0 +1,4 @@
+[console_scripts]
+ground_removal_node = lidar_focus.ground_removal_node:main
+human_bbox_node = lidar_focus.human_bbox_node:main
+lidar_focus_node = lidar_focus.lidar_focus_node:main

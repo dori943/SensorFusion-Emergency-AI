@@ -1,0 +1,1 @@
+/home/user/sound_lidar_ws/build/sound_interfaces/rosidl_typesupport_introspection_c/sound_interfaces/msg/rosidl_typesupport_introspection_c__visibility_control.h

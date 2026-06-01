@@ -1,0 +1,24 @@
+running develop
+running egg_info
+creating sound_localizer.egg-info
+writing sound_localizer.egg-info/PKG-INFO
+writing dependency_links to sound_localizer.egg-info/dependency_links.txt
+writing entry points to sound_localizer.egg-info/entry_points.txt
+writing requirements to sound_localizer.egg-info/requires.txt
+writing top-level names to sound_localizer.egg-info/top_level.txt
+writing manifest file 'sound_localizer.egg-info/SOURCES.txt'
+reading manifest file 'sound_localizer.egg-info/SOURCES.txt'
+writing manifest file 'sound_localizer.egg-info/SOURCES.txt'
+running build_ext
+Creating /home/user/sound_lidar_ws/install/sound_localizer/lib/python3.12/site-packages/sound-localizer.egg-link (link to .)
+Installing sound_localizer_node script to /home/user/sound_lidar_ws/install/sound_localizer/bin
+
+Installed /home/user/sound_lidar_ws/build/sound_localizer
+running symlink_data
+creating /home/user/sound_lidar_ws/install/sound_localizer/share/ament_index
+creating /home/user/sound_lidar_ws/install/sound_localizer/share/ament_index/resource_index
+creating /home/user/sound_lidar_ws/install/sound_localizer/share/ament_index/resource_index/packages
+symbolically linking /home/user/sound_lidar_ws/build/sound_localizer/resource/sound_localizer -> /home/user/sound_lidar_ws/install/sound_localizer/share/ament_index/resource_index/packages
+symbolically linking /home/user/sound_lidar_ws/build/sound_localizer/package.xml -> /home/user/sound_lidar_ws/install/sound_localizer/share/sound_localizer
+creating /home/user/sound_lidar_ws/install/sound_localizer/share/sound_localizer/launch
+symbolically linking /home/user/sound_lidar_ws/build/sound_localizer/launch/sound_localizer.launch.py -> /home/user/sound_lidar_ws/install/sound_localizer/share/sound_localizer/launch

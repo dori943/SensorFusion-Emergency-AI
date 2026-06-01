@@ -1,0 +1,560 @@
+[0.000000] (-) TimerEvent: {}
+[0.000825] (sound_interfaces) JobQueued: {'identifier': 'sound_interfaces', 'dependencies': OrderedDict()}
+[0.001031] (lidar_focus) JobQueued: {'identifier': 'lidar_focus', 'dependencies': OrderedDict({'sound_interfaces': '/home/user/sound_lidar_ws/install/sound_interfaces'})}
+[0.001079] (sound_localizer) JobQueued: {'identifier': 'sound_localizer', 'dependencies': OrderedDict({'sound_interfaces': '/home/user/sound_lidar_ws/install/sound_interfaces'})}
+[0.001607] (sound_interfaces) JobStarted: {'identifier': 'sound_interfaces'}
+[0.028057] (sound_interfaces) JobProgress: {'identifier': 'sound_interfaces', 'progress': 'cmake'}
+[0.029004] (sound_interfaces) Command: {'cmd': ['/usr/bin/cmake', '/home/user/sound_lidar_ws/src/sound_interfaces', '-DAMENT_CMAKE_SYMLINK_INSTALL=1', '-DCMAKE_INSTALL_PREFIX=/home/user/sound_lidar_ws/install/sound_interfaces'], 'cwd': '/home/user/sound_lidar_ws/build/sound_interfaces', 'env': OrderedDict({'LESSOPEN': '| /usr/bin/lesspipe %s', 'GZ_SIM_RESOURCE_PATH': '/opt/ros/jazzy/share', 'USER': 'user', 'GZ_CONFIG_PATH': '/opt/ros/jazzy/opt/gz_sim_vendor/share/gz:/opt/ros/jazzy/opt/sdformat_vendor/share/gz:/opt/ros/jazzy/opt/gz_gui_vendor/share/gz:/opt/ros/jazzy/opt/gz_transport_vendor/share/gz:/opt/ros/jazzy/opt/gz_rendering_vendor/share/gz:/opt/ros/jazzy/opt/gz_plugin_vendor/share/gz:/opt/ros/jazzy/opt/gz_fuel_tools_vendor/share/gz:/opt/ros/jazzy/opt/gz_msgs_vendor/share/gz:/opt/ros/jazzy/opt/gz_common_vendor/share/gz', 'XDG_SESSION_TYPE': 'wayland', 'CLUTTER_DISABLE_MIPMAPPED_TEXT': '1', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/user/sound_lidar_ws/install/sound_interfaces/lib:/opt/ros/jazzy/opt/gz_sim_vendor/lib:/opt/ros/jazzy/opt/gz_sensors_vendor/lib:/opt/ros/jazzy/opt/gz_physics_vendor/lib:/opt/ros/jazzy/opt/sdformat_vendor/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/opt/gz_gui_vendor/lib:/opt/ros/jazzy/opt/gz_transport_vendor/lib:/opt/ros/jazzy/opt/gz_rendering_vendor/lib:/opt/ros/jazzy/opt/gz_plugin_vendor/lib:/opt/ros/jazzy/opt/gz_fuel_tools_vendor/lib:/opt/ros/jazzy/opt/gz_msgs_vendor/lib:/opt/ros/jazzy/opt/gz_common_vendor/lib:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_tools_vendor/lib:/opt/ros/jazzy/opt/gz_ogre_next_vendor/lib:/opt/ros/jazzy/opt/gz_dartsim_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/home/user', 'OLDPWD': '/home/user/sound_lidar_ws', 'DESKTOP_SESSION': 'ubuntu', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'SYSTEMD_EXEC_PID': '1614', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'IM_CONFIG_PHASE': '1', 'WAYLAND_DISPLAY': 'wayland-0', 'COLCON_PREFIX_PATH': '/home/user/sound_lidar_ws/install', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'user', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'MEMORY_PRESSURE_WATCH': '/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/session.slice/org.gnome.Shell@wayland.service/memory.pressure', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'user', 'TERM': 'xterm-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'PATH': '/home/user/sound_lidar_ws/install/sound_localizer/bin:/home/user/sound_lidar_ws/install/lidar_focus/bin:/opt/ros/jazzy/opt/gz_msgs_vendor/bin:/opt/ros/jazzy/opt/gz_tools_vendor/bin:/opt/ros/jazzy/opt/gz_ogre_next_vendor/bin:/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin', 'SESSION_MANAGER': 'local/user-desktop:@/tmp/.ICE-unix/1576,unix/user-desktop:/tmp/.ICE-unix/1576', 'XDG_MENU_PREFIX': 'gnome-', 'GNOME_TERMINAL_SCREEN': '/org/gnome/Terminal/screen/f9f8515d_aea4_486d_ab79_38438dc4a753', 'GNOME_SETUP_DISPLAY': ':1', 'XDG_RUNTIME_DIR': '/run/user/1000', 'DISPLAY': ':0', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1000/.mutter-Xwaylandauth.AUP4O3', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'GNOME_TERMINAL_SERVICE': ':1.112', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'AMENT_PREFIX_PATH': '/home/user/sound_lidar_ws/install/sound_localizer:/home/user/sound_lidar_ws/install/lidar_focus:/home/user/sound_lidar_ws/install/sound_interfaces:/opt/ros/jazzy', 'SHELL': '/bin/bash', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/user/sound_lidar_ws/build/sound_interfaces', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/user/sound_lidar_ws/build/sound_localizer:/home/user/sound_lidar_ws/install/sound_localizer/lib/python3.12/site-packages:/home/user/sound_lidar_ws/build/lidar_focus:/home/user/sound_lidar_ws/install/lidar_focus/lib/python3.12/site-packages:/home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages', 'COLCON': '1', 'MEMORY_PRESSURE_WRITE': 'c29tZSAyMDAwMDAgMjAwMDAwMAA=', 'VTE_VERSION': '7600', 'CMAKE_PREFIX_PATH': '/home/user/sound_lidar_ws/install/sound_interfaces:/opt/ros/jazzy/opt/gz_sim_vendor:/opt/ros/jazzy/opt/gz_sensors_vendor:/opt/ros/jazzy/opt/gz_physics_vendor:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_gui_vendor:/opt/ros/jazzy/opt/gz_transport_vendor:/opt/ros/jazzy/opt/gz_rendering_vendor:/opt/ros/jazzy/opt/gz_plugin_vendor:/opt/ros/jazzy/opt/gz_fuel_tools_vendor:/opt/ros/jazzy/opt/gz_msgs_vendor:/opt/ros/jazzy/opt/gz_common_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_ogre_next_vendor:/opt/ros/jazzy/opt/gz_dartsim_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/home/user/sound_lidar_ws/install/sound_localizer:/home/user/sound_lidar_ws/install/lidar_focus:/opt/ros/jazzy'}), 'shell': False}
+[0.099339] (-) TimerEvent: {}
+[0.200032] (-) TimerEvent: {}
+[0.300670] (-) TimerEvent: {}
+[0.401270] (-) TimerEvent: {}
+[0.501759] (-) TimerEvent: {}
+[0.605313] (-) TimerEvent: {}
+[0.705904] (-) TimerEvent: {}
+[0.806444] (-) TimerEvent: {}
+[0.907205] (-) TimerEvent: {}
+[1.007896] (-) TimerEvent: {}
+[1.101844] (sound_interfaces) StdoutLine: {'line': b'-- The C compiler identification is GNU 13.3.0\n'}
+[1.108108] (-) TimerEvent: {}
+[1.208884] (-) TimerEvent: {}
+[1.309587] (-) TimerEvent: {}
+[1.410390] (-) TimerEvent: {}
+[1.511224] (-) TimerEvent: {}
+[1.612261] (-) TimerEvent: {}
+[1.712983] (-) TimerEvent: {}
+[1.813692] (-) TimerEvent: {}
+[1.832121] (sound_interfaces) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 13.3.0\n'}
+[1.881061] (sound_interfaces) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[1.913930] (-) TimerEvent: {}
+[2.017360] (-) TimerEvent: {}
+[2.119212] (-) TimerEvent: {}
+[2.223675] (-) TimerEvent: {}
+[2.243400] (sound_interfaces) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[2.260487] (sound_interfaces) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[2.262490] (sound_interfaces) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[2.264283] (sound_interfaces) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[2.300143] (sound_interfaces) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[2.324510] (-) TimerEvent: {}
+[2.425600] (-) TimerEvent: {}
+[2.528785] (-) TimerEvent: {}
+[2.629704] (-) TimerEvent: {}
+[2.697307] (sound_interfaces) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[2.715077] (sound_interfaces) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[2.715713] (sound_interfaces) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[2.716659] (sound_interfaces) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[2.730935] (-) TimerEvent: {}
+[2.737524] (sound_interfaces) StdoutLine: {'line': b'-- Found ament_cmake: 2.5.5 (/opt/ros/jazzy/share/ament_cmake/cmake)\n'}
+[2.834508] (-) TimerEvent: {}
+[2.935140] (-) TimerEvent: {}
+[3.035756] (-) TimerEvent: {}
+[3.136273] (-) TimerEvent: {}
+[3.225803] (sound_interfaces) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter \n'}
+[3.236470] (-) TimerEvent: {}
+[3.337082] (-) TimerEvent: {}
+[3.438159] (-) TimerEvent: {}
+[3.473701] (sound_interfaces) StdoutLine: {'line': b'-- Override CMake install command with custom implementation using symlinks instead of copying resources\n'}
+[3.538320] (-) TimerEvent: {}
+[3.619548] (sound_interfaces) StdoutLine: {'line': b'-- Found rosidl_default_generators: 1.6.0 (/opt/ros/jazzy/share/rosidl_default_generators/cmake)\n'}
+[3.639387] (-) TimerEvent: {}
+[3.648458] (sound_interfaces) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[3.739546] (-) TimerEvent: {}
+[3.840307] (-) TimerEvent: {}
+[3.883735] (sound_interfaces) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[3.942755] (-) TimerEvent: {}
+[4.043993] (-) TimerEvent: {}
+[4.102193] (sound_interfaces) StdoutLine: {'line': b'-- Found rosidl_adapter: 4.6.7 (/opt/ros/jazzy/share/rosidl_adapter/cmake)\n'}
+[4.116905] (sound_interfaces) StdoutLine: {'line': b'-- Found std_msgs: 5.3.6 (/opt/ros/jazzy/share/std_msgs/cmake)\n'}
+[4.144276] (-) TimerEvent: {}
+[4.256346] (-) TimerEvent: {}
+[4.357428] (-) TimerEvent: {}
+[4.458270] (-) TimerEvent: {}
+[4.558936] (-) TimerEvent: {}
+[4.659779] (-) TimerEvent: {}
+[4.760290] (-) TimerEvent: {}
+[4.860886] (-) TimerEvent: {}
+[4.962091] (-) TimerEvent: {}
+[5.062817] (-) TimerEvent: {}
+[5.163356] (-) TimerEvent: {}
+[5.263943] (-) TimerEvent: {}
+[5.364733] (-) TimerEvent: {}
+[5.465924] (-) TimerEvent: {}
+[5.566575] (-) TimerEvent: {}
+[5.667287] (-) TimerEvent: {}
+[5.768140] (-) TimerEvent: {}
+[5.870441] (-) TimerEvent: {}
+[5.970964] (-) TimerEvent: {}
+[6.071851] (-) TimerEvent: {}
+[6.099054] (sound_interfaces) StdoutLine: {'line': b'-- Found ament_cmake_ros: 0.12.0 (/opt/ros/jazzy/share/ament_cmake_ros/cmake)\n'}
+[6.172004] (-) TimerEvent: {}
+[6.272649] (-) TimerEvent: {}
+[6.373309] (-) TimerEvent: {}
+[6.474012] (-) TimerEvent: {}
+[6.574580] (-) TimerEvent: {}
+[6.675397] (-) TimerEvent: {}
+[6.779459] (-) TimerEvent: {}
+[6.880067] (-) TimerEvent: {}
+[6.980545] (-) TimerEvent: {}
+[7.081031] (-) TimerEvent: {}
+[7.181642] (-) TimerEvent: {}
+[7.282229] (-) TimerEvent: {}
+[7.382889] (-) TimerEvent: {}
+[7.483612] (-) TimerEvent: {}
+[7.541324] (sound_interfaces) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[7.583823] (-) TimerEvent: {}
+[7.684456] (-) TimerEvent: {}
+[7.785077] (-) TimerEvent: {}
+[7.885659] (-) TimerEvent: {}
+[7.989406] (-) TimerEvent: {}
+[8.090082] (-) TimerEvent: {}
+[8.190978] (-) TimerEvent: {}
+[8.292281] (-) TimerEvent: {}
+[8.392958] (-) TimerEvent: {}
+[8.493755] (-) TimerEvent: {}
+[8.594524] (-) TimerEvent: {}
+[8.695230] (-) TimerEvent: {}
+[8.795708] (-) TimerEvent: {}
+[8.896316] (-) TimerEvent: {}
+[8.996832] (-) TimerEvent: {}
+[9.097490] (-) TimerEvent: {}
+[9.198983] (-) TimerEvent: {}
+[9.301466] (-) TimerEvent: {}
+[9.403114] (-) TimerEvent: {}
+[9.503675] (-) TimerEvent: {}
+[9.553686] (sound_interfaces) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[9.566050] (sound_interfaces) StdoutLine: {'line': b'-- Found python_cmake_module: 0.11.1 (/opt/ros/jazzy/share/python_cmake_module/cmake)\n'}
+[9.603864] (-) TimerEvent: {}
+[9.704493] (-) TimerEvent: {}
+[9.805138] (-) TimerEvent: {}
+[9.905727] (-) TimerEvent: {}
+[9.964704] (sound_interfaces) StdoutLine: {'line': b'-- Found PythonExtra: /usr/bin/python3  \n'}
+[10.005900] (-) TimerEvent: {}
+[10.106453] (-) TimerEvent: {}
+[10.207426] (-) TimerEvent: {}
+[10.308088] (-) TimerEvent: {}
+[10.408832] (-) TimerEvent: {}
+[10.509483] (-) TimerEvent: {}
+[10.610415] (-) TimerEvent: {}
+[10.711285] (-) TimerEvent: {}
+[10.812018] (-) TimerEvent: {}
+[10.912495] (-) TimerEvent: {}
+[11.015699] (-) TimerEvent: {}
+[11.117405] (-) TimerEvent: {}
+[11.218413] (-) TimerEvent: {}
+[11.319209] (-) TimerEvent: {}
+[11.419951] (-) TimerEvent: {}
+[11.520754] (-) TimerEvent: {}
+[11.623218] (-) TimerEvent: {}
+[11.724724] (-) TimerEvent: {}
+[11.830219] (-) TimerEvent: {}
+[11.934176] (-) TimerEvent: {}
+[12.007050] (sound_interfaces) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter Development NumPy Development.Module Development.Embed \n'}
+[12.034510] (-) TimerEvent: {}
+[12.135460] (-) TimerEvent: {}
+[12.166859] (sound_interfaces) StdoutLine: {'line': b'-- Configuring done (12.1s)\n'}
+[12.236952] (-) TimerEvent: {}
+[12.284467] (sound_interfaces) StdoutLine: {'line': b'-- Generating done (0.1s)\n'}
+[12.308629] (sound_interfaces) StdoutLine: {'line': b'-- Build files have been written to: /home/user/sound_lidar_ws/build/sound_interfaces\n'}
+[12.336970] (sound_interfaces) CommandEnded: {'returncode': 0}
+[12.340438] (-) TimerEvent: {}
+[12.340934] (sound_interfaces) JobProgress: {'identifier': 'sound_interfaces', 'progress': 'build'}
+[12.341007] (sound_interfaces) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/user/sound_lidar_ws/build/sound_interfaces', '--', '-j4', '-l4'], 'cwd': '/home/user/sound_lidar_ws/build/sound_interfaces', 'env': OrderedDict({'LESSOPEN': '| /usr/bin/lesspipe %s', 'GZ_SIM_RESOURCE_PATH': '/opt/ros/jazzy/share', 'USER': 'user', 'GZ_CONFIG_PATH': '/opt/ros/jazzy/opt/gz_sim_vendor/share/gz:/opt/ros/jazzy/opt/sdformat_vendor/share/gz:/opt/ros/jazzy/opt/gz_gui_vendor/share/gz:/opt/ros/jazzy/opt/gz_transport_vendor/share/gz:/opt/ros/jazzy/opt/gz_rendering_vendor/share/gz:/opt/ros/jazzy/opt/gz_plugin_vendor/share/gz:/opt/ros/jazzy/opt/gz_fuel_tools_vendor/share/gz:/opt/ros/jazzy/opt/gz_msgs_vendor/share/gz:/opt/ros/jazzy/opt/gz_common_vendor/share/gz', 'XDG_SESSION_TYPE': 'wayland', 'CLUTTER_DISABLE_MIPMAPPED_TEXT': '1', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/user/sound_lidar_ws/install/sound_interfaces/lib:/opt/ros/jazzy/opt/gz_sim_vendor/lib:/opt/ros/jazzy/opt/gz_sensors_vendor/lib:/opt/ros/jazzy/opt/gz_physics_vendor/lib:/opt/ros/jazzy/opt/sdformat_vendor/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/opt/gz_gui_vendor/lib:/opt/ros/jazzy/opt/gz_transport_vendor/lib:/opt/ros/jazzy/opt/gz_rendering_vendor/lib:/opt/ros/jazzy/opt/gz_plugin_vendor/lib:/opt/ros/jazzy/opt/gz_fuel_tools_vendor/lib:/opt/ros/jazzy/opt/gz_msgs_vendor/lib:/opt/ros/jazzy/opt/gz_common_vendor/lib:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_tools_vendor/lib:/opt/ros/jazzy/opt/gz_ogre_next_vendor/lib:/opt/ros/jazzy/opt/gz_dartsim_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/home/user', 'OLDPWD': '/home/user/sound_lidar_ws', 'DESKTOP_SESSION': 'ubuntu', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'SYSTEMD_EXEC_PID': '1614', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'IM_CONFIG_PHASE': '1', 'WAYLAND_DISPLAY': 'wayland-0', 'COLCON_PREFIX_PATH': '/home/user/sound_lidar_ws/install', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'user', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'MEMORY_PRESSURE_WATCH': '/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/session.slice/org.gnome.Shell@wayland.service/memory.pressure', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'user', 'TERM': 'xterm-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'PATH': '/home/user/sound_lidar_ws/install/sound_localizer/bin:/home/user/sound_lidar_ws/install/lidar_focus/bin:/opt/ros/jazzy/opt/gz_msgs_vendor/bin:/opt/ros/jazzy/opt/gz_tools_vendor/bin:/opt/ros/jazzy/opt/gz_ogre_next_vendor/bin:/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin', 'SESSION_MANAGER': 'local/user-desktop:@/tmp/.ICE-unix/1576,unix/user-desktop:/tmp/.ICE-unix/1576', 'XDG_MENU_PREFIX': 'gnome-', 'GNOME_TERMINAL_SCREEN': '/org/gnome/Terminal/screen/f9f8515d_aea4_486d_ab79_38438dc4a753', 'GNOME_SETUP_DISPLAY': ':1', 'XDG_RUNTIME_DIR': '/run/user/1000', 'DISPLAY': ':0', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1000/.mutter-Xwaylandauth.AUP4O3', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'GNOME_TERMINAL_SERVICE': ':1.112', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'AMENT_PREFIX_PATH': '/home/user/sound_lidar_ws/install/sound_localizer:/home/user/sound_lidar_ws/install/lidar_focus:/home/user/sound_lidar_ws/install/sound_interfaces:/opt/ros/jazzy', 'SHELL': '/bin/bash', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/user/sound_lidar_ws/build/sound_interfaces', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/user/sound_lidar_ws/build/sound_localizer:/home/user/sound_lidar_ws/install/sound_localizer/lib/python3.12/site-packages:/home/user/sound_lidar_ws/build/lidar_focus:/home/user/sound_lidar_ws/install/lidar_focus/lib/python3.12/site-packages:/home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages', 'COLCON': '1', 'MEMORY_PRESSURE_WRITE': 'c29tZSAyMDAwMDAgMjAwMDAwMAA=', 'VTE_VERSION': '7600', 'CMAKE_PREFIX_PATH': '/home/user/sound_lidar_ws/install/sound_interfaces:/opt/ros/jazzy/opt/gz_sim_vendor:/opt/ros/jazzy/opt/gz_sensors_vendor:/opt/ros/jazzy/opt/gz_physics_vendor:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_gui_vendor:/opt/ros/jazzy/opt/gz_transport_vendor:/opt/ros/jazzy/opt/gz_rendering_vendor:/opt/ros/jazzy/opt/gz_plugin_vendor:/opt/ros/jazzy/opt/gz_fuel_tools_vendor:/opt/ros/jazzy/opt/gz_msgs_vendor:/opt/ros/jazzy/opt/gz_common_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_ogre_next_vendor:/opt/ros/jazzy/opt/gz_dartsim_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/home/user/sound_lidar_ws/install/sound_localizer:/home/user/sound_lidar_ws/install/lidar_focus:/opt/ros/jazzy'}), 'shell': False}
+[12.441369] (-) TimerEvent: {}
+[12.510204] (sound_interfaces) StdoutLine: {'line': b'[  2%] \x1b[34m\x1b[1mGenerating type hashes for ROS interfaces\x1b[0m\n'}
+[12.541543] (-) TimerEvent: {}
+[12.542408] (sound_interfaces) StdoutLine: {'line': b'[  2%] Built target ament_cmake_python_symlink_sound_interfaces\n'}
+[12.641813] (-) TimerEvent: {}
+[12.742893] (-) TimerEvent: {}
+[12.843531] (-) TimerEvent: {}
+[12.944379] (-) TimerEvent: {}
+[13.048926] (-) TimerEvent: {}
+[13.150319] (-) TimerEvent: {}
+[13.205246] (sound_interfaces) StdoutLine: {'line': b'running egg_info\n'}
+[13.207915] (sound_interfaces) StdoutLine: {'line': b'creating sound_interfaces.egg-info\n'}
+[13.250754] (-) TimerEvent: {}
+[13.264930] (sound_interfaces) StdoutLine: {'line': b'writing sound_interfaces.egg-info/PKG-INFO\n'}
+[13.265552] (sound_interfaces) StdoutLine: {'line': b'writing dependency_links to sound_interfaces.egg-info/dependency_links.txt\n'}
+[13.265775] (sound_interfaces) StdoutLine: {'line': b'writing top-level names to sound_interfaces.egg-info/top_level.txt\n'}
+[13.268777] (sound_interfaces) StdoutLine: {'line': b"writing manifest file 'sound_interfaces.egg-info/SOURCES.txt'\n"}
+[13.287701] (sound_interfaces) StdoutLine: {'line': b'[  2%] Built target sound_interfaces__rosidl_generator_type_description\n'}
+[13.352084] (sound_interfaces) StdoutLine: {'line': b'[  5%] \x1b[34m\x1b[1mGenerating C code for ROS interfaces\x1b[0m\n'}
+[13.352594] (-) TimerEvent: {}
+[13.384356] (sound_interfaces) StdoutLine: {'line': b'[  8%] \x1b[34m\x1b[1mGenerating C++ code for ROS interfaces\x1b[0m\n'}
+[13.453263] (-) TimerEvent: {}
+[13.481285] (sound_interfaces) StdoutLine: {'line': b"reading manifest file 'sound_interfaces.egg-info/SOURCES.txt'\n"}
+[13.484819] (sound_interfaces) StdoutLine: {'line': b"writing manifest file 'sound_interfaces.egg-info/SOURCES.txt'\n"}
+[13.554024] (-) TimerEvent: {}
+[13.662950] (-) TimerEvent: {}
+[13.764783] (-) TimerEvent: {}
+[13.868910] (-) TimerEvent: {}
+[13.975032] (-) TimerEvent: {}
+[13.985058] (sound_interfaces) StdoutLine: {'line': b'[  8%] Built target ament_cmake_python_build_sound_interfaces_egg\n'}
+[14.075216] (-) TimerEvent: {}
+[14.178997] (-) TimerEvent: {}
+[14.279850] (-) TimerEvent: {}
+[14.380589] (-) TimerEvent: {}
+[14.484617] (-) TimerEvent: {}
+[14.585671] (-) TimerEvent: {}
+[14.668034] (sound_interfaces) StdoutLine: {'line': b'[  8%] Built target sound_interfaces__cpp\n'}
+[14.689025] (-) TimerEvent: {}
+[14.788474] (sound_interfaces) StdoutLine: {'line': b'[ 11%] \x1b[32mBuilding C object CMakeFiles/sound_interfaces__rosidl_generator_c.dir/rosidl_generator_c/sound_interfaces/msg/detail/sound_event__description.c.o\x1b[0m\n'}
+[14.789044] (sound_interfaces) StdoutLine: {'line': b'[ 14%] \x1b[32mBuilding C object CMakeFiles/sound_interfaces__rosidl_generator_c.dir/rosidl_generator_c/sound_interfaces/msg/detail/sound_event__type_support.c.o\x1b[0m\n'}
+[14.789285] (-) TimerEvent: {}
+[14.794481] (sound_interfaces) StdoutLine: {'line': b'[ 17%] \x1b[32mBuilding C object CMakeFiles/sound_interfaces__rosidl_generator_c.dir/rosidl_generator_c/sound_interfaces/msg/detail/sound_event__functions.c.o\x1b[0m\n'}
+[14.891033] (-) TimerEvent: {}
+[14.996281] (-) TimerEvent: {}
+[15.019602] (sound_interfaces) StdoutLine: {'line': b'[ 20%] \x1b[32m\x1b[1mLinking C shared library libsound_interfaces__rosidl_generator_c.so\x1b[0m\n'}
+[15.096463] (-) TimerEvent: {}
+[15.149800] (sound_interfaces) StdoutLine: {'line': b'[ 20%] Built target sound_interfaces__rosidl_generator_c\n'}
+[15.183888] (sound_interfaces) StdoutLine: {'line': b'[ 26%] \x1b[34m\x1b[1mGenerating C introspection for ROS interfaces\x1b[0m\n'}
+[15.185308] (sound_interfaces) StdoutLine: {'line': b'[ 26%] \x1b[34m\x1b[1mGenerating C type support for eProsima Fast-RTPS\x1b[0m\n'}
+[15.186055] (sound_interfaces) StdoutLine: {'line': b'[ 32%] \x1b[34m\x1b[1mGenerating C++ type support dispatch for ROS interfaces\x1b[0m\n'}
+[15.186303] (sound_interfaces) StdoutLine: {'line': b'[ 32%] \x1b[34m\x1b[1mGenerating C type support dispatch for ROS interfaces\x1b[0m\n'}
+[15.197870] (-) TimerEvent: {}
+[15.299399] (-) TimerEvent: {}
+[15.401628] (-) TimerEvent: {}
+[15.506972] (-) TimerEvent: {}
+[15.607703] (-) TimerEvent: {}
+[15.708555] (-) TimerEvent: {}
+[15.810927] (-) TimerEvent: {}
+[15.911433] (-) TimerEvent: {}
+[16.012977] (-) TimerEvent: {}
+[16.113842] (-) TimerEvent: {}
+[16.218511] (-) TimerEvent: {}
+[16.306019] (sound_interfaces) StdoutLine: {'line': b'[ 35%] \x1b[32mBuilding CXX object CMakeFiles/sound_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/sound_interfaces/msg/sound_event__type_support.cpp.o\x1b[0m\n'}
+[16.319897] (-) TimerEvent: {}
+[16.412003] (sound_interfaces) StdoutLine: {'line': b'[ 38%] \x1b[32mBuilding CXX object CMakeFiles/sound_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/sound_interfaces/msg/sound_event__type_support.cpp.o\x1b[0m\n'}
+[16.422564] (-) TimerEvent: {}
+[16.523283] (-) TimerEvent: {}
+[16.528287] (sound_interfaces) StdoutLine: {'line': b'[ 41%] \x1b[32mBuilding C object CMakeFiles/sound_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/sound_interfaces/msg/detail/sound_event__type_support.c.o\x1b[0m\n'}
+[16.548880] (sound_interfaces) StdoutLine: {'line': b'[ 44%] \x1b[32mBuilding CXX object CMakeFiles/sound_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/sound_interfaces/msg/detail/sound_event__type_support_c.cpp.o\x1b[0m\n'}
+[16.611206] (sound_interfaces) StdoutLine: {'line': b'[ 47%] \x1b[32m\x1b[1mLinking CXX shared library libsound_interfaces__rosidl_typesupport_c.so\x1b[0m\n'}
+[16.623857] (-) TimerEvent: {}
+[16.728278] (-) TimerEvent: {}
+[16.765088] (sound_interfaces) StdoutLine: {'line': b'[ 50%] \x1b[32m\x1b[1mLinking C shared library libsound_interfaces__rosidl_typesupport_introspection_c.so\x1b[0m\n'}
+[16.819647] (sound_interfaces) StdoutLine: {'line': b'[ 50%] Built target sound_interfaces__rosidl_typesupport_c\n'}
+[16.830050] (-) TimerEvent: {}
+[16.862208] (sound_interfaces) StdoutLine: {'line': b'[ 52%] \x1b[34m\x1b[1mGenerating C++ type support for eProsima Fast-RTPS\x1b[0m\n'}
+[16.930165] (-) TimerEvent: {}
+[16.956644] (sound_interfaces) StdoutLine: {'line': b'[ 52%] Built target sound_interfaces__rosidl_typesupport_introspection_c\n'}
+[17.010470] (sound_interfaces) StdoutLine: {'line': b'[ 55%] \x1b[34m\x1b[1mGenerating C++ introspection for ROS interfaces\x1b[0m\n'}
+[17.030935] (-) TimerEvent: {}
+[17.133429] (-) TimerEvent: {}
+[17.239303] (-) TimerEvent: {}
+[17.339965] (-) TimerEvent: {}
+[17.447923] (-) TimerEvent: {}
+[17.548702] (-) TimerEvent: {}
+[17.653940] (-) TimerEvent: {}
+[17.755870] (-) TimerEvent: {}
+[17.856223] (-) TimerEvent: {}
+[17.956820] (-) TimerEvent: {}
+[18.042136] (sound_interfaces) StdoutLine: {'line': b'[ 58%] \x1b[32mBuilding CXX object CMakeFiles/sound_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/sound_interfaces/msg/detail/dds_fastrtps/sound_event__type_support.cpp.o\x1b[0m\n'}
+[18.056970] (-) TimerEvent: {}
+[18.164634] (-) TimerEvent: {}
+[18.265424] (-) TimerEvent: {}
+[18.368031] (-) TimerEvent: {}
+[18.470049] (-) TimerEvent: {}
+[18.485523] (sound_interfaces) StdoutLine: {'line': b'[ 61%] \x1b[32m\x1b[1mLinking CXX shared library libsound_interfaces__rosidl_typesupport_cpp.so\x1b[0m\n'}
+[18.521975] (sound_interfaces) StdoutLine: {'line': b'[ 64%] \x1b[32mBuilding CXX object CMakeFiles/sound_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/sound_interfaces/msg/detail/sound_event__type_support.cpp.o\x1b[0m\n'}
+[18.571053] (-) TimerEvent: {}
+[18.674959] (-) TimerEvent: {}
+[18.728578] (sound_interfaces) StdoutLine: {'line': b'[ 64%] Built target sound_interfaces__rosidl_typesupport_cpp\n'}
+[18.775176] (-) TimerEvent: {}
+[18.876020] (-) TimerEvent: {}
+[18.977404] (-) TimerEvent: {}
+[19.081012] (-) TimerEvent: {}
+[19.181857] (-) TimerEvent: {}
+[19.283984] (-) TimerEvent: {}
+[19.385989] (-) TimerEvent: {}
+[19.488123] (-) TimerEvent: {}
+[19.589172] (-) TimerEvent: {}
+[19.615098] (sound_interfaces) StdoutLine: {'line': b'[ 67%] \x1b[32m\x1b[1mLinking CXX shared library libsound_interfaces__rosidl_typesupport_fastrtps_c.so\x1b[0m\n'}
+[19.689417] (-) TimerEvent: {}
+[19.790334] (-) TimerEvent: {}
+[19.891116] (-) TimerEvent: {}
+[19.924121] (sound_interfaces) StdoutLine: {'line': b'[ 67%] Built target sound_interfaces__rosidl_typesupport_fastrtps_c\n'}
+[19.987212] (sound_interfaces) StdoutLine: {'line': b'[ 70%] \x1b[32m\x1b[1mLinking CXX shared library libsound_interfaces__rosidl_typesupport_introspection_cpp.so\x1b[0m\n'}
+[19.991348] (-) TimerEvent: {}
+[20.094888] (-) TimerEvent: {}
+[20.196410] (-) TimerEvent: {}
+[20.214102] (sound_interfaces) StdoutLine: {'line': b'[ 73%] \x1b[32m\x1b[1mLinking CXX shared library libsound_interfaces__rosidl_typesupport_fastrtps_cpp.so\x1b[0m\n'}
+[20.286195] (sound_interfaces) StdoutLine: {'line': b'[ 73%] Built target sound_interfaces__rosidl_typesupport_introspection_cpp\n'}
+[20.296599] (-) TimerEvent: {}
+[20.391131] (sound_interfaces) StdoutLine: {'line': b'[ 73%] Built target sound_interfaces__rosidl_typesupport_fastrtps_cpp\n'}
+[20.396809] (-) TimerEvent: {}
+[20.465060] (sound_interfaces) StdoutLine: {'line': b'[ 73%] Built target sound_interfaces\n'}
+[20.496927] (-) TimerEvent: {}
+[20.535601] (sound_interfaces) StdoutLine: {'line': b'[ 76%] \x1b[34m\x1b[1mGenerating Python code for ROS interfaces\x1b[0m\n'}
+[20.597075] (-) TimerEvent: {}
+[20.698120] (-) TimerEvent: {}
+[20.798679] (-) TimerEvent: {}
+[20.899116] (-) TimerEvent: {}
+[20.999556] (-) TimerEvent: {}
+[21.100178] (-) TimerEvent: {}
+[21.200882] (-) TimerEvent: {}
+[21.302889] (-) TimerEvent: {}
+[21.393953] (sound_interfaces) StdoutLine: {'line': b'[ 76%] Built target sound_interfaces__py\n'}
+[21.403077] (-) TimerEvent: {}
+[21.462939] (sound_interfaces) StdoutLine: {'line': b'[ 79%] \x1b[32mBuilding C object CMakeFiles/sound_interfaces__rosidl_generator_py.dir/rosidl_generator_py/sound_interfaces/msg/_sound_event_s.c.o\x1b[0m\n'}
+[21.503275] (-) TimerEvent: {}
+[21.603976] (-) TimerEvent: {}
+[21.723060] (-) TimerEvent: {}
+[21.824036] (-) TimerEvent: {}
+[21.925311] (-) TimerEvent: {}
+[22.005569] (sound_interfaces) StdoutLine: {'line': b'[ 82%] \x1b[32m\x1b[1mLinking C shared library libsound_interfaces__rosidl_generator_py.so\x1b[0m\n'}
+[22.025623] (-) TimerEvent: {}
+[22.126422] (-) TimerEvent: {}
+[22.165561] (sound_interfaces) StdoutLine: {'line': b'[ 82%] Built target sound_interfaces__rosidl_generator_py\n'}
+[22.228086] (-) TimerEvent: {}
+[22.242207] (sound_interfaces) StdoutLine: {'line': b'[ 85%] \x1b[32mBuilding C object CMakeFiles/sound_interfaces_s__rosidl_typesupport_c.dir/rosidl_generator_py/sound_interfaces/_sound_interfaces_s.ep.rosidl_typesupport_c.c.o\x1b[0m\n'}
+[22.258988] (sound_interfaces) StdoutLine: {'line': b'[ 91%] \x1b[32mBuilding C object CMakeFiles/sound_interfaces_s__rosidl_typesupport_introspection_c.dir/rosidl_generator_py/sound_interfaces/_sound_interfaces_s.ep.rosidl_typesupport_introspection_c.c.o\x1b[0m\n'}
+[22.262974] (sound_interfaces) StdoutLine: {'line': b'[ 91%] \x1b[32mBuilding C object CMakeFiles/sound_interfaces_s__rosidl_typesupport_fastrtps_c.dir/rosidl_generator_py/sound_interfaces/_sound_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c.o\x1b[0m\n'}
+[22.331889] (-) TimerEvent: {}
+[22.432644] (-) TimerEvent: {}
+[22.533572] (-) TimerEvent: {}
+[22.561889] (sound_interfaces) StdoutLine: {'line': b'[ 94%] \x1b[32m\x1b[1mLinking C shared module rosidl_generator_py/sound_interfaces/sound_interfaces_s__rosidl_typesupport_c.so\x1b[0m\n'}
+[22.636061] (-) TimerEvent: {}
+[22.641906] (sound_interfaces) StdoutLine: {'line': b'[ 97%] \x1b[32m\x1b[1mLinking C shared module rosidl_generator_py/sound_interfaces/sound_interfaces_s__rosidl_typesupport_introspection_c.so\x1b[0m\n'}
+[22.647955] (sound_interfaces) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking C shared module rosidl_generator_py/sound_interfaces/sound_interfaces_s__rosidl_typesupport_fastrtps_c.so\x1b[0m\n'}
+[22.712135] (sound_interfaces) StdoutLine: {'line': b'[100%] Built target sound_interfaces_s__rosidl_typesupport_c\n'}
+[22.736234] (-) TimerEvent: {}
+[22.772260] (sound_interfaces) StdoutLine: {'line': b'[100%] Built target sound_interfaces_s__rosidl_typesupport_fastrtps_c\n'}
+[22.780755] (sound_interfaces) StdoutLine: {'line': b'[100%] Built target sound_interfaces_s__rosidl_typesupport_introspection_c\n'}
+[22.818621] (sound_interfaces) CommandEnded: {'returncode': 0}
+[22.820092] (sound_interfaces) JobProgress: {'identifier': 'sound_interfaces', 'progress': 'install'}
+[22.836369] (-) TimerEvent: {}
+[22.849205] (sound_interfaces) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/user/sound_lidar_ws/build/sound_interfaces'], 'cwd': '/home/user/sound_lidar_ws/build/sound_interfaces', 'env': OrderedDict({'LESSOPEN': '| /usr/bin/lesspipe %s', 'GZ_SIM_RESOURCE_PATH': '/opt/ros/jazzy/share', 'USER': 'user', 'GZ_CONFIG_PATH': '/opt/ros/jazzy/opt/gz_sim_vendor/share/gz:/opt/ros/jazzy/opt/sdformat_vendor/share/gz:/opt/ros/jazzy/opt/gz_gui_vendor/share/gz:/opt/ros/jazzy/opt/gz_transport_vendor/share/gz:/opt/ros/jazzy/opt/gz_rendering_vendor/share/gz:/opt/ros/jazzy/opt/gz_plugin_vendor/share/gz:/opt/ros/jazzy/opt/gz_fuel_tools_vendor/share/gz:/opt/ros/jazzy/opt/gz_msgs_vendor/share/gz:/opt/ros/jazzy/opt/gz_common_vendor/share/gz', 'XDG_SESSION_TYPE': 'wayland', 'CLUTTER_DISABLE_MIPMAPPED_TEXT': '1', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/user/sound_lidar_ws/install/sound_interfaces/lib:/opt/ros/jazzy/opt/gz_sim_vendor/lib:/opt/ros/jazzy/opt/gz_sensors_vendor/lib:/opt/ros/jazzy/opt/gz_physics_vendor/lib:/opt/ros/jazzy/opt/sdformat_vendor/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/opt/gz_gui_vendor/lib:/opt/ros/jazzy/opt/gz_transport_vendor/lib:/opt/ros/jazzy/opt/gz_rendering_vendor/lib:/opt/ros/jazzy/opt/gz_plugin_vendor/lib:/opt/ros/jazzy/opt/gz_fuel_tools_vendor/lib:/opt/ros/jazzy/opt/gz_msgs_vendor/lib:/opt/ros/jazzy/opt/gz_common_vendor/lib:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_tools_vendor/lib:/opt/ros/jazzy/opt/gz_ogre_next_vendor/lib:/opt/ros/jazzy/opt/gz_dartsim_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/home/user', 'OLDPWD': '/home/user/sound_lidar_ws', 'DESKTOP_SESSION': 'ubuntu', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'SYSTEMD_EXEC_PID': '1614', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'IM_CONFIG_PHASE': '1', 'WAYLAND_DISPLAY': 'wayland-0', 'COLCON_PREFIX_PATH': '/home/user/sound_lidar_ws/install', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'user', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'MEMORY_PRESSURE_WATCH': '/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/session.slice/org.gnome.Shell@wayland.service/memory.pressure', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'user', 'TERM': 'xterm-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'PATH': '/home/user/sound_lidar_ws/install/sound_localizer/bin:/home/user/sound_lidar_ws/install/lidar_focus/bin:/opt/ros/jazzy/opt/gz_msgs_vendor/bin:/opt/ros/jazzy/opt/gz_tools_vendor/bin:/opt/ros/jazzy/opt/gz_ogre_next_vendor/bin:/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin', 'SESSION_MANAGER': 'local/user-desktop:@/tmp/.ICE-unix/1576,unix/user-desktop:/tmp/.ICE-unix/1576', 'XDG_MENU_PREFIX': 'gnome-', 'GNOME_TERMINAL_SCREEN': '/org/gnome/Terminal/screen/f9f8515d_aea4_486d_ab79_38438dc4a753', 'GNOME_SETUP_DISPLAY': ':1', 'XDG_RUNTIME_DIR': '/run/user/1000', 'DISPLAY': ':0', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1000/.mutter-Xwaylandauth.AUP4O3', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'GNOME_TERMINAL_SERVICE': ':1.112', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'AMENT_PREFIX_PATH': '/home/user/sound_lidar_ws/install/sound_localizer:/home/user/sound_lidar_ws/install/lidar_focus:/home/user/sound_lidar_ws/install/sound_interfaces:/opt/ros/jazzy', 'SHELL': '/bin/bash', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/user/sound_lidar_ws/build/sound_interfaces', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/user/sound_lidar_ws/build/sound_localizer:/home/user/sound_lidar_ws/install/sound_localizer/lib/python3.12/site-packages:/home/user/sound_lidar_ws/build/lidar_focus:/home/user/sound_lidar_ws/install/lidar_focus/lib/python3.12/site-packages:/home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages', 'COLCON': '1', 'MEMORY_PRESSURE_WRITE': 'c29tZSAyMDAwMDAgMjAwMDAwMAA=', 'VTE_VERSION': '7600', 'CMAKE_PREFIX_PATH': '/home/user/sound_lidar_ws/install/sound_interfaces:/opt/ros/jazzy/opt/gz_sim_vendor:/opt/ros/jazzy/opt/gz_sensors_vendor:/opt/ros/jazzy/opt/gz_physics_vendor:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_gui_vendor:/opt/ros/jazzy/opt/gz_transport_vendor:/opt/ros/jazzy/opt/gz_rendering_vendor:/opt/ros/jazzy/opt/gz_plugin_vendor:/opt/ros/jazzy/opt/gz_fuel_tools_vendor:/opt/ros/jazzy/opt/gz_msgs_vendor:/opt/ros/jazzy/opt/gz_common_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_ogre_next_vendor:/opt/ros/jazzy/opt/gz_dartsim_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/home/user/sound_lidar_ws/install/sound_localizer:/home/user/sound_lidar_ws/install/lidar_focus:/opt/ros/jazzy'}), 'shell': False}
+[22.871714] (sound_interfaces) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[22.872675] (sound_interfaces) StdoutLine: {'line': b'-- Execute custom install script\n'}
+[22.873247] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/ament_index/resource_index/rosidl_interfaces/sound_interfaces\n'}
+[22.895933] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/msg/SoundEvent.json\n'}
+[22.917199] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/include/sound_interfaces/sound_interfaces/msg/detail/sound_event__functions.h\n'}
+[22.936525] (-) TimerEvent: {}
+[22.941488] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/include/sound_interfaces/sound_interfaces/msg/detail/sound_event__struct.h\n'}
+[22.980525] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/include/sound_interfaces/sound_interfaces/msg/detail/sound_event__type_support.h\n'}
+[23.014060] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/include/sound_interfaces/sound_interfaces/msg/rosidl_generator_c__visibility_control.h\n'}
+[23.036845] (-) TimerEvent: {}
+[23.048773] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/include/sound_interfaces/sound_interfaces/msg/sound_event.h\n'}
+[23.078623] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/environment/library_path.sh\n'}
+[23.108903] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/environment/library_path.dsv\n'}
+[23.137029] (-) TimerEvent: {}
+[23.143126] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/include/sound_interfaces/sound_interfaces/msg/detail/sound_event__rosidl_typesupport_fastrtps_c.h\n'}
+[23.179200] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/include/sound_interfaces/sound_interfaces/msg/rosidl_typesupport_fastrtps_c__visibility_control.h\n'}
+[23.210453] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/include/sound_interfaces/sound_interfaces/msg/detail/sound_event__rosidl_typesupport_introspection_c.h\n'}
+[23.237233] (-) TimerEvent: {}
+[23.241017] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/include/sound_interfaces/sound_interfaces/msg/rosidl_typesupport_introspection_c__visibility_control.h\n'}
+[23.279096] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/include/sound_interfaces/sound_interfaces/msg/detail/sound_event__builder.hpp\n'}
+[23.310206] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/include/sound_interfaces/sound_interfaces/msg/detail/sound_event__struct.hpp\n'}
+[23.337455] (-) TimerEvent: {}
+[23.342462] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/include/sound_interfaces/sound_interfaces/msg/detail/sound_event__traits.hpp\n'}
+[23.376527] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/include/sound_interfaces/sound_interfaces/msg/detail/sound_event__type_support.hpp\n'}
+[23.407260] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/include/sound_interfaces/sound_interfaces/msg/rosidl_generator_cpp__visibility_control.hpp\n'}
+[23.437602] (-) TimerEvent: {}
+[23.439661] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/include/sound_interfaces/sound_interfaces/msg/sound_event.hpp\n'}
+[23.476604] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/include/sound_interfaces/sound_interfaces/msg/detail/sound_event__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[23.508623] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/include/sound_interfaces/sound_interfaces/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h\n'}
+[23.537835] (-) TimerEvent: {}
+[23.538378] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/include/sound_interfaces/sound_interfaces/msg/detail/sound_event__rosidl_typesupport_introspection_cpp.hpp\n'}
+[23.576991] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/environment/pythonpath.sh\n'}
+[23.607924] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/environment/pythonpath.dsv\n'}
+[23.637985] (-) TimerEvent: {}
+[23.638496] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages/sound_interfaces-0.1.0-py3.12.egg-info/PKG-INFO\n'}
+[23.672588] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages/sound_interfaces-0.1.0-py3.12.egg-info/SOURCES.txt\n'}
+[23.703870] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages/sound_interfaces-0.1.0-py3.12.egg-info/dependency_links.txt\n'}
+[23.734371] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages/sound_interfaces-0.1.0-py3.12.egg-info/top_level.txt\n'}
+[23.738145] (-) TimerEvent: {}
+[23.773684] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages/sound_interfaces/__init__.py\n'}
+[23.803683] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages/sound_interfaces/_sound_interfaces_s.ep.rosidl_typesupport_c.c\n'}
+[23.827105] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages/sound_interfaces/_sound_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c\n'}
+[23.838277] (-) TimerEvent: {}
+[23.858525] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages/sound_interfaces/_sound_interfaces_s.ep.rosidl_typesupport_introspection_c.c\n'}
+[23.883407] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages/sound_interfaces/msg/__init__.py\n'}
+[23.905423] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages/sound_interfaces/msg/_sound_event.py\n'}
+[23.928763] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages/sound_interfaces/msg/_sound_event_s.c\n'}
+[23.938448] (-) TimerEvent: {}
+[23.962444] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages/sound_interfaces/sound_interfaces_s__rosidl_typesupport_c.so\n'}
+[23.994033] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages/sound_interfaces/sound_interfaces_s__rosidl_typesupport_fastrtps_c.so\n'}
+[24.038127] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages/sound_interfaces/sound_interfaces_s__rosidl_typesupport_introspection_c.so\n'}
+[24.039121] (-) TimerEvent: {}
+[24.096117] (sound_interfaces) StdoutLine: {'line': b'-- Up-to-date symlink: /home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages/sound_interfaces/sound_interfaces_s__rosidl_typesupport_fastrtps_c.so\n'}
+[24.097664] (sound_interfaces) StdoutLine: {'line': b'-- Up-to-date symlink: /home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages/sound_interfaces/sound_interfaces_s__rosidl_typesupport_introspection_c.so\n'}
+[24.099330] (sound_interfaces) StdoutLine: {'line': b'-- Up-to-date symlink: /home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages/sound_interfaces/sound_interfaces_s__rosidl_typesupport_c.so\n'}
+[24.100421] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/msg/SoundEvent.idl\n'}
+[24.139502] (-) TimerEvent: {}
+[24.162227] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/msg/SoundEvent.msg\n'}
+[24.209183] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/ament_index/resource_index/package_run_dependencies/sound_interfaces\n'}
+[24.239771] (-) TimerEvent: {}
+[24.259802] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/ament_index/resource_index/parent_prefix_path/sound_interfaces\n'}
+[24.298099] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/environment/ament_prefix_path.sh\n'}
+[24.337108] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/environment/ament_prefix_path.dsv\n'}
+[24.339846] (-) TimerEvent: {}
+[24.370507] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/environment/path.sh\n'}
+[24.401252] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/environment/path.dsv\n'}
+[24.440957] (-) TimerEvent: {}
+[24.443539] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/local_setup.bash\n'}
+[24.470963] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/local_setup.sh\n'}
+[24.500741] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/local_setup.zsh\n'}
+[24.530023] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/local_setup.dsv\n'}
+[24.541094] (-) TimerEvent: {}
+[24.564307] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/package.dsv\n'}
+[24.595331] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/ament_index/resource_index/packages/sound_interfaces\n'}
+[24.626538] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/cmake/rosidl_cmake-extras.cmake\n'}
+[24.641506] (-) TimerEvent: {}
+[24.663428] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/cmake/ament_cmake_export_dependencies-extras.cmake\n'}
+[24.697646] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/cmake/ament_cmake_export_include_directories-extras.cmake\n'}
+[24.728481] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/cmake/ament_cmake_export_libraries-extras.cmake\n'}
+[24.742553] (-) TimerEvent: {}
+[24.764404] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/cmake/ament_cmake_export_targets-extras.cmake\n'}
+[24.795463] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake\n'}
+[24.820550] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake\n'}
+[24.842331] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/cmake/sound_interfacesConfig.cmake\n'}
+[24.842660] (-) TimerEvent: {}
+[24.873466] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/cmake/sound_interfacesConfig-version.cmake\n'}
+[24.895898] (sound_interfaces) StdoutLine: {'line': b'-- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/package.xml\n'}
+[24.917499] (sound_interfaces) StdoutLine: {'line': b'-- Installing: /home/user/sound_lidar_ws/install/sound_interfaces/lib/libsound_interfaces__rosidl_generator_c.so\n'}
+[24.918296] (sound_interfaces) StdoutLine: {'line': b'-- Set non-toolchain portion of runtime path of "/home/user/sound_lidar_ws/install/sound_interfaces/lib/libsound_interfaces__rosidl_generator_c.so" to ""\n'}
+[24.918487] (sound_interfaces) StdoutLine: {'line': b'-- Installing: /home/user/sound_lidar_ws/install/sound_interfaces/lib/libsound_interfaces__rosidl_typesupport_fastrtps_c.so\n'}
+[24.919144] (sound_interfaces) StdoutLine: {'line': b'-- Set non-toolchain portion of runtime path of "/home/user/sound_lidar_ws/install/sound_interfaces/lib/libsound_interfaces__rosidl_typesupport_fastrtps_c.so" to ""\n'}
+[24.919365] (sound_interfaces) StdoutLine: {'line': b'-- Installing: /home/user/sound_lidar_ws/install/sound_interfaces/lib/libsound_interfaces__rosidl_typesupport_introspection_c.so\n'}
+[24.919933] (sound_interfaces) StdoutLine: {'line': b'-- Set non-toolchain portion of runtime path of "/home/user/sound_lidar_ws/install/sound_interfaces/lib/libsound_interfaces__rosidl_typesupport_introspection_c.so" to ""\n'}
+[24.920112] (sound_interfaces) StdoutLine: {'line': b'-- Installing: /home/user/sound_lidar_ws/install/sound_interfaces/lib/libsound_interfaces__rosidl_typesupport_c.so\n'}
+[24.920699] (sound_interfaces) StdoutLine: {'line': b'-- Set non-toolchain portion of runtime path of "/home/user/sound_lidar_ws/install/sound_interfaces/lib/libsound_interfaces__rosidl_typesupport_c.so" to ""\n'}
+[24.920888] (sound_interfaces) StdoutLine: {'line': b'-- Installing: /home/user/sound_lidar_ws/install/sound_interfaces/lib/libsound_interfaces__rosidl_typesupport_fastrtps_cpp.so\n'}
+[24.921521] (sound_interfaces) StdoutLine: {'line': b'-- Set non-toolchain portion of runtime path of "/home/user/sound_lidar_ws/install/sound_interfaces/lib/libsound_interfaces__rosidl_typesupport_fastrtps_cpp.so" to ""\n'}
+[24.921673] (sound_interfaces) StdoutLine: {'line': b'-- Installing: /home/user/sound_lidar_ws/install/sound_interfaces/lib/libsound_interfaces__rosidl_typesupport_introspection_cpp.so\n'}
+[24.922346] (sound_interfaces) StdoutLine: {'line': b'-- Set non-toolchain portion of runtime path of "/home/user/sound_lidar_ws/install/sound_interfaces/lib/libsound_interfaces__rosidl_typesupport_introspection_cpp.so" to ""\n'}
+[24.922766] (sound_interfaces) StdoutLine: {'line': b'-- Installing: /home/user/sound_lidar_ws/install/sound_interfaces/lib/libsound_interfaces__rosidl_typesupport_cpp.so\n'}
+[24.923604] (sound_interfaces) StdoutLine: {'line': b'-- Set non-toolchain portion of runtime path of "/home/user/sound_lidar_ws/install/sound_interfaces/lib/libsound_interfaces__rosidl_typesupport_cpp.so" to ""\n'}
+[24.942867] (-) TimerEvent: {}
+[25.024577] (sound_interfaces) StdoutLine: {'line': b"Listing '/home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages/sound_interfaces'...\n"}
+[25.025184] (sound_interfaces) StdoutLine: {'line': b"Compiling '/home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages/sound_interfaces/__init__.py'...\n"}
+[25.025342] (sound_interfaces) StdoutLine: {'line': b"Listing '/home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages/sound_interfaces/msg'...\n"}
+[25.025447] (sound_interfaces) StdoutLine: {'line': b"Compiling '/home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages/sound_interfaces/msg/__init__.py'...\n"}
+[25.025562] (sound_interfaces) StdoutLine: {'line': b"Compiling '/home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages/sound_interfaces/msg/_sound_event.py'...\n"}
+[25.043059] (-) TimerEvent: {}
+[25.059920] (sound_interfaces) StdoutLine: {'line': b'-- Installing: /home/user/sound_lidar_ws/install/sound_interfaces/lib/libsound_interfaces__rosidl_generator_py.so\n'}
+[25.060761] (sound_interfaces) StdoutLine: {'line': b'-- Set non-toolchain portion of runtime path of "/home/user/sound_lidar_ws/install/sound_interfaces/lib/libsound_interfaces__rosidl_generator_py.so" to ""\n'}
+[25.061012] (sound_interfaces) StdoutLine: {'line': b'-- Installing: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/cmake/export_sound_interfaces__rosidl_generator_cExport.cmake\n'}
+[25.061316] (sound_interfaces) StdoutLine: {'line': b'-- Installing: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/cmake/export_sound_interfaces__rosidl_generator_cExport-noconfig.cmake\n'}
+[25.061610] (sound_interfaces) StdoutLine: {'line': b'-- Installing: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/cmake/export_sound_interfaces__rosidl_typesupport_fastrtps_cExport.cmake\n'}
+[25.064197] (sound_interfaces) StdoutLine: {'line': b'-- Installing: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/cmake/export_sound_interfaces__rosidl_typesupport_fastrtps_cExport-noconfig.cmake\n'}
+[25.064956] (sound_interfaces) StdoutLine: {'line': b'-- Installing: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/cmake/sound_interfaces__rosidl_typesupport_introspection_cExport.cmake\n'}
+[25.065243] (sound_interfaces) StdoutLine: {'line': b'-- Installing: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/cmake/sound_interfaces__rosidl_typesupport_introspection_cExport-noconfig.cmake\n'}
+[25.065617] (sound_interfaces) StdoutLine: {'line': b'-- Installing: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/cmake/sound_interfaces__rosidl_typesupport_cExport.cmake\n'}
+[25.065848] (sound_interfaces) StdoutLine: {'line': b'-- Installing: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/cmake/sound_interfaces__rosidl_typesupport_cExport-noconfig.cmake\n'}
+[25.066180] (sound_interfaces) StdoutLine: {'line': b'-- Installing: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/cmake/export_sound_interfaces__rosidl_generator_cppExport.cmake\n'}
+[25.066368] (sound_interfaces) StdoutLine: {'line': b'-- Installing: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/cmake/export_sound_interfaces__rosidl_typesupport_fastrtps_cppExport.cmake\n'}
+[25.066548] (sound_interfaces) StdoutLine: {'line': b'-- Installing: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/cmake/export_sound_interfaces__rosidl_typesupport_fastrtps_cppExport-noconfig.cmake\n'}
+[25.066722] (sound_interfaces) StdoutLine: {'line': b'-- Installing: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/cmake/sound_interfaces__rosidl_typesupport_introspection_cppExport.cmake\n'}
+[25.067081] (sound_interfaces) StdoutLine: {'line': b'-- Installing: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/cmake/sound_interfaces__rosidl_typesupport_introspection_cppExport-noconfig.cmake\n'}
+[25.067286] (sound_interfaces) StdoutLine: {'line': b'-- Installing: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/cmake/sound_interfaces__rosidl_typesupport_cppExport.cmake\n'}
+[25.067506] (sound_interfaces) StdoutLine: {'line': b'-- Installing: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/cmake/sound_interfaces__rosidl_typesupport_cppExport-noconfig.cmake\n'}
+[25.067841] (sound_interfaces) StdoutLine: {'line': b'-- Installing: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/cmake/export_sound_interfaces__rosidl_generator_pyExport.cmake\n'}
+[25.069582] (sound_interfaces) StdoutLine: {'line': b'-- Installing: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/cmake/export_sound_interfaces__rosidl_generator_pyExport-noconfig.cmake\n'}
+[25.074195] (sound_interfaces) CommandEnded: {'returncode': 0}
+[25.131655] (sound_interfaces) JobEnded: {'identifier': 'sound_interfaces', 'rc': 0}
+[25.134587] (lidar_focus) JobStarted: {'identifier': 'lidar_focus'}
+[25.143891] (-) TimerEvent: {}
+[25.160450] (sound_localizer) JobStarted: {'identifier': 'sound_localizer'}
+[25.244085] (-) TimerEvent: {}
+[25.344718] (-) TimerEvent: {}
+[25.445349] (-) TimerEvent: {}
+[25.546339] (-) TimerEvent: {}
+[25.651783] (-) TimerEvent: {}
+[25.752611] (-) TimerEvent: {}
+[25.853531] (-) TimerEvent: {}
+[25.954308] (-) TimerEvent: {}
+[26.054982] (-) TimerEvent: {}
+[26.155809] (-) TimerEvent: {}
+[26.258292] (-) TimerEvent: {}
+[26.358967] (-) TimerEvent: {}
+[26.460085] (-) TimerEvent: {}
+[26.560678] (-) TimerEvent: {}
+[26.661476] (-) TimerEvent: {}
+[26.765896] (-) TimerEvent: {}
+[26.867904] (-) TimerEvent: {}
+[26.968308] (-) TimerEvent: {}
+[27.068894] (-) TimerEvent: {}
+[27.169467] (-) TimerEvent: {}
+[27.270254] (-) TimerEvent: {}
+[27.370944] (-) TimerEvent: {}
+[27.471514] (-) TimerEvent: {}
+[27.572075] (-) TimerEvent: {}
+[27.673979] (-) TimerEvent: {}
+[27.774750] (-) TimerEvent: {}
+[27.869665] (lidar_focus) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'develop', '--editable', '--build-directory', '/home/user/sound_lidar_ws/build/lidar_focus/build', '--no-deps', 'symlink_data'], 'cwd': '/home/user/sound_lidar_ws/build/lidar_focus', 'env': {'LESSOPEN': '| /usr/bin/lesspipe %s', 'GZ_SIM_RESOURCE_PATH': '/opt/ros/jazzy/share', 'USER': 'user', 'GZ_CONFIG_PATH': '/opt/ros/jazzy/opt/gz_sim_vendor/share/gz:/opt/ros/jazzy/opt/sdformat_vendor/share/gz:/opt/ros/jazzy/opt/gz_gui_vendor/share/gz:/opt/ros/jazzy/opt/gz_transport_vendor/share/gz:/opt/ros/jazzy/opt/gz_rendering_vendor/share/gz:/opt/ros/jazzy/opt/gz_plugin_vendor/share/gz:/opt/ros/jazzy/opt/gz_fuel_tools_vendor/share/gz:/opt/ros/jazzy/opt/gz_msgs_vendor/share/gz:/opt/ros/jazzy/opt/gz_common_vendor/share/gz', 'XDG_SESSION_TYPE': 'wayland', 'CLUTTER_DISABLE_MIPMAPPED_TEXT': '1', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/user/sound_lidar_ws/install/sound_interfaces/lib:/opt/ros/jazzy/opt/gz_sim_vendor/lib:/opt/ros/jazzy/opt/gz_sensors_vendor/lib:/opt/ros/jazzy/opt/gz_physics_vendor/lib:/opt/ros/jazzy/opt/sdformat_vendor/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/opt/gz_gui_vendor/lib:/opt/ros/jazzy/opt/gz_transport_vendor/lib:/opt/ros/jazzy/opt/gz_rendering_vendor/lib:/opt/ros/jazzy/opt/gz_plugin_vendor/lib:/opt/ros/jazzy/opt/gz_fuel_tools_vendor/lib:/opt/ros/jazzy/opt/gz_msgs_vendor/lib:/opt/ros/jazzy/opt/gz_common_vendor/lib:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_tools_vendor/lib:/opt/ros/jazzy/opt/gz_ogre_next_vendor/lib:/opt/ros/jazzy/opt/gz_dartsim_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/home/user', 'OLDPWD': '/home/user/sound_lidar_ws', 'DESKTOP_SESSION': 'ubuntu', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'SYSTEMD_EXEC_PID': '1614', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'IM_CONFIG_PHASE': '1', 'WAYLAND_DISPLAY': 'wayland-0', 'COLCON_PREFIX_PATH': '/home/user/sound_lidar_ws/install', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'user', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'MEMORY_PRESSURE_WATCH': '/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/session.slice/org.gnome.Shell@wayland.service/memory.pressure', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'user', 'TERM': 'xterm-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'PATH': '/home/user/sound_lidar_ws/install/sound_localizer/bin:/home/user/sound_lidar_ws/install/lidar_focus/bin:/opt/ros/jazzy/opt/gz_msgs_vendor/bin:/opt/ros/jazzy/opt/gz_tools_vendor/bin:/opt/ros/jazzy/opt/gz_ogre_next_vendor/bin:/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin', 'SESSION_MANAGER': 'local/user-desktop:@/tmp/.ICE-unix/1576,unix/user-desktop:/tmp/.ICE-unix/1576', 'XDG_MENU_PREFIX': 'gnome-', 'GNOME_TERMINAL_SCREEN': '/org/gnome/Terminal/screen/f9f8515d_aea4_486d_ab79_38438dc4a753', 'GNOME_SETUP_DISPLAY': ':1', 'XDG_RUNTIME_DIR': '/run/user/1000', 'DISPLAY': ':0', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1000/.mutter-Xwaylandauth.AUP4O3', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'GNOME_TERMINAL_SERVICE': ':1.112', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'AMENT_PREFIX_PATH': '/home/user/sound_lidar_ws/install/sound_localizer:/home/user/sound_lidar_ws/install/lidar_focus:/home/user/sound_lidar_ws/install/sound_interfaces:/opt/ros/jazzy', 'SHELL': '/bin/bash', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/user/sound_lidar_ws/build/lidar_focus', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/user/sound_lidar_ws/build/lidar_focus/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/user/sound_lidar_ws/install/lidar_focus/lib/python3.12/site-packages:/home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages:/home/user/sound_lidar_ws/build/sound_localizer:/home/user/sound_lidar_ws/install/sound_localizer/lib/python3.12/site-packages:/home/user/sound_lidar_ws/build/lidar_focus:/home/user/sound_lidar_ws/install/lidar_focus/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages', 'COLCON': '1', 'MEMORY_PRESSURE_WRITE': 'c29tZSAyMDAwMDAgMjAwMDAwMAA=', 'VTE_VERSION': '7600', 'CMAKE_PREFIX_PATH': '/home/user/sound_lidar_ws/install/sound_interfaces:/opt/ros/jazzy/opt/gz_sim_vendor:/opt/ros/jazzy/opt/gz_sensors_vendor:/opt/ros/jazzy/opt/gz_physics_vendor:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_gui_vendor:/opt/ros/jazzy/opt/gz_transport_vendor:/opt/ros/jazzy/opt/gz_rendering_vendor:/opt/ros/jazzy/opt/gz_plugin_vendor:/opt/ros/jazzy/opt/gz_fuel_tools_vendor:/opt/ros/jazzy/opt/gz_msgs_vendor:/opt/ros/jazzy/opt/gz_common_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_ogre_next_vendor:/opt/ros/jazzy/opt/gz_dartsim_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor'}, 'shell': False}
+[27.875955] (-) TimerEvent: {}
+[27.898484] (sound_localizer) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'develop', '--editable', '--build-directory', '/home/user/sound_lidar_ws/build/sound_localizer/build', '--no-deps', 'symlink_data'], 'cwd': '/home/user/sound_lidar_ws/build/sound_localizer', 'env': {'LESSOPEN': '| /usr/bin/lesspipe %s', 'GZ_SIM_RESOURCE_PATH': '/opt/ros/jazzy/share', 'USER': 'user', 'GZ_CONFIG_PATH': '/opt/ros/jazzy/opt/gz_sim_vendor/share/gz:/opt/ros/jazzy/opt/sdformat_vendor/share/gz:/opt/ros/jazzy/opt/gz_gui_vendor/share/gz:/opt/ros/jazzy/opt/gz_transport_vendor/share/gz:/opt/ros/jazzy/opt/gz_rendering_vendor/share/gz:/opt/ros/jazzy/opt/gz_plugin_vendor/share/gz:/opt/ros/jazzy/opt/gz_fuel_tools_vendor/share/gz:/opt/ros/jazzy/opt/gz_msgs_vendor/share/gz:/opt/ros/jazzy/opt/gz_common_vendor/share/gz', 'XDG_SESSION_TYPE': 'wayland', 'CLUTTER_DISABLE_MIPMAPPED_TEXT': '1', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/user/sound_lidar_ws/install/sound_interfaces/lib:/opt/ros/jazzy/opt/gz_sim_vendor/lib:/opt/ros/jazzy/opt/gz_sensors_vendor/lib:/opt/ros/jazzy/opt/gz_physics_vendor/lib:/opt/ros/jazzy/opt/sdformat_vendor/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/opt/gz_gui_vendor/lib:/opt/ros/jazzy/opt/gz_transport_vendor/lib:/opt/ros/jazzy/opt/gz_rendering_vendor/lib:/opt/ros/jazzy/opt/gz_plugin_vendor/lib:/opt/ros/jazzy/opt/gz_fuel_tools_vendor/lib:/opt/ros/jazzy/opt/gz_msgs_vendor/lib:/opt/ros/jazzy/opt/gz_common_vendor/lib:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_tools_vendor/lib:/opt/ros/jazzy/opt/gz_ogre_next_vendor/lib:/opt/ros/jazzy/opt/gz_dartsim_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/home/user', 'OLDPWD': '/home/user/sound_lidar_ws', 'DESKTOP_SESSION': 'ubuntu', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'SYSTEMD_EXEC_PID': '1614', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'IM_CONFIG_PHASE': '1', 'WAYLAND_DISPLAY': 'wayland-0', 'COLCON_PREFIX_PATH': '/home/user/sound_lidar_ws/install', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'user', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'MEMORY_PRESSURE_WATCH': '/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/session.slice/org.gnome.Shell@wayland.service/memory.pressure', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'user', 'TERM': 'xterm-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'PATH': '/home/user/sound_lidar_ws/install/sound_localizer/bin:/home/user/sound_lidar_ws/install/lidar_focus/bin:/opt/ros/jazzy/opt/gz_msgs_vendor/bin:/opt/ros/jazzy/opt/gz_tools_vendor/bin:/opt/ros/jazzy/opt/gz_ogre_next_vendor/bin:/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin', 'SESSION_MANAGER': 'local/user-desktop:@/tmp/.ICE-unix/1576,unix/user-desktop:/tmp/.ICE-unix/1576', 'XDG_MENU_PREFIX': 'gnome-', 'GNOME_TERMINAL_SCREEN': '/org/gnome/Terminal/screen/f9f8515d_aea4_486d_ab79_38438dc4a753', 'GNOME_SETUP_DISPLAY': ':1', 'XDG_RUNTIME_DIR': '/run/user/1000', 'DISPLAY': ':0', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1000/.mutter-Xwaylandauth.AUP4O3', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'GNOME_TERMINAL_SERVICE': ':1.112', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'AMENT_PREFIX_PATH': '/home/user/sound_lidar_ws/install/sound_localizer:/home/user/sound_lidar_ws/install/lidar_focus:/home/user/sound_lidar_ws/install/sound_interfaces:/opt/ros/jazzy', 'SHELL': '/bin/bash', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/user/sound_lidar_ws/build/sound_localizer', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/user/sound_lidar_ws/build/sound_localizer/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/user/sound_lidar_ws/install/sound_localizer/lib/python3.12/site-packages:/home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages:/home/user/sound_lidar_ws/build/sound_localizer:/home/user/sound_lidar_ws/install/sound_localizer/lib/python3.12/site-packages:/home/user/sound_lidar_ws/build/lidar_focus:/home/user/sound_lidar_ws/install/lidar_focus/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages', 'COLCON': '1', 'MEMORY_PRESSURE_WRITE': 'c29tZSAyMDAwMDAgMjAwMDAwMAA=', 'VTE_VERSION': '7600', 'CMAKE_PREFIX_PATH': '/home/user/sound_lidar_ws/install/sound_interfaces:/opt/ros/jazzy/opt/gz_sim_vendor:/opt/ros/jazzy/opt/gz_sensors_vendor:/opt/ros/jazzy/opt/gz_physics_vendor:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_gui_vendor:/opt/ros/jazzy/opt/gz_transport_vendor:/opt/ros/jazzy/opt/gz_rendering_vendor:/opt/ros/jazzy/opt/gz_plugin_vendor:/opt/ros/jazzy/opt/gz_fuel_tools_vendor:/opt/ros/jazzy/opt/gz_msgs_vendor:/opt/ros/jazzy/opt/gz_common_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_ogre_next_vendor:/opt/ros/jazzy/opt/gz_dartsim_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor'}, 'shell': False}
+[27.976171] (-) TimerEvent: {}
+[28.076913] (-) TimerEvent: {}
+[28.179618] (-) TimerEvent: {}
+[28.280159] (-) TimerEvent: {}
+[28.381350] (-) TimerEvent: {}
+[28.482943] (-) TimerEvent: {}
+[28.583643] (-) TimerEvent: {}
+[28.685956] (-) TimerEvent: {}
+[28.756624] (lidar_focus) StdoutLine: {'line': b'running develop\n'}
+[28.786187] (-) TimerEvent: {}
+[28.830869] (sound_localizer) StdoutLine: {'line': b'running develop\n'}
+[28.886297] (-) TimerEvent: {}
+[28.990104] (-) TimerEvent: {}
+[29.090763] (-) TimerEvent: {}
+[29.191999] (-) TimerEvent: {}
+[29.245012] (lidar_focus) StdoutLine: {'line': b'running egg_info\n'}
+[29.245808] (lidar_focus) StdoutLine: {'line': b'creating lidar_focus.egg-info\n'}
+[29.292203] (-) TimerEvent: {}
+[29.298085] (lidar_focus) StdoutLine: {'line': b'writing lidar_focus.egg-info/PKG-INFO\n'}
+[29.301415] (lidar_focus) StdoutLine: {'line': b'writing dependency_links to lidar_focus.egg-info/dependency_links.txt\n'}
+[29.301855] (lidar_focus) StdoutLine: {'line': b'writing entry points to lidar_focus.egg-info/entry_points.txt\n'}
+[29.302749] (lidar_focus) StdoutLine: {'line': b'writing requirements to lidar_focus.egg-info/requires.txt\n'}
+[29.303596] (lidar_focus) StdoutLine: {'line': b'writing top-level names to lidar_focus.egg-info/top_level.txt\n'}
+[29.304483] (lidar_focus) StdoutLine: {'line': b"writing manifest file 'lidar_focus.egg-info/SOURCES.txt'\n"}
+[29.327269] (sound_localizer) StdoutLine: {'line': b'running egg_info\n'}
+[29.330940] (sound_localizer) StdoutLine: {'line': b'creating sound_localizer.egg-info\n'}
+[29.376723] (sound_localizer) StdoutLine: {'line': b'writing sound_localizer.egg-info/PKG-INFO\n'}
+[29.378080] (sound_localizer) StdoutLine: {'line': b'writing dependency_links to sound_localizer.egg-info/dependency_links.txt\n'}
+[29.379505] (sound_localizer) StdoutLine: {'line': b'writing entry points to sound_localizer.egg-info/entry_points.txt\n'}
+[29.380877] (sound_localizer) StdoutLine: {'line': b'writing requirements to sound_localizer.egg-info/requires.txt\n'}
+[29.381866] (sound_localizer) StdoutLine: {'line': b'writing top-level names to sound_localizer.egg-info/top_level.txt\n'}
+[29.382854] (sound_localizer) StdoutLine: {'line': b"writing manifest file 'sound_localizer.egg-info/SOURCES.txt'\n"}
+[29.392943] (-) TimerEvent: {}
+[29.407737] (lidar_focus) StdoutLine: {'line': b"reading manifest file 'lidar_focus.egg-info/SOURCES.txt'\n"}
+[29.408979] (lidar_focus) StdoutLine: {'line': b"writing manifest file 'lidar_focus.egg-info/SOURCES.txt'\n"}
+[29.449649] (lidar_focus) StdoutLine: {'line': b'running build_ext\n'}
+[29.450102] (lidar_focus) StdoutLine: {'line': b'Creating /home/user/sound_lidar_ws/install/lidar_focus/lib/python3.12/site-packages/lidar-focus.egg-link (link to .)\n'}
+[29.451141] (lidar_focus) StdoutLine: {'line': b'Installing ground_removal_node script to /home/user/sound_lidar_ws/install/lidar_focus/bin\n'}
+[29.451641] (lidar_focus) StdoutLine: {'line': b'Installing lidar_focus_node script to /home/user/sound_lidar_ws/install/lidar_focus/bin\n'}
+[29.452042] (lidar_focus) StdoutLine: {'line': b'\n'}
+[29.452155] (lidar_focus) StdoutLine: {'line': b'Installed /home/user/sound_lidar_ws/build/lidar_focus\n'}
+[29.452281] (lidar_focus) StdoutLine: {'line': b'running symlink_data\n'}
+[29.452415] (lidar_focus) StdoutLine: {'line': b'creating /home/user/sound_lidar_ws/install/lidar_focus/share/ament_index\n'}
+[29.452606] (lidar_focus) StdoutLine: {'line': b'creating /home/user/sound_lidar_ws/install/lidar_focus/share/ament_index/resource_index\n'}
+[29.452748] (lidar_focus) StdoutLine: {'line': b'creating /home/user/sound_lidar_ws/install/lidar_focus/share/ament_index/resource_index/packages\n'}
+[29.452996] (lidar_focus) StdoutLine: {'line': b'symbolically linking /home/user/sound_lidar_ws/build/lidar_focus/resource/lidar_focus -> /home/user/sound_lidar_ws/install/lidar_focus/share/ament_index/resource_index/packages\n'}
+[29.453172] (lidar_focus) StdoutLine: {'line': b'symbolically linking /home/user/sound_lidar_ws/build/lidar_focus/package.xml -> /home/user/sound_lidar_ws/install/lidar_focus/share/lidar_focus\n'}
+[29.453498] (lidar_focus) StdoutLine: {'line': b'creating /home/user/sound_lidar_ws/install/lidar_focus/share/lidar_focus/launch\n'}
+[29.453592] (lidar_focus) StdoutLine: {'line': b'symbolically linking /home/user/sound_lidar_ws/build/lidar_focus/launch/sound_lidar.launch.py -> /home/user/sound_lidar_ws/install/lidar_focus/share/lidar_focus/launch\n'}
+[29.490169] (sound_localizer) StdoutLine: {'line': b"reading manifest file 'sound_localizer.egg-info/SOURCES.txt'\n"}
+[29.495901] (sound_localizer) StdoutLine: {'line': b"writing manifest file 'sound_localizer.egg-info/SOURCES.txt'\n"}
+[29.496471] (-) TimerEvent: {}
+[29.588526] (sound_localizer) StdoutLine: {'line': b'running build_ext\n'}
+[29.591663] (sound_localizer) StdoutLine: {'line': b'Creating /home/user/sound_lidar_ws/install/sound_localizer/lib/python3.12/site-packages/sound-localizer.egg-link (link to .)\n'}
+[29.594106] (sound_localizer) StdoutLine: {'line': b'Installing sound_localizer_node script to /home/user/sound_lidar_ws/install/sound_localizer/bin\n'}
+[29.596679] (-) TimerEvent: {}
+[29.598185] (sound_localizer) StdoutLine: {'line': b'\n'}
+[29.600994] (sound_localizer) StdoutLine: {'line': b'Installed /home/user/sound_lidar_ws/build/sound_localizer\n'}
+[29.602524] (sound_localizer) StdoutLine: {'line': b'running symlink_data\n'}
+[29.604454] (sound_localizer) StdoutLine: {'line': b'creating /home/user/sound_lidar_ws/install/sound_localizer/share/ament_index\n'}
+[29.611958] (sound_localizer) StdoutLine: {'line': b'creating /home/user/sound_lidar_ws/install/sound_localizer/share/ament_index/resource_index\n'}
+[29.613017] (sound_localizer) StdoutLine: {'line': b'creating /home/user/sound_lidar_ws/install/sound_localizer/share/ament_index/resource_index/packages\n'}
+[29.613361] (sound_localizer) StdoutLine: {'line': b'symbolically linking /home/user/sound_lidar_ws/build/sound_localizer/resource/sound_localizer -> /home/user/sound_lidar_ws/install/sound_localizer/share/ament_index/resource_index/packages\n'}
+[29.615040] (sound_localizer) StdoutLine: {'line': b'symbolically linking /home/user/sound_lidar_ws/build/sound_localizer/package.xml -> /home/user/sound_lidar_ws/install/sound_localizer/share/sound_localizer\n'}
+[29.615623] (sound_localizer) StdoutLine: {'line': b'creating /home/user/sound_lidar_ws/install/sound_localizer/share/sound_localizer/launch\n'}
+[29.615880] (sound_localizer) StdoutLine: {'line': b'symbolically linking /home/user/sound_lidar_ws/build/sound_localizer/launch/sound_localizer.launch.py -> /home/user/sound_lidar_ws/install/sound_localizer/share/sound_localizer/launch\n'}
+[29.697915] (-) TimerEvent: {}
+[29.712986] (lidar_focus) CommandEnded: {'returncode': 0}
+[29.740019] (lidar_focus) JobEnded: {'identifier': 'lidar_focus', 'rc': 0}
+[29.801007] (-) TimerEvent: {}
+[29.863567] (sound_localizer) CommandEnded: {'returncode': 0}
+[29.880348] (sound_localizer) JobEnded: {'identifier': 'sound_localizer', 'rc': 0}
+[29.882546] (-) EventReactorShutdown: {}

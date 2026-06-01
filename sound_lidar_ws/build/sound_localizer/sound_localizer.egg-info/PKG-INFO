@@ -1,0 +1,7 @@
+Metadata-Version: 2.1
+Name: sound-localizer
+Version: 0.1.0
+Summary: Sound source localization node using mic array
+Maintainer: user
+Maintainer-email: user@example.com
+License: Apache-2.0

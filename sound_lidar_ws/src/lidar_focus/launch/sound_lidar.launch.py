@@ -48,6 +48,10 @@ def generate_launch_description():
                 'background_frames': 80,
                 'background_voxel_size': 0.12,
                 'roi_voxel_size': 0.06,
+                # Stage 2
+                'high_res_voxel_size': 0.05,
+                'cluster_eps': 0.25,
+                'cluster_min_points': 8,
             }]
         ),
     ])

@@ -3,8 +3,12 @@ import rclpy
 from rclpy.node import Node
 from rclpy.qos import HistoryPolicy, QoSProfile, ReliabilityPolicy
 from sensor_msgs.msg import PointCloud2
+from visualization_msgs.msg import Marker, MarkerArray
+from std_msgs.msg import ColorRGBA
+from geometry_msgs.msg import Point
 import sensor_msgs_py.point_cloud2 as pc2
 from sound_interfaces.msg import SoundEvent
+from sklearn.cluster import DBSCAN
 
 
 def read_xyz(msg):
@@ -49,6 +53,11 @@ class SoundMotionRoiNode(Node):
         self.declare_parameter("neighbor_margin_voxels", 1)
         self.declare_parameter("publish_empty_cloud", True)
 
+        # Stage 2: DBSCAN clustering parameters
+        self.declare_parameter("high_res_voxel_size", 0.05)
+        self.declare_parameter("cluster_eps", 0.25)
+        self.declare_parameter("cluster_min_points", 8)
+
         self._target_angle = None
         self._last_sound_time = self.get_clock().now()
         self._background_ready = False
@@ -79,6 +88,12 @@ class SoundMotionRoiNode(Node):
         )
         self._moving_pub = self.create_publisher(
             PointCloud2, self.get_parameter("moving_cloud_topic").value, sensor_qos
+        )
+        self._cluster_cloud_pub = self.create_publisher(
+            PointCloud2, "/fusion/cluster_cloud", sensor_qos
+        )
+        self._cluster_markers_pub = self.create_publisher(
+            MarkerArray, "/fusion/cluster_markers", sensor_qos
         )
 
         self.create_timer(2.0, self._status_log)
@@ -135,6 +150,91 @@ class SoundMotionRoiNode(Node):
             return
 
         self._moving_pub.publish(make_cloud(msg.header, moving))
+
+        # Stage 2: voxel downsample + DBSCAN clustering
+        clusters = self._cluster_moving_points(moving)
+        if clusters:
+            self._publish_clusters(clusters, msg.header)
+
+    def _cluster_moving_points(self, points):
+        min_pts = self.get_parameter("cluster_min_points").value
+        if len(points) < min_pts:
+            return []
+
+        fine = self._voxel_downsample(
+            points, self.get_parameter("high_res_voxel_size").value
+        )
+        if len(fine) < min_pts:
+            return []
+
+        labels = DBSCAN(
+            eps=self.get_parameter("cluster_eps").value,
+            min_samples=min_pts,
+        ).fit_predict(fine)
+
+        clusters = []
+        for label in np.unique(labels):
+            if label < 0:
+                continue
+            clusters.append(fine[labels == label])
+
+        self.get_logger().debug(f"Stage2: {len(clusters)} clusters from {len(fine)} pts")
+        return clusters
+
+    def _publish_clusters(self, clusters, header):
+        # merge all cluster points into one cloud for visualization
+        all_pts = np.vstack(clusters)
+        self._cluster_cloud_pub.publish(make_cloud(header, all_pts))
+
+        markers = MarkerArray()
+        clear = Marker()
+        clear.header = header
+        clear.action = Marker.DELETEALL
+        markers.markers.append(clear)
+
+        for i, cluster in enumerate(clusters):
+            min_pt = cluster.min(axis=0)
+            max_pt = cluster.max(axis=0)
+            center = (min_pt + max_pt) / 2.0
+            size = max_pt - min_pt
+
+            m = Marker()
+            m.header = header
+            m.ns = "cluster_bbox"
+            m.id = i
+            m.type = Marker.CUBE
+            m.action = Marker.ADD
+            m.pose.position.x = float(center[0])
+            m.pose.position.y = float(center[1])
+            m.pose.position.z = float(center[2])
+            m.pose.orientation.w = 1.0
+            m.scale.x = float(max(size[0], 0.05))
+            m.scale.y = float(max(size[1], 0.05))
+            m.scale.z = float(max(size[2], 0.05))
+            m.color = ColorRGBA(r=0.2, g=0.6, b=1.0, a=0.35)
+            m.lifetime.sec = 1
+            markers.markers.append(m)
+
+            t = Marker()
+            t.header = header
+            t.ns = "cluster_text"
+            t.id = i + 100
+            t.type = Marker.TEXT_VIEW_FACING
+            t.action = Marker.ADD
+            t.pose.position.x = float(center[0])
+            t.pose.position.y = float(center[1])
+            t.pose.position.z = float(max_pt[2]) + 0.15
+            t.pose.orientation.w = 1.0
+            t.scale.z = 0.18
+            t.color = ColorRGBA(r=1.0, g=1.0, b=1.0, a=1.0)
+            t.text = f"C{i} n={len(cluster)} h={size[2]:.2f}m"
+            t.lifetime.sec = 1
+            markers.markers.append(t)
+
+        self._cluster_markers_pub.publish(markers)
+        self.get_logger().info(
+            f"Stage2: published {len(clusters)} clusters"
+        )
 
     def _basic_filter(self, points):
         ranges = np.linalg.norm(points[:, :2], axis=1)

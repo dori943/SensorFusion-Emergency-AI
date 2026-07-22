@@ -426,13 +426,30 @@ class BackgroundSubtractionNode(Node):
         self.declare_parameter('auto_calibrate', True)
         self.declare_parameter('calib_threshold_factor', 3.0)  # 노이즈 대비 배수
         self.declare_parameter('calib_threshold_min', 0.03)
-        # 360도 비복기 스캔 라이다는 정적 표면도 스캔-투-스캔으로 수십 cm~1m 가까이
-        # 흔들릴 수 있다. 상한이 너무 낮으면(예: 0.3m) 실측 지터가 그보다 클 때
-        # 계산된 임계값이 강제로 깎여, 가만히 있는 배경도 계속 전경으로 오검출되고
-        # 시간이 지날수록 그런 점들이 누적되는 문제로 이어진다. 실측 지터가 이보다
-        # 더 크게 나오는 환경이면 이 값을 같이 올려야 한다.
-        self.declare_parameter('calib_threshold_max', 0.5)  # holdout 노이즈 추정 후엔 0.5m로 충분
+        # holdout 방식(누적·다운샘플된 조밀한 배경 모델 대비 새 프레임 거리)으로
+        # 노이즈를 재면 비복기 스캔의 스캔-투-스캔 지터가 대부분 흡수되므로
+        # 상한을 크게 잡을 필요가 없다. 오히려 상한이 크면(기존 0.5m) 배경 표면
+        # 반경 0.5m 안의 모든 점이 배경으로 삼켜져서, 바닥 잔여 포인트 근처의
+        # 다리·벽/가구 근처의 팔이 통째로 사라지고 몸통 중심만 남는 문제가
+        # 생긴다 (RViz에서 /filtered_cloud 팔다리 소실 증상의 주원인).
+        # 배경에 가까운 팔다리는 아래 히스테리시스 복원이 살리므로, 이 상한은
+        # "확실한 전경" 판정 기준으로 타이트하게 유지한다.
+        self.declare_parameter('calib_threshold_max', 0.2)
         self._auto_calibrate = bool(self.get_parameter('auto_calibrate').value)
+
+        # ── 히스테리시스 전경 복원 (이중 임계값 + 영역 성장) ──
+        # 단일 임계값 하나로 자르면 배경(바닥 잔여/벽/가구)에 가까운 팔다리가
+        # 몸통과 함께 있어도 잘려나간다. 대신:
+        #   1) dist > threshold 인 점을 '확실한 전경' 시드로 잡고,
+        #   2) 시드에서 hysteresis_link_radius 이내로 공간적으로 연결되면서
+        #      dist > threshold × hysteresis_low_factor 인 점까지 전경으로
+        #      살린다 (연결이 이어지는 한 반복 확장).
+        # 몸통(시드)에 붙어 있는 팔다리는 배경에 다소 가까워도 복원되고,
+        # 시드와 연결이 없는 고립된 배경 노이즈는 그대로 걸러진다.
+        self.declare_parameter('hysteresis_enabled', True)
+        self.declare_parameter('hysteresis_low_factor', 0.5)    # T_low = threshold × 이 값
+        self.declare_parameter('hysteresis_link_radius', 0.25)  # 시드-후보 연결 반경 (m)
+        self.declare_parameter('hysteresis_max_iters', 8)       # 영역 성장 반복 상한 (Pi 비용 제한)
 
         # ── 사람 트랙 보호영역 ──────────────────────────────
         # fall_detection_node가 CANDIDATE/CONFIRMED/ACTIVE(=낙상 아니지만
@@ -572,6 +589,53 @@ class BackgroundSubtractionNode(Node):
 
     def _now(self) -> float:
         return self.get_clock().now().nanoseconds / 1e9
+
+    # ──────────────────────────────────────────────────────
+    # 히스테리시스 전경 복원
+    # ──────────────────────────────────────────────────────
+    def _hysteresis_foreground(self, points, dists, threshold):
+        """이중 임계값 + 영역 성장으로 전경 마스크를 만든다.
+
+        dist > threshold          : 확실한 전경(시드) — 무조건 유지
+        T_low < dist <= threshold : 후보 — 시드와 공간적으로 연결될 때만 복원
+        dist <= T_low             : 배경 — 항상 제거
+
+        복원은 시드에서 시작해 link_radius 이내 후보를 반복적으로 흡수하는
+        BFS 영역 성장. 몸통에 이어진 팔다리는 살아나고, 시드와 연결되지 않은
+        고립 노이즈(배경 표면의 잔여 지터)는 복원되지 않는다.
+        """
+        seed_mask = dists > threshold
+        if not self.get_parameter('hysteresis_enabled').value:
+            return seed_mask
+        if not seed_mask.any():
+            return seed_mask
+
+        low = threshold * float(self.get_parameter('hysteresis_low_factor').value)
+        link_r = float(self.get_parameter('hysteresis_link_radius').value)
+        max_iters = int(self.get_parameter('hysteresis_max_iters').value)
+
+        cand_idx = np.where((dists > low) & (~seed_mask))[0]
+        if len(cand_idx) == 0:
+            return seed_mask
+
+        cand_tree = KDTree(points[cand_idx])
+        rescued = np.zeros(len(cand_idx), dtype=bool)
+        frontier = points[seed_mask]
+
+        for _ in range(max_iters):
+            newly = set()
+            for lst in cand_tree.query_ball_point(frontier, link_r):
+                newly.update(lst)
+            newly = [i for i in newly if not rescued[i]]
+            if not newly:
+                break
+            newly = np.asarray(newly, dtype=int)
+            rescued[newly] = True
+            frontier = points[cand_idx[newly]]  # 새로 살린 점에서 계속 확장
+
+        fg_mask = seed_mask.copy()
+        fg_mask[cand_idx[rescued]] = True
+        return fg_mask
 
     # ──────────────────────────────────────────────────────
     # 낙상 확정 보호영역 관리
@@ -723,7 +787,9 @@ class BackgroundSubtractionNode(Node):
 
         dists, _ = self.bg_tree.query(points, k=1)
         threshold = self.get_parameter('bg_diff_threshold').value
-        fg_mask = dists > threshold
+        # 이중 임계값(히스테리시스) 전경 판정 — 배경에 가까워 단일 임계값으로는
+        # 잘렸을 팔다리를, 몸통(확실한 전경)과의 공간 연결성으로 복원한다.
+        fg_mask = self._hysteresis_foreground(points, dists, threshold)
 
         # 낙상 확정 보호영역 안의 점은 배경과 가깝다는 이유로 걸러지지
         # 않도록 강제로 살린다 (정적으로 누워있는 사람이 배경에 흡수되는 것 방지).

@@ -129,6 +129,21 @@ class HumanBBoxNode(Node):
         self.declare_parameter('lying_planarity_max', 0.7)      # 누움 모드 상한
         self.declare_parameter('pca_min_points', 15)
 
+        # ── bbox 포인트 복원 (re-fetch) ──────────────────
+        # /filtered_cloud는 배경차감을 거치며 배경(바닥/벽/가구)에 가까운
+        # 팔다리 포인트가 깎여 성기다. 사람 클러스터가 '검출'된 뒤에는 그
+        # bbox를 refetch_margin만큼 확장한 영역 안의 포인트를 배경차감 이전
+        # 토픽(/ground_removed_cloud)에서 다시 가져와 /human_cloud로 발행한다.
+        # → 검출은 깨끗한 filtered_cloud로, 시각화/후단 품질은 원본 밀도로.
+        # (마커/트랙 좌표는 기존대로 filtered 클러스터 기준을 유지해
+        #  주변 가구 포인트가 bbox 크기를 부풀리지 않게 한다.)
+        self.declare_parameter('refetch_enabled', True)
+        self.declare_parameter('refetch_source_topic', '/ground_removed_cloud')
+        self.declare_parameter('refetch_margin', 0.15)       # bbox 확장 여유 (m)
+        self.declare_parameter('refetch_max_age_sec', 0.5)   # 캐시가 이보다 오래되면 미사용
+        self._refetch_points = None   # 최신 /ground_removed_cloud 프레임 캐시
+        self._refetch_stamp = 0.0
+
         # ── 트래킹 파라미터 ──────────────────────────────
         self.declare_parameter('track_max_match_dist', 0.8)
         self.declare_parameter('track_max_missed', 10)
@@ -140,6 +155,12 @@ class HumanBBoxNode(Node):
         # ── ROS I/O ──────────────────────────────────────
         self.sub = self.create_subscription(
             PointCloud2, '/filtered_cloud', self.callback, 10)
+        # bbox 포인트 복원용 원본(배경차감 이전) 클라우드 구독.
+        # 기본 single-threaded executor에서 callback()과 직렬 실행되므로
+        # self._refetch_points 접근에 별도 락은 필요 없다.
+        self.sub_refetch = self.create_subscription(
+            PointCloud2, self.get_parameter('refetch_source_topic').value,
+            self._on_refetch_cloud, 10)
         self.pub_cloud = self.create_publisher(PointCloud2, '/human_cloud', 10)
         self.pub_bbox = self.create_publisher(MarkerArray, '/human_bbox', 10)
         self.pub_tracks = self.create_publisher(Float32MultiArray, '/human_tracks', 10)
@@ -229,6 +250,39 @@ class HumanBBoxNode(Node):
 
         self.calib_nn_dists = []
         self.calib_density_counts = []
+
+    # ──────────────────────────────────────────────────────
+    # bbox 포인트 복원 (배경차감 이전 클라우드에서 재수집)
+    # ──────────────────────────────────────────────────────
+    def _on_refetch_cloud(self, msg):
+        pts = read_points(msg)
+        if len(pts) == 0:
+            return
+        self._refetch_points = pts
+        self._refetch_stamp = self.get_clock().now().nanoseconds / 1e9
+
+    def _refetch_cluster(self, cluster):
+        """검출된 클러스터의 bbox(+margin) 안 포인트를 원본 클라우드에서
+        다시 가져온다. 원본이 없거나 오래됐거나 오히려 점이 줄면 클러스터
+        그대로 반환 (항상 안전한 fallback)."""
+        if not self.get_parameter('refetch_enabled').value:
+            return cluster
+        raw = self._refetch_points
+        if raw is None:
+            return cluster
+        now = self.get_clock().now().nanoseconds / 1e9
+        if (now - self._refetch_stamp) > self.get_parameter('refetch_max_age_sec').value:
+            return cluster
+
+        margin = float(self.get_parameter('refetch_margin').value)
+        mn = cluster.min(axis=0) - margin
+        mx = cluster.max(axis=0) + margin
+        in_box = np.all((raw >= mn) & (raw <= mx), axis=1)
+        restored = raw[in_box]
+        # 복원 결과가 기존보다 빈약하면(타이밍 어긋남 등) 원래 클러스터 유지
+        if len(restored) <= len(cluster):
+            return cluster
+        return restored
 
     # ──────────────────────────────────────────────────────
     # DBSCAN (Pi5 최적화: 일괄 이웃 질의 + 불리언 집합)
@@ -470,8 +524,10 @@ class HumanBBoxNode(Node):
 
         track_ids = self.tracker.update(centers)
 
-        # 사람 포인트클라우드
-        all_points = np.vstack(human_clusters)
+        # 사람 포인트클라우드 — 배경차감으로 깎인 팔다리를 원본(배경차감 이전)
+        # 클라우드에서 bbox 영역 재수집으로 복원해 발행한다.
+        display_clusters = [self._refetch_cluster(c) for c in human_clusters]
+        all_points = np.vstack(display_clusters)
         self.pub_cloud.publish(pc2.create_cloud_xyz32(msg.header, all_points))
 
         # /human_tracks (후단 fall_detection 등, 포맷 유지)
@@ -533,5 +589,3 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
-
-

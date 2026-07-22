@@ -1,0 +1,40 @@
+running egg_info
+writing ../../build/lidar_focus/lidar_focus.egg-info/PKG-INFO
+writing dependency_links to ../../build/lidar_focus/lidar_focus.egg-info/dependency_links.txt
+writing entry points to ../../build/lidar_focus/lidar_focus.egg-info/entry_points.txt
+writing requirements to ../../build/lidar_focus/lidar_focus.egg-info/requires.txt
+writing top-level names to ../../build/lidar_focus/lidar_focus.egg-info/top_level.txt
+reading manifest file '../../build/lidar_focus/lidar_focus.egg-info/SOURCES.txt'
+writing manifest file '../../build/lidar_focus/lidar_focus.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/user/sound_lidar_ws/build/lidar_focus/build
+creating /home/user/sound_lidar_ws/build/lidar_focus/build/lib
+creating /home/user/sound_lidar_ws/build/lidar_focus/build/lib/lidar_focus
+copying lidar_focus/sound_motion_roi_node.py -> /home/user/sound_lidar_ws/build/lidar_focus/build/lib/lidar_focus
+copying lidar_focus/__init__.py -> /home/user/sound_lidar_ws/build/lidar_focus/build/lib/lidar_focus
+copying lidar_focus/human_bbox_node.py -> /home/user/sound_lidar_ws/build/lidar_focus/build/lib/lidar_focus
+copying lidar_focus/ground_removal_node.py -> /home/user/sound_lidar_ws/build/lidar_focus/build/lib/lidar_focus
+copying lidar_focus/lidar_focus_node.py -> /home/user/sound_lidar_ws/build/lidar_focus/build/lib/lidar_focus
+running install
+running install_lib
+creating /home/user/sound_lidar_ws/install/lidar_focus/lib/python3.12/site-packages/lidar_focus
+copying /home/user/sound_lidar_ws/build/lidar_focus/build/lib/lidar_focus/sound_motion_roi_node.py -> /home/user/sound_lidar_ws/install/lidar_focus/lib/python3.12/site-packages/lidar_focus
+copying /home/user/sound_lidar_ws/build/lidar_focus/build/lib/lidar_focus/__init__.py -> /home/user/sound_lidar_ws/install/lidar_focus/lib/python3.12/site-packages/lidar_focus
+copying /home/user/sound_lidar_ws/build/lidar_focus/build/lib/lidar_focus/human_bbox_node.py -> /home/user/sound_lidar_ws/install/lidar_focus/lib/python3.12/site-packages/lidar_focus
+copying /home/user/sound_lidar_ws/build/lidar_focus/build/lib/lidar_focus/ground_removal_node.py -> /home/user/sound_lidar_ws/install/lidar_focus/lib/python3.12/site-packages/lidar_focus
+copying /home/user/sound_lidar_ws/build/lidar_focus/build/lib/lidar_focus/lidar_focus_node.py -> /home/user/sound_lidar_ws/install/lidar_focus/lib/python3.12/site-packages/lidar_focus
+byte-compiling /home/user/sound_lidar_ws/install/lidar_focus/lib/python3.12/site-packages/lidar_focus/sound_motion_roi_node.py to sound_motion_roi_node.cpython-312.pyc
+byte-compiling /home/user/sound_lidar_ws/install/lidar_focus/lib/python3.12/site-packages/lidar_focus/__init__.py to __init__.cpython-312.pyc
+byte-compiling /home/user/sound_lidar_ws/install/lidar_focus/lib/python3.12/site-packages/lidar_focus/human_bbox_node.py to human_bbox_node.cpython-312.pyc
+byte-compiling /home/user/sound_lidar_ws/install/lidar_focus/lib/python3.12/site-packages/lidar_focus/ground_removal_node.py to ground_removal_node.cpython-312.pyc
+byte-compiling /home/user/sound_lidar_ws/install/lidar_focus/lib/python3.12/site-packages/lidar_focus/lidar_focus_node.py to lidar_focus_node.cpython-312.pyc
+running install_data
+running install_egg_info
+Copying ../../build/lidar_focus/lidar_focus.egg-info to /home/user/sound_lidar_ws/install/lidar_focus/lib/python3.12/site-packages/lidar_focus-0.1.0-py3.12.egg-info
+running install_scripts
+Installing ground_removal_node script to /home/user/sound_lidar_ws/install/lidar_focus/lib/lidar_focus
+Installing human_bbox_node script to /home/user/sound_lidar_ws/install/lidar_focus/lib/lidar_focus
+Installing lidar_focus_node script to /home/user/sound_lidar_ws/install/lidar_focus/lib/lidar_focus
+Installing sound_motion_roi_node script to /home/user/sound_lidar_ws/install/lidar_focus/lib/lidar_focus
+writing list of installed files to '/home/user/sound_lidar_ws/build/lidar_focus/install.log'

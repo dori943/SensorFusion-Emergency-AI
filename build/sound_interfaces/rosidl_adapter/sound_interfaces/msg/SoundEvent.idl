@@ -1,0 +1,33 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from sound_interfaces/msg/SoundEvent.msg
+// generated code does not contain a copyright notice
+
+#include "std_msgs/msg/Header.idl"
+
+module sound_interfaces {
+  module msg {
+    @verbatim (language="comment", text=
+      "sound_interfaces/msg/SoundEvent.msg")
+    struct SoundEvent {
+      @verbatim (language="comment", text=
+        "타임스탬프 포함")
+      std_msgs::msg::Header header;
+
+      @verbatim (language="comment", text=
+        "소리 방향 (도, -180 ~ 180)")
+      float angle;
+
+      @verbatim (language="comment", text=
+        "감지 신뢰도 (0.0 ~ 1.0)")
+      float confidence;
+
+      @verbatim (language="comment", text=
+        "소리 크기 (dB)")
+      float amplitude;
+
+      @verbatim (language="comment", text=
+        "소리 감지 여부")
+      boolean is_active;
+    };
+  };
+};

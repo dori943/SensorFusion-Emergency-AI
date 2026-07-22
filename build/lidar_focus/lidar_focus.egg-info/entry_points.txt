@@ -1,0 +1,8 @@
+[console_scripts]
+eval_logger_node = lidar_focus.eval_logger_node:main
+fall_detection_node = lidar_focus.fall_detection_node:main
+ground_removal_node = lidar_focus.ground_removal_node:main
+human_bbox_node = lidar_focus.human_bbox_node:main
+lidar_focus_node = lidar_focus.lidar_focus_node:main
+r_calibration_node = lidar_focus.r_calibration_node:main
+sound_motion_roi_node = lidar_focus.sound_motion_roi_node:main

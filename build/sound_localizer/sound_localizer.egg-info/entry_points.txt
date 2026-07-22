@@ -1,0 +1,3 @@
+[console_scripts]
+sound_localizer_node = sound_localizer.sound_localizer_node:main
+sound_source_marker_node = sound_localizer.sound_source_marker_node:main

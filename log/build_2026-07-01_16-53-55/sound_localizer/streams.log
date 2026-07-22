@@ -1,0 +1,17 @@
+[2.706s] Invoking command in '/home/user/sound_lidar_ws/build/sound_localizer': AMENT_PREFIX_PATH=/home/user/sound_lidar_ws/install/sound_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/user/sound_lidar_ws/install/sound_interfaces:${CMAKE_PREFIX_PATH} DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/user/sound_lidar_ws/install/sound_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/user/sound_lidar_ws/build/sound_localizer/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/user/sound_lidar_ws/install/sound_localizer/lib/python3.12/site-packages:/home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/user/sound_lidar_ws/build/sound_localizer/build --no-deps symlink_data
+[3.234s] running develop
+[3.530s] running egg_info
+[3.555s] writing sound_localizer.egg-info/PKG-INFO
+[3.556s] writing dependency_links to sound_localizer.egg-info/dependency_links.txt
+[3.556s] writing entry points to sound_localizer.egg-info/entry_points.txt
+[3.556s] writing requirements to sound_localizer.egg-info/requires.txt
+[3.556s] writing top-level names to sound_localizer.egg-info/top_level.txt
+[3.616s] reading manifest file 'sound_localizer.egg-info/SOURCES.txt'
+[3.618s] writing manifest file 'sound_localizer.egg-info/SOURCES.txt'
+[3.647s] running build_ext
+[3.647s] Creating /home/user/sound_lidar_ws/install/sound_localizer/lib/python3.12/site-packages/sound-localizer.egg-link (link to .)
+[3.649s] Installing sound_localizer_node script to /home/user/sound_lidar_ws/install/sound_localizer/lib/sound_localizer
+[3.649s] 
+[3.649s] Installed /home/user/sound_lidar_ws/build/sound_localizer
+[3.649s] running symlink_data
+[3.863s] Invoked command in '/home/user/sound_lidar_ws/build/sound_localizer' returned '0': AMENT_PREFIX_PATH=/home/user/sound_lidar_ws/install/sound_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/user/sound_lidar_ws/install/sound_interfaces:${CMAKE_PREFIX_PATH} DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/user/sound_lidar_ws/install/sound_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/user/sound_lidar_ws/build/sound_localizer/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/user/sound_lidar_ws/install/sound_localizer/lib/python3.12/site-packages:/home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/user/sound_lidar_ws/build/sound_localizer/build --no-deps symlink_data

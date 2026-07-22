@@ -1,0 +1,25 @@
+[3.547s] Invoking command in '/home/user/sound_lidar_ws/build/lidar_focus': CMAKE_PREFIX_PATH=/home/user/sound_lidar_ws/install/sound_interfaces:/home/user/ros2_ws/install/unitree_lidar_ros2:/opt/ros/jazzy/opt/gz_sim_vendor:/opt/ros/jazzy/opt/gz_sensors_vendor:/opt/ros/jazzy/opt/gz_physics_vendor:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_gui_vendor:/opt/ros/jazzy/opt/gz_transport_vendor:/opt/ros/jazzy/opt/gz_rendering_vendor:/opt/ros/jazzy/opt/gz_plugin_vendor:/opt/ros/jazzy/opt/gz_fuel_tools_vendor:/opt/ros/jazzy/opt/gz_msgs_vendor:/opt/ros/jazzy/opt/gz_common_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_ogre_next_vendor:/opt/ros/jazzy/opt/gz_dartsim_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/user/sound_lidar_ws/build/lidar_focus/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/user/sound_lidar_ws/install/lidar_focus/lib/python3.12/site-packages:/home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages:/home/user/sound_lidar_ws/build/sound_localizer:/home/user/sound_lidar_ws/install/sound_localizer/lib/python3.12/site-packages:/home/user/sound_lidar_ws/build/lidar_focus:/home/user/sound_lidar_ws/install/lidar_focus/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/user/sound_lidar_ws/build/lidar_focus/build --no-deps symlink_data
+[4.397s] running develop
+[4.856s] running egg_info
+[4.888s] writing lidar_focus.egg-info/PKG-INFO
+[4.888s] writing dependency_links to lidar_focus.egg-info/dependency_links.txt
+[4.890s] writing entry points to lidar_focus.egg-info/entry_points.txt
+[4.891s] writing requirements to lidar_focus.egg-info/requires.txt
+[4.891s] writing top-level names to lidar_focus.egg-info/top_level.txt
+[4.981s] reading manifest file 'lidar_focus.egg-info/SOURCES.txt'
+[4.983s] writing manifest file 'lidar_focus.egg-info/SOURCES.txt'
+[5.018s] running build_ext
+[5.018s] Creating /home/user/sound_lidar_ws/install/lidar_focus/lib/python3.12/site-packages/lidar-focus.egg-link (link to .)
+[5.026s] Installing eval_logger_node script to /home/user/sound_lidar_ws/install/lidar_focus/lib/lidar_focus
+[5.026s] Installing fall_detection_node script to /home/user/sound_lidar_ws/install/lidar_focus/lib/lidar_focus
+[5.026s] Installing ground_removal_node script to /home/user/sound_lidar_ws/install/lidar_focus/lib/lidar_focus
+[5.030s] Installing human_bbox_node script to /home/user/sound_lidar_ws/install/lidar_focus/lib/lidar_focus
+[5.030s] Installing lidar_focus_node script to /home/user/sound_lidar_ws/install/lidar_focus/lib/lidar_focus
+[5.031s] Installing r_calibration_node script to /home/user/sound_lidar_ws/install/lidar_focus/lib/lidar_focus
+[5.031s] Installing sound_localizer_node script to /home/user/sound_lidar_ws/install/lidar_focus/lib/lidar_focus
+[5.031s] Installing sound_motion_roi_node script to /home/user/sound_lidar_ws/install/lidar_focus/lib/lidar_focus
+[5.031s] Installing sound_source_marker_node script to /home/user/sound_lidar_ws/install/lidar_focus/lib/lidar_focus
+[5.033s] 
+[5.034s] Installed /home/user/sound_lidar_ws/build/lidar_focus
+[5.034s] running symlink_data
+[5.269s] Invoked command in '/home/user/sound_lidar_ws/build/lidar_focus' returned '0': CMAKE_PREFIX_PATH=/home/user/sound_lidar_ws/install/sound_interfaces:/home/user/ros2_ws/install/unitree_lidar_ros2:/opt/ros/jazzy/opt/gz_sim_vendor:/opt/ros/jazzy/opt/gz_sensors_vendor:/opt/ros/jazzy/opt/gz_physics_vendor:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_gui_vendor:/opt/ros/jazzy/opt/gz_transport_vendor:/opt/ros/jazzy/opt/gz_rendering_vendor:/opt/ros/jazzy/opt/gz_plugin_vendor:/opt/ros/jazzy/opt/gz_fuel_tools_vendor:/opt/ros/jazzy/opt/gz_msgs_vendor:/opt/ros/jazzy/opt/gz_common_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_ogre_next_vendor:/opt/ros/jazzy/opt/gz_dartsim_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/user/sound_lidar_ws/build/lidar_focus/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/user/sound_lidar_ws/install/lidar_focus/lib/python3.12/site-packages:/home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages:/home/user/sound_lidar_ws/build/sound_localizer:/home/user/sound_lidar_ws/install/sound_localizer/lib/python3.12/site-packages:/home/user/sound_lidar_ws/build/lidar_focus:/home/user/sound_lidar_ws/install/lidar_focus/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/user/sound_lidar_ws/build/lidar_focus/build --no-deps symlink_data

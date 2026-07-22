@@ -1,0 +1,20 @@
+[2.623s] Invoking command in '/home/user/sound_lidar_ws/build/lidar_focus': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/user/sound_lidar_ws/build/lidar_focus/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/user/sound_lidar_ws/install/lidar_focus/lib/python3.12/site-packages:/home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages:/home/user/sound_lidar_ws/build/sound_localizer:/home/user/sound_lidar_ws/install/sound_localizer/lib/python3.12/site-packages:/home/user/sound_lidar_ws/build/lidar_focus:/home/user/sound_lidar_ws/install/lidar_focus/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/user/sound_lidar_ws/build/lidar_focus/build --no-deps symlink_data
+[3.169s] running develop
+[3.478s] running egg_info
+[3.506s] writing lidar_focus.egg-info/PKG-INFO
+[3.506s] writing dependency_links to lidar_focus.egg-info/dependency_links.txt
+[3.508s] writing entry points to lidar_focus.egg-info/entry_points.txt
+[3.509s] writing requirements to lidar_focus.egg-info/requires.txt
+[3.509s] writing top-level names to lidar_focus.egg-info/top_level.txt
+[3.568s] reading manifest file 'lidar_focus.egg-info/SOURCES.txt'
+[3.570s] writing manifest file 'lidar_focus.egg-info/SOURCES.txt'
+[3.605s] running build_ext
+[3.605s] Creating /home/user/sound_lidar_ws/install/lidar_focus/lib/python3.12/site-packages/lidar-focus.egg-link (link to .)
+[3.606s] Installing ground_removal_node script to /home/user/sound_lidar_ws/install/lidar_focus/lib/lidar_focus
+[3.606s] Installing human_bbox_node script to /home/user/sound_lidar_ws/install/lidar_focus/lib/lidar_focus
+[3.607s] Installing lidar_focus_node script to /home/user/sound_lidar_ws/install/lidar_focus/lib/lidar_focus
+[3.607s] Installing sound_motion_roi_node script to /home/user/sound_lidar_ws/install/lidar_focus/lib/lidar_focus
+[3.607s] 
+[3.607s] Installed /home/user/sound_lidar_ws/build/lidar_focus
+[3.607s] running symlink_data
+[3.807s] Invoked command in '/home/user/sound_lidar_ws/build/lidar_focus' returned '0': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/user/sound_lidar_ws/build/lidar_focus/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/user/sound_lidar_ws/install/lidar_focus/lib/python3.12/site-packages:/home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages:/home/user/sound_lidar_ws/build/sound_localizer:/home/user/sound_lidar_ws/install/sound_localizer/lib/python3.12/site-packages:/home/user/sound_lidar_ws/build/lidar_focus:/home/user/sound_lidar_ws/install/lidar_focus/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/user/sound_lidar_ws/build/lidar_focus/build --no-deps symlink_data

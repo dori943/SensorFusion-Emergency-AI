@@ -1,0 +1,7 @@
+Metadata-Version: 2.1
+Name: lidar-focus
+Version: 0.1.0
+Summary: LiDAR point cloud filtering based on sound direction
+Maintainer: user
+Maintainer-email: user@example.com
+License: Apache-2.0

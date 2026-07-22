@@ -1,0 +1,17 @@
+[1.748s] Invoking command in '/home/user/sound_lidar_ws/build/sound_localizer': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/user/sound_lidar_ws/build/sound_localizer/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/user/sound_lidar_ws/install/sound_localizer/lib/python3.12/site-packages:/home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages:/home/user/sound_lidar_ws/build/sound_localizer:/home/user/sound_lidar_ws/install/sound_localizer/lib/python3.12/site-packages:/home/user/sound_lidar_ws/build/lidar_focus:/home/user/sound_lidar_ws/install/lidar_focus/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/user/sound_lidar_ws/build/sound_localizer/build --no-deps symlink_data
+[2.431s] running develop
+[2.733s] running egg_info
+[2.759s] writing sound_localizer.egg-info/PKG-INFO
+[2.760s] writing dependency_links to sound_localizer.egg-info/dependency_links.txt
+[2.760s] writing entry points to sound_localizer.egg-info/entry_points.txt
+[2.760s] writing requirements to sound_localizer.egg-info/requires.txt
+[2.761s] writing top-level names to sound_localizer.egg-info/top_level.txt
+[2.823s] reading manifest file 'sound_localizer.egg-info/SOURCES.txt'
+[2.824s] writing manifest file 'sound_localizer.egg-info/SOURCES.txt'
+[2.853s] running build_ext
+[2.853s] Creating /home/user/sound_lidar_ws/install/sound_localizer/lib/python3.12/site-packages/sound-localizer.egg-link (link to .)
+[2.854s] Installing sound_localizer_node script to /home/user/sound_lidar_ws/install/sound_localizer/lib/sound_localizer
+[2.855s] 
+[2.855s] Installed /home/user/sound_lidar_ws/build/sound_localizer
+[2.855s] running symlink_data
+[3.007s] Invoked command in '/home/user/sound_lidar_ws/build/sound_localizer' returned '0': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/user/sound_lidar_ws/build/sound_localizer/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/user/sound_lidar_ws/install/sound_localizer/lib/python3.12/site-packages:/home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages:/home/user/sound_lidar_ws/build/sound_localizer:/home/user/sound_lidar_ws/install/sound_localizer/lib/python3.12/site-packages:/home/user/sound_lidar_ws/build/lidar_focus:/home/user/sound_lidar_ws/install/lidar_focus/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/user/sound_lidar_ws/build/sound_localizer/build --no-deps symlink_data

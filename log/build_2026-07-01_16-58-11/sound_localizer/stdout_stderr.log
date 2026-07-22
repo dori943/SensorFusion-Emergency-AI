@@ -1,0 +1,15 @@
+running develop
+running egg_info
+writing sound_localizer.egg-info/PKG-INFO
+writing dependency_links to sound_localizer.egg-info/dependency_links.txt
+writing entry points to sound_localizer.egg-info/entry_points.txt
+writing requirements to sound_localizer.egg-info/requires.txt
+writing top-level names to sound_localizer.egg-info/top_level.txt
+reading manifest file 'sound_localizer.egg-info/SOURCES.txt'
+writing manifest file 'sound_localizer.egg-info/SOURCES.txt'
+running build_ext
+Creating /home/user/sound_lidar_ws/install/sound_localizer/lib/python3.12/site-packages/sound-localizer.egg-link (link to .)
+Installing sound_localizer_node script to /home/user/sound_lidar_ws/install/sound_localizer/lib/sound_localizer
+
+Installed /home/user/sound_lidar_ws/build/sound_localizer
+running symlink_data

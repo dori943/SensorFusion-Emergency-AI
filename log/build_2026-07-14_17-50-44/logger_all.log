@@ -1,0 +1,308 @@
+[1.468s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build', '--symlink-install']
+[1.468s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='build', build_base='build', install_base='install', merge_install=False, symlink_install=True, test_result_base=None, continue_on_error=False, executor='parallel', parallel_workers=4, event_handlers=None, ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['.'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=None, packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], cmake_args=None, cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, mixin_files=None, mixin=None, verb_parser=<colcon_mixin.mixin.mixin_argument.MixinArgumentDecorator object at 0xffffb6068d40>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0xffffb62288f0>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0xffffb62288f0>>, mixin_verb=('build',))
+[1.786s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[1.787s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[1.787s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[1.787s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[1.787s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[1.787s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[1.787s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/user/sound_lidar_ws'
+[1.788s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[1.788s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[1.788s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[1.789s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[1.789s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[1.789s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[1.789s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[1.789s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[1.789s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[2.048s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[2.048s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[2.048s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[2.048s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[2.048s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[2.049s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[2.049s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[2.049s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[2.050s] Level 1:colcon.colcon_core.package_identification:_identify(empty_scene_data) by extensions ['ignore', 'ignore_ament_install']
+[2.051s] Level 1:colcon.colcon_core.package_identification:_identify(empty_scene_data) by extension 'ignore'
+[2.051s] Level 1:colcon.colcon_core.package_identification:_identify(empty_scene_data) by extension 'ignore_ament_install'
+[2.051s] Level 1:colcon.colcon_core.package_identification:_identify(empty_scene_data) by extensions ['colcon_pkg']
+[2.051s] Level 1:colcon.colcon_core.package_identification:_identify(empty_scene_data) by extension 'colcon_pkg'
+[2.052s] Level 1:colcon.colcon_core.package_identification:_identify(empty_scene_data) by extensions ['colcon_meta']
+[2.052s] Level 1:colcon.colcon_core.package_identification:_identify(empty_scene_data) by extension 'colcon_meta'
+[2.052s] Level 1:colcon.colcon_core.package_identification:_identify(empty_scene_data) by extensions ['ros']
+[2.052s] Level 1:colcon.colcon_core.package_identification:_identify(empty_scene_data) by extension 'ros'
+[2.052s] Level 1:colcon.colcon_core.package_identification:_identify(empty_scene_data) by extensions ['cmake', 'python']
+[2.052s] Level 1:colcon.colcon_core.package_identification:_identify(empty_scene_data) by extension 'cmake'
+[2.052s] Level 1:colcon.colcon_core.package_identification:_identify(empty_scene_data) by extension 'python'
+[2.052s] Level 1:colcon.colcon_core.package_identification:_identify(empty_scene_data) by extensions ['python_setup_py']
+[2.052s] Level 1:colcon.colcon_core.package_identification:_identify(empty_scene_data) by extension 'python_setup_py'
+[2.053s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[2.053s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[2.053s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[2.053s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[2.054s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[2.054s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[2.055s] Level 1:colcon.colcon_core.package_identification:_identify(my_lidar_data) by extensions ['ignore', 'ignore_ament_install']
+[2.056s] Level 1:colcon.colcon_core.package_identification:_identify(my_lidar_data) by extension 'ignore'
+[2.056s] Level 1:colcon.colcon_core.package_identification:_identify(my_lidar_data) by extension 'ignore_ament_install'
+[2.056s] Level 1:colcon.colcon_core.package_identification:_identify(my_lidar_data) by extensions ['colcon_pkg']
+[2.056s] Level 1:colcon.colcon_core.package_identification:_identify(my_lidar_data) by extension 'colcon_pkg'
+[2.057s] Level 1:colcon.colcon_core.package_identification:_identify(my_lidar_data) by extensions ['colcon_meta']
+[2.057s] Level 1:colcon.colcon_core.package_identification:_identify(my_lidar_data) by extension 'colcon_meta'
+[2.057s] Level 1:colcon.colcon_core.package_identification:_identify(my_lidar_data) by extensions ['ros']
+[2.057s] Level 1:colcon.colcon_core.package_identification:_identify(my_lidar_data) by extension 'ros'
+[2.057s] Level 1:colcon.colcon_core.package_identification:_identify(my_lidar_data) by extensions ['cmake', 'python']
+[2.057s] Level 1:colcon.colcon_core.package_identification:_identify(my_lidar_data) by extension 'cmake'
+[2.058s] Level 1:colcon.colcon_core.package_identification:_identify(my_lidar_data) by extension 'python'
+[2.058s] Level 1:colcon.colcon_core.package_identification:_identify(my_lidar_data) by extensions ['python_setup_py']
+[2.058s] Level 1:colcon.colcon_core.package_identification:_identify(my_lidar_data) by extension 'python_setup_py'
+[2.058s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ignore', 'ignore_ament_install']
+[2.062s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore'
+[2.062s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore_ament_install'
+[2.063s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_pkg']
+[2.066s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_pkg'
+[2.067s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_meta']
+[2.067s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_meta'
+[2.067s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ros']
+[2.067s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ros'
+[2.068s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['cmake', 'python']
+[2.068s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'cmake'
+[2.068s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python'
+[2.071s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['python_setup_py']
+[2.071s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python_setup_py'
+[2.074s] Level 1:colcon.colcon_core.package_identification:_identify(src/lidar_focus) by extensions ['ignore', 'ignore_ament_install']
+[2.074s] Level 1:colcon.colcon_core.package_identification:_identify(src/lidar_focus) by extension 'ignore'
+[2.075s] Level 1:colcon.colcon_core.package_identification:_identify(src/lidar_focus) by extension 'ignore_ament_install'
+[2.075s] Level 1:colcon.colcon_core.package_identification:_identify(src/lidar_focus) by extensions ['colcon_pkg']
+[2.075s] Level 1:colcon.colcon_core.package_identification:_identify(src/lidar_focus) by extension 'colcon_pkg'
+[2.076s] Level 1:colcon.colcon_core.package_identification:_identify(src/lidar_focus) by extensions ['colcon_meta']
+[2.076s] Level 1:colcon.colcon_core.package_identification:_identify(src/lidar_focus) by extension 'colcon_meta'
+[2.076s] Level 1:colcon.colcon_core.package_identification:_identify(src/lidar_focus) by extensions ['ros']
+[2.076s] Level 1:colcon.colcon_core.package_identification:_identify(src/lidar_focus) by extension 'ros'
+[2.088s] DEBUG:colcon.colcon_core.package_identification:Package 'src/lidar_focus' with type 'ros.ament_python' and name 'lidar_focus'
+[2.088s] Level 1:colcon.colcon_core.package_identification:_identify(src/sound_interfaces) by extensions ['ignore', 'ignore_ament_install']
+[2.089s] Level 1:colcon.colcon_core.package_identification:_identify(src/sound_interfaces) by extension 'ignore'
+[2.089s] Level 1:colcon.colcon_core.package_identification:_identify(src/sound_interfaces) by extension 'ignore_ament_install'
+[2.089s] Level 1:colcon.colcon_core.package_identification:_identify(src/sound_interfaces) by extensions ['colcon_pkg']
+[2.089s] Level 1:colcon.colcon_core.package_identification:_identify(src/sound_interfaces) by extension 'colcon_pkg'
+[2.089s] Level 1:colcon.colcon_core.package_identification:_identify(src/sound_interfaces) by extensions ['colcon_meta']
+[2.090s] Level 1:colcon.colcon_core.package_identification:_identify(src/sound_interfaces) by extension 'colcon_meta'
+[2.090s] Level 1:colcon.colcon_core.package_identification:_identify(src/sound_interfaces) by extensions ['ros']
+[2.090s] Level 1:colcon.colcon_core.package_identification:_identify(src/sound_interfaces) by extension 'ros'
+[2.092s] DEBUG:colcon.colcon_core.package_identification:Package 'src/sound_interfaces' with type 'ros.ament_cmake' and name 'sound_interfaces'
+[2.093s] Level 1:colcon.colcon_core.package_identification:_identify(src/sound_localizer) by extensions ['ignore', 'ignore_ament_install']
+[2.094s] Level 1:colcon.colcon_core.package_identification:_identify(src/sound_localizer) by extension 'ignore'
+[2.094s] Level 1:colcon.colcon_core.package_identification:_identify(src/sound_localizer) by extension 'ignore_ament_install'
+[2.094s] Level 1:colcon.colcon_core.package_identification:_identify(src/sound_localizer) by extensions ['colcon_pkg']
+[2.094s] Level 1:colcon.colcon_core.package_identification:_identify(src/sound_localizer) by extension 'colcon_pkg'
+[2.094s] Level 1:colcon.colcon_core.package_identification:_identify(src/sound_localizer) by extensions ['colcon_meta']
+[2.095s] Level 1:colcon.colcon_core.package_identification:_identify(src/sound_localizer) by extension 'colcon_meta'
+[2.095s] Level 1:colcon.colcon_core.package_identification:_identify(src/sound_localizer) by extensions ['ros']
+[2.095s] Level 1:colcon.colcon_core.package_identification:_identify(src/sound_localizer) by extension 'ros'
+[2.100s] DEBUG:colcon.colcon_core.package_identification:Package 'src/sound_localizer' with type 'ros.ament_python' and name 'sound_localizer'
+[2.101s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[2.101s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[2.101s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[2.101s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[2.101s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[2.412s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[2.412s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[2.433s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 337 installed packages in /opt/ros/jazzy
+[2.440s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[2.612s] Level 5:colcon.colcon_core.verb:set package 'sound_interfaces' build argument 'cmake_args' from command line to 'None'
+[2.612s] Level 5:colcon.colcon_core.verb:set package 'sound_interfaces' build argument 'cmake_target' from command line to 'None'
+[2.612s] Level 5:colcon.colcon_core.verb:set package 'sound_interfaces' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[2.612s] Level 5:colcon.colcon_core.verb:set package 'sound_interfaces' build argument 'cmake_clean_cache' from command line to 'False'
+[2.612s] Level 5:colcon.colcon_core.verb:set package 'sound_interfaces' build argument 'cmake_clean_first' from command line to 'False'
+[2.612s] Level 5:colcon.colcon_core.verb:set package 'sound_interfaces' build argument 'cmake_force_configure' from command line to 'False'
+[2.612s] Level 5:colcon.colcon_core.verb:set package 'sound_interfaces' build argument 'ament_cmake_args' from command line to 'None'
+[2.612s] Level 5:colcon.colcon_core.verb:set package 'sound_interfaces' build argument 'catkin_cmake_args' from command line to 'None'
+[2.612s] Level 5:colcon.colcon_core.verb:set package 'sound_interfaces' build argument 'catkin_skip_building_tests' from command line to 'False'
+[2.613s] DEBUG:colcon.colcon_core.verb:Building package 'sound_interfaces' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/user/sound_lidar_ws/build/sound_interfaces', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/user/sound_lidar_ws/install/sound_interfaces', 'merge_install': False, 'path': '/home/user/sound_lidar_ws/src/sound_interfaces', 'symlink_install': True, 'test_result_base': None}
+[2.614s] Level 5:colcon.colcon_core.verb:set package 'lidar_focus' build argument 'cmake_args' from command line to 'None'
+[2.614s] Level 5:colcon.colcon_core.verb:set package 'lidar_focus' build argument 'cmake_target' from command line to 'None'
+[2.614s] Level 5:colcon.colcon_core.verb:set package 'lidar_focus' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[2.614s] Level 5:colcon.colcon_core.verb:set package 'lidar_focus' build argument 'cmake_clean_cache' from command line to 'False'
+[2.614s] Level 5:colcon.colcon_core.verb:set package 'lidar_focus' build argument 'cmake_clean_first' from command line to 'False'
+[2.614s] Level 5:colcon.colcon_core.verb:set package 'lidar_focus' build argument 'cmake_force_configure' from command line to 'False'
+[2.614s] Level 5:colcon.colcon_core.verb:set package 'lidar_focus' build argument 'ament_cmake_args' from command line to 'None'
+[2.614s] Level 5:colcon.colcon_core.verb:set package 'lidar_focus' build argument 'catkin_cmake_args' from command line to 'None'
+[2.615s] Level 5:colcon.colcon_core.verb:set package 'lidar_focus' build argument 'catkin_skip_building_tests' from command line to 'False'
+[2.615s] DEBUG:colcon.colcon_core.verb:Building package 'lidar_focus' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/user/sound_lidar_ws/build/lidar_focus', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/user/sound_lidar_ws/install/lidar_focus', 'merge_install': False, 'path': '/home/user/sound_lidar_ws/src/lidar_focus', 'symlink_install': True, 'test_result_base': None}
+[2.616s] Level 5:colcon.colcon_core.verb:set package 'sound_localizer' build argument 'cmake_args' from command line to 'None'
+[2.616s] Level 5:colcon.colcon_core.verb:set package 'sound_localizer' build argument 'cmake_target' from command line to 'None'
+[2.616s] Level 5:colcon.colcon_core.verb:set package 'sound_localizer' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[2.616s] Level 5:colcon.colcon_core.verb:set package 'sound_localizer' build argument 'cmake_clean_cache' from command line to 'False'
+[2.616s] Level 5:colcon.colcon_core.verb:set package 'sound_localizer' build argument 'cmake_clean_first' from command line to 'False'
+[2.616s] Level 5:colcon.colcon_core.verb:set package 'sound_localizer' build argument 'cmake_force_configure' from command line to 'False'
+[2.616s] Level 5:colcon.colcon_core.verb:set package 'sound_localizer' build argument 'ament_cmake_args' from command line to 'None'
+[2.616s] Level 5:colcon.colcon_core.verb:set package 'sound_localizer' build argument 'catkin_cmake_args' from command line to 'None'
+[2.616s] Level 5:colcon.colcon_core.verb:set package 'sound_localizer' build argument 'catkin_skip_building_tests' from command line to 'False'
+[2.616s] DEBUG:colcon.colcon_core.verb:Building package 'sound_localizer' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/user/sound_lidar_ws/build/sound_localizer', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/user/sound_lidar_ws/install/sound_localizer', 'merge_install': False, 'path': '/home/user/sound_lidar_ws/src/sound_localizer', 'symlink_install': True, 'test_result_base': None}
+[2.617s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[2.624s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[2.625s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/user/sound_lidar_ws/src/sound_interfaces' with build type 'ament_cmake'
+[2.625s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/user/sound_lidar_ws/src/sound_interfaces'
+[2.677s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[2.678s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[2.678s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[2.762s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/user/sound_lidar_ws/build/sound_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/user/sound_lidar_ws/build/sound_interfaces -- -j4 -l4
+[7.056s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/user/sound_lidar_ws/build/sound_interfaces' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/user/sound_lidar_ws/build/sound_interfaces -- -j4 -l4
+[7.101s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/user/sound_lidar_ws/build/sound_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/user/sound_lidar_ws/build/sound_interfaces
+[7.355s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(sound_interfaces)
+[7.356s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/user/sound_lidar_ws/build/sound_interfaces' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/user/sound_lidar_ws/build/sound_interfaces
+[7.379s] Level 1:colcon.colcon_core.environment:checking '/home/user/sound_lidar_ws/install/sound_interfaces' for CMake module files
+[7.381s] Level 1:colcon.colcon_core.environment:checking '/home/user/sound_lidar_ws/install/sound_interfaces' for CMake config files
+[7.383s] Level 1:colcon.colcon_core.shell:create_environment_hook('sound_interfaces', 'cmake_prefix_path')
+[7.383s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/hook/cmake_prefix_path.ps1'
+[7.386s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/hook/cmake_prefix_path.dsv'
+[7.389s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/hook/cmake_prefix_path.sh'
+[7.393s] Level 1:colcon.colcon_core.environment:checking '/home/user/sound_lidar_ws/install/sound_interfaces/lib'
+[7.393s] Level 1:colcon.colcon_core.shell:create_environment_hook('sound_interfaces', 'ld_library_path_lib')
+[7.394s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/hook/ld_library_path_lib.ps1'
+[7.395s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/hook/ld_library_path_lib.dsv'
+[7.396s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/hook/ld_library_path_lib.sh'
+[7.397s] Level 1:colcon.colcon_core.environment:checking '/home/user/sound_lidar_ws/install/sound_interfaces/bin'
+[7.397s] Level 1:colcon.colcon_core.environment:checking '/home/user/sound_lidar_ws/install/sound_interfaces/lib/pkgconfig/sound_interfaces.pc'
+[7.398s] Level 1:colcon.colcon_core.environment:checking '/home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages'
+[7.398s] Level 1:colcon.colcon_core.shell:create_environment_hook('sound_interfaces', 'pythonpath')
+[7.398s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/hook/pythonpath.ps1'
+[7.399s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/hook/pythonpath.dsv'
+[7.401s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/hook/pythonpath.sh'
+[7.403s] Level 1:colcon.colcon_core.environment:checking '/home/user/sound_lidar_ws/install/sound_interfaces/bin'
+[7.404s] INFO:colcon.colcon_core.shell:Creating package script '/home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/package.ps1'
+[7.407s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/package.dsv'
+[7.410s] INFO:colcon.colcon_core.shell:Creating package script '/home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/package.sh'
+[7.412s] INFO:colcon.colcon_core.shell:Creating package script '/home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/package.bash'
+[7.414s] INFO:colcon.colcon_core.shell:Creating package script '/home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/package.zsh'
+[7.417s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/user/sound_lidar_ws/install/sound_interfaces/share/colcon-core/packages/sound_interfaces)
+[7.420s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(sound_interfaces)
+[7.420s] Level 1:colcon.colcon_core.environment:checking '/home/user/sound_lidar_ws/install/sound_interfaces' for CMake module files
+[7.421s] Level 1:colcon.colcon_core.environment:checking '/home/user/sound_lidar_ws/install/sound_interfaces' for CMake config files
+[7.422s] Level 1:colcon.colcon_core.shell:create_environment_hook('sound_interfaces', 'cmake_prefix_path')
+[7.422s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/hook/cmake_prefix_path.ps1'
+[7.424s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/hook/cmake_prefix_path.dsv'
+[7.425s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/hook/cmake_prefix_path.sh'
+[7.427s] Level 1:colcon.colcon_core.environment:checking '/home/user/sound_lidar_ws/install/sound_interfaces/lib'
+[7.427s] Level 1:colcon.colcon_core.shell:create_environment_hook('sound_interfaces', 'ld_library_path_lib')
+[7.428s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/hook/ld_library_path_lib.ps1'
+[7.430s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/hook/ld_library_path_lib.dsv'
+[7.431s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/hook/ld_library_path_lib.sh'
+[7.434s] Level 1:colcon.colcon_core.environment:checking '/home/user/sound_lidar_ws/install/sound_interfaces/bin'
+[7.434s] Level 1:colcon.colcon_core.environment:checking '/home/user/sound_lidar_ws/install/sound_interfaces/lib/pkgconfig/sound_interfaces.pc'
+[7.435s] Level 1:colcon.colcon_core.environment:checking '/home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages'
+[7.435s] Level 1:colcon.colcon_core.shell:create_environment_hook('sound_interfaces', 'pythonpath')
+[7.436s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/hook/pythonpath.ps1'
+[7.438s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/hook/pythonpath.dsv'
+[7.441s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/hook/pythonpath.sh'
+[7.445s] Level 1:colcon.colcon_core.environment:checking '/home/user/sound_lidar_ws/install/sound_interfaces/bin'
+[7.446s] INFO:colcon.colcon_core.shell:Creating package script '/home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/package.ps1'
+[7.450s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/package.dsv'
+[7.453s] INFO:colcon.colcon_core.shell:Creating package script '/home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/package.sh'
+[7.456s] INFO:colcon.colcon_core.shell:Creating package script '/home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/package.bash'
+[7.459s] INFO:colcon.colcon_core.shell:Creating package script '/home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/package.zsh'
+[7.461s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/user/sound_lidar_ws/install/sound_interfaces/share/colcon-core/packages/sound_interfaces)
+[7.464s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/user/sound_lidar_ws/src/lidar_focus' with build type 'ament_python'
+[7.464s] Level 1:colcon.colcon_core.shell:create_environment_hook('lidar_focus', 'ament_prefix_path')
+[7.465s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/user/sound_lidar_ws/install/lidar_focus/share/lidar_focus/hook/ament_prefix_path.ps1'
+[7.470s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/user/sound_lidar_ws/install/lidar_focus/share/lidar_focus/hook/ament_prefix_path.dsv'
+[7.474s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/user/sound_lidar_ws/install/lidar_focus/share/lidar_focus/hook/ament_prefix_path.sh'
+[7.482s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[7.483s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[7.500s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/user/sound_lidar_ws/src/sound_localizer' with build type 'ament_python'
+[7.501s] Level 1:colcon.colcon_core.shell:create_environment_hook('sound_localizer', 'ament_prefix_path')
+[7.502s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/user/sound_lidar_ws/install/sound_localizer/share/sound_localizer/hook/ament_prefix_path.ps1'
+[7.513s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/user/sound_lidar_ws/install/sound_localizer/share/sound_localizer/hook/ament_prefix_path.dsv'
+[7.515s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/user/sound_lidar_ws/install/sound_localizer/share/sound_localizer/hook/ament_prefix_path.sh'
+[7.523s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[7.525s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[8.244s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/user/sound_lidar_ws/src/lidar_focus'
+[8.245s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[8.245s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[8.965s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/user/sound_lidar_ws/src/sound_localizer'
+[8.965s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[8.965s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[11.326s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/user/sound_lidar_ws/build/lidar_focus': AMENT_PREFIX_PATH=/home/user/sound_lidar_ws/install/sound_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/user/sound_lidar_ws/install/sound_interfaces:${CMAKE_PREFIX_PATH} DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/user/sound_lidar_ws/install/sound_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/user/sound_lidar_ws/build/lidar_focus/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/user/sound_lidar_ws/install/lidar_focus/lib/python3.12/site-packages:/home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/user/sound_lidar_ws/build/lidar_focus/build --no-deps symlink_data
+[11.338s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/user/sound_lidar_ws/build/sound_localizer': AMENT_PREFIX_PATH=/home/user/sound_lidar_ws/install/sound_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/user/sound_lidar_ws/install/sound_interfaces:${CMAKE_PREFIX_PATH} DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/user/sound_lidar_ws/install/sound_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/user/sound_lidar_ws/build/sound_localizer/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/user/sound_lidar_ws/install/sound_localizer/lib/python3.12/site-packages:/home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/user/sound_lidar_ws/build/sound_localizer/build --no-deps symlink_data
+[12.511s] Level 1:colcon.colcon_core.shell:create_environment_hook('lidar_focus', 'pythonpath_develop')
+[12.512s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/user/sound_lidar_ws/build/lidar_focus/share/lidar_focus/hook/pythonpath_develop.ps1'
+[12.513s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/user/sound_lidar_ws/build/lidar_focus' returned '0': AMENT_PREFIX_PATH=/home/user/sound_lidar_ws/install/sound_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/user/sound_lidar_ws/install/sound_interfaces:${CMAKE_PREFIX_PATH} DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/user/sound_lidar_ws/install/sound_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/user/sound_lidar_ws/build/lidar_focus/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/user/sound_lidar_ws/install/lidar_focus/lib/python3.12/site-packages:/home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/user/sound_lidar_ws/build/lidar_focus/build --no-deps symlink_data
+[12.516s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/user/sound_lidar_ws/build/lidar_focus/share/lidar_focus/hook/pythonpath_develop.dsv'
+[12.516s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/user/sound_lidar_ws/build/lidar_focus/share/lidar_focus/hook/pythonpath_develop.sh'
+[12.518s] Level 1:colcon.colcon_core.environment:checking '/home/user/sound_lidar_ws/install/lidar_focus' for CMake module files
+[12.519s] Level 1:colcon.colcon_core.environment:checking '/home/user/sound_lidar_ws/install/lidar_focus' for CMake config files
+[12.520s] Level 1:colcon.colcon_core.environment:checking '/home/user/sound_lidar_ws/install/lidar_focus/lib'
+[12.520s] Level 1:colcon.colcon_core.environment:checking '/home/user/sound_lidar_ws/install/lidar_focus/bin'
+[12.521s] Level 1:colcon.colcon_core.shell:create_environment_hook('lidar_focus', 'path')
+[12.521s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/user/sound_lidar_ws/install/lidar_focus/share/lidar_focus/hook/path.ps1'
+[12.522s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/user/sound_lidar_ws/install/lidar_focus/share/lidar_focus/hook/path.dsv'
+[12.523s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/user/sound_lidar_ws/install/lidar_focus/share/lidar_focus/hook/path.sh'
+[12.524s] Level 1:colcon.colcon_core.environment:checking '/home/user/sound_lidar_ws/install/lidar_focus/lib/pkgconfig/lidar_focus.pc'
+[12.525s] Level 1:colcon.colcon_core.environment:checking '/home/user/sound_lidar_ws/install/lidar_focus/lib/python3.12/site-packages'
+[12.525s] Level 1:colcon.colcon_core.shell:create_environment_hook('lidar_focus', 'pythonpath')
+[12.525s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/user/sound_lidar_ws/install/lidar_focus/share/lidar_focus/hook/pythonpath.ps1'
+[12.526s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/user/sound_lidar_ws/install/lidar_focus/share/lidar_focus/hook/pythonpath.dsv'
+[12.527s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/user/sound_lidar_ws/install/lidar_focus/share/lidar_focus/hook/pythonpath.sh'
+[12.528s] Level 1:colcon.colcon_core.environment:checking '/home/user/sound_lidar_ws/install/lidar_focus/bin'
+[12.529s] Level 1:colcon.colcon_core.shell:create_environment_hook('lidar_focus', 'pythonscriptspath')
+[12.529s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/user/sound_lidar_ws/install/lidar_focus/share/lidar_focus/hook/pythonscriptspath.ps1'
+[12.530s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/user/sound_lidar_ws/install/lidar_focus/share/lidar_focus/hook/pythonscriptspath.dsv'
+[12.530s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/user/sound_lidar_ws/install/lidar_focus/share/lidar_focus/hook/pythonscriptspath.sh'
+[12.531s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(lidar_focus)
+[12.532s] INFO:colcon.colcon_core.shell:Creating package script '/home/user/sound_lidar_ws/install/lidar_focus/share/lidar_focus/package.ps1'
+[12.533s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/user/sound_lidar_ws/install/lidar_focus/share/lidar_focus/package.dsv'
+[12.533s] INFO:colcon.colcon_core.shell:Creating package script '/home/user/sound_lidar_ws/install/lidar_focus/share/lidar_focus/package.sh'
+[12.534s] INFO:colcon.colcon_core.shell:Creating package script '/home/user/sound_lidar_ws/install/lidar_focus/share/lidar_focus/package.bash'
+[12.535s] INFO:colcon.colcon_core.shell:Creating package script '/home/user/sound_lidar_ws/install/lidar_focus/share/lidar_focus/package.zsh'
+[12.536s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/user/sound_lidar_ws/install/lidar_focus/share/colcon-core/packages/lidar_focus)
+[12.540s] Level 1:colcon.colcon_core.shell:create_environment_hook('sound_localizer', 'pythonpath_develop')
+[12.541s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/user/sound_lidar_ws/build/sound_localizer/share/sound_localizer/hook/pythonpath_develop.ps1'
+[12.542s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/user/sound_lidar_ws/build/sound_localizer' returned '0': AMENT_PREFIX_PATH=/home/user/sound_lidar_ws/install/sound_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/user/sound_lidar_ws/install/sound_interfaces:${CMAKE_PREFIX_PATH} DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/user/sound_lidar_ws/install/sound_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/user/sound_lidar_ws/build/sound_localizer/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/user/sound_lidar_ws/install/sound_localizer/lib/python3.12/site-packages:/home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/user/sound_lidar_ws/build/sound_localizer/build --no-deps symlink_data
+[12.544s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/user/sound_lidar_ws/build/sound_localizer/share/sound_localizer/hook/pythonpath_develop.dsv'
+[12.546s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/user/sound_lidar_ws/build/sound_localizer/share/sound_localizer/hook/pythonpath_develop.sh'
+[12.548s] Level 1:colcon.colcon_core.environment:checking '/home/user/sound_lidar_ws/install/sound_localizer' for CMake module files
+[12.550s] Level 1:colcon.colcon_core.environment:checking '/home/user/sound_lidar_ws/install/sound_localizer' for CMake config files
+[12.553s] Level 1:colcon.colcon_core.environment:checking '/home/user/sound_lidar_ws/install/sound_localizer/lib'
+[12.554s] Level 1:colcon.colcon_core.environment:checking '/home/user/sound_lidar_ws/install/sound_localizer/bin'
+[12.554s] Level 1:colcon.colcon_core.shell:create_environment_hook('sound_localizer', 'path')
+[12.554s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/user/sound_lidar_ws/install/sound_localizer/share/sound_localizer/hook/path.ps1'
+[12.556s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/user/sound_lidar_ws/install/sound_localizer/share/sound_localizer/hook/path.dsv'
+[12.557s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/user/sound_lidar_ws/install/sound_localizer/share/sound_localizer/hook/path.sh'
+[12.558s] Level 1:colcon.colcon_core.environment:checking '/home/user/sound_lidar_ws/install/sound_localizer/lib/pkgconfig/sound_localizer.pc'
+[12.558s] Level 1:colcon.colcon_core.environment:checking '/home/user/sound_lidar_ws/install/sound_localizer/lib/python3.12/site-packages'
+[12.558s] Level 1:colcon.colcon_core.shell:create_environment_hook('sound_localizer', 'pythonpath')
+[12.559s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/user/sound_lidar_ws/install/sound_localizer/share/sound_localizer/hook/pythonpath.ps1'
+[12.560s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/user/sound_lidar_ws/install/sound_localizer/share/sound_localizer/hook/pythonpath.dsv'
+[12.561s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/user/sound_lidar_ws/install/sound_localizer/share/sound_localizer/hook/pythonpath.sh'
+[12.562s] Level 1:colcon.colcon_core.environment:checking '/home/user/sound_lidar_ws/install/sound_localizer/bin'
+[12.562s] Level 1:colcon.colcon_core.shell:create_environment_hook('sound_localizer', 'pythonscriptspath')
+[12.563s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/user/sound_lidar_ws/install/sound_localizer/share/sound_localizer/hook/pythonscriptspath.ps1'
+[12.564s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/user/sound_lidar_ws/install/sound_localizer/share/sound_localizer/hook/pythonscriptspath.dsv'
+[12.565s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/user/sound_lidar_ws/install/sound_localizer/share/sound_localizer/hook/pythonscriptspath.sh'
+[12.566s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(sound_localizer)
+[12.566s] INFO:colcon.colcon_core.shell:Creating package script '/home/user/sound_lidar_ws/install/sound_localizer/share/sound_localizer/package.ps1'
+[12.567s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/user/sound_lidar_ws/install/sound_localizer/share/sound_localizer/package.dsv'
+[12.568s] INFO:colcon.colcon_core.shell:Creating package script '/home/user/sound_lidar_ws/install/sound_localizer/share/sound_localizer/package.sh'
+[12.569s] INFO:colcon.colcon_core.shell:Creating package script '/home/user/sound_lidar_ws/install/sound_localizer/share/sound_localizer/package.bash'
+[12.570s] INFO:colcon.colcon_core.shell:Creating package script '/home/user/sound_lidar_ws/install/sound_localizer/share/sound_localizer/package.zsh'
+[12.571s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/user/sound_lidar_ws/install/sound_localizer/share/colcon-core/packages/sound_localizer)
+[12.572s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[12.572s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[12.573s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[12.573s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[12.598s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[12.598s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[12.598s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[12.656s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[12.657s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/user/sound_lidar_ws/install/local_setup.ps1'
+[12.659s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/user/sound_lidar_ws/install/_local_setup_util_ps1.py'
+[12.665s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/user/sound_lidar_ws/install/setup.ps1'
+[12.667s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/user/sound_lidar_ws/install/local_setup.sh'
+[12.669s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/user/sound_lidar_ws/install/_local_setup_util_sh.py'
+[12.670s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/user/sound_lidar_ws/install/setup.sh'
+[12.673s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/user/sound_lidar_ws/install/local_setup.bash'
+[12.675s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/user/sound_lidar_ws/install/setup.bash'
+[12.677s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/user/sound_lidar_ws/install/local_setup.zsh'
+[12.679s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/user/sound_lidar_ws/install/setup.zsh'

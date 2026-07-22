@@ -1,0 +1,124 @@
+[0.028s] Invoking command in '/home/user/sound_lidar_ws/build/sound_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/user/sound_lidar_ws/install/sound_localizer:/home/user/sound_lidar_ws/install/lidar_focus:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/user/sound_lidar_ws/build/sound_interfaces -- -j4 -l4
+[0.145s] [  2%] Built target sound_interfaces__rosidl_generator_type_description
+[0.166s] [  2%] Built target ament_cmake_python_symlink_sound_interfaces
+[0.189s] [  5%] Built target sound_interfaces__cpp
+[0.194s] [ 20%] Built target sound_interfaces__rosidl_generator_c
+[0.261s] [ 38%] Built target sound_interfaces__rosidl_typesupport_fastrtps_c
+[0.262s] [ 38%] Built target sound_interfaces__rosidl_typesupport_cpp
+[0.271s] [ 47%] Built target sound_interfaces__rosidl_typesupport_introspection_c
+[0.330s] [ 64%] Built target sound_interfaces__rosidl_typesupport_c
+[0.330s] [ 64%] Built target sound_interfaces__rosidl_typesupport_fastrtps_cpp
+[0.342s] [ 73%] Built target sound_interfaces__rosidl_typesupport_introspection_cpp
+[0.387s] [ 73%] Built target sound_interfaces
+[0.438s] [ 76%] Built target sound_interfaces__py
+[0.486s] [ 82%] Built target sound_interfaces__rosidl_generator_py
+[0.551s] [ 88%] Built target sound_interfaces_s__rosidl_typesupport_introspection_c
+[0.556s] [ 97%] Built target sound_interfaces_s__rosidl_typesupport_fastrtps_c
+[0.556s] [100%] Built target sound_interfaces_s__rosidl_typesupport_c
+[0.610s] running egg_info
+[0.638s] writing sound_interfaces.egg-info/PKG-INFO
+[0.639s] writing dependency_links to sound_interfaces.egg-info/dependency_links.txt
+[0.640s] writing top-level names to sound_interfaces.egg-info/top_level.txt
+[0.729s] reading manifest file 'sound_interfaces.egg-info/SOURCES.txt'
+[0.730s] writing manifest file 'sound_interfaces.egg-info/SOURCES.txt'
+[0.810s] [100%] Built target ament_cmake_python_build_sound_interfaces_egg
+[0.835s] Invoked command in '/home/user/sound_lidar_ws/build/sound_interfaces' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/user/sound_lidar_ws/install/sound_localizer:/home/user/sound_lidar_ws/install/lidar_focus:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/user/sound_lidar_ws/build/sound_interfaces -- -j4 -l4
+[0.857s] Invoking command in '/home/user/sound_lidar_ws/build/sound_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/user/sound_lidar_ws/install/sound_localizer:/home/user/sound_lidar_ws/install/lidar_focus:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/user/sound_lidar_ws/build/sound_interfaces
+[0.876s] -- Install configuration: ""
+[0.877s] -- Execute custom install script
+[0.877s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/ament_index/resource_index/rosidl_interfaces/sound_interfaces
+[0.897s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/msg/SoundEvent.json
+[0.921s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/include/sound_interfaces/sound_interfaces/msg/detail/sound_event__functions.h
+[0.942s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/include/sound_interfaces/sound_interfaces/msg/detail/sound_event__struct.h
+[0.962s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/include/sound_interfaces/sound_interfaces/msg/detail/sound_event__type_support.h
+[0.981s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/include/sound_interfaces/sound_interfaces/msg/rosidl_generator_c__visibility_control.h
+[1.005s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/include/sound_interfaces/sound_interfaces/msg/sound_event.h
+[1.028s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/environment/library_path.sh
+[1.048s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/environment/library_path.dsv
+[1.082s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/include/sound_interfaces/sound_interfaces/msg/detail/sound_event__rosidl_typesupport_fastrtps_c.h
+[1.111s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/include/sound_interfaces/sound_interfaces/msg/rosidl_typesupport_fastrtps_c__visibility_control.h
+[1.142s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/include/sound_interfaces/sound_interfaces/msg/detail/sound_event__rosidl_typesupport_introspection_c.h
+[1.166s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/include/sound_interfaces/sound_interfaces/msg/rosidl_typesupport_introspection_c__visibility_control.h
+[1.187s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/include/sound_interfaces/sound_interfaces/msg/detail/sound_event__builder.hpp
+[1.212s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/include/sound_interfaces/sound_interfaces/msg/detail/sound_event__struct.hpp
+[1.232s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/include/sound_interfaces/sound_interfaces/msg/detail/sound_event__traits.hpp
+[1.252s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/include/sound_interfaces/sound_interfaces/msg/detail/sound_event__type_support.hpp
+[1.272s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/include/sound_interfaces/sound_interfaces/msg/rosidl_generator_cpp__visibility_control.hpp
+[1.292s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/include/sound_interfaces/sound_interfaces/msg/sound_event.hpp
+[1.316s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/include/sound_interfaces/sound_interfaces/msg/detail/sound_event__rosidl_typesupport_fastrtps_cpp.hpp
+[1.336s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/include/sound_interfaces/sound_interfaces/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h
+[1.356s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/include/sound_interfaces/sound_interfaces/msg/detail/sound_event__rosidl_typesupport_introspection_cpp.hpp
+[1.377s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/environment/pythonpath.sh
+[1.398s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/environment/pythonpath.dsv
+[1.422s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages/sound_interfaces-0.1.0-py3.12.egg-info/PKG-INFO
+[1.446s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages/sound_interfaces-0.1.0-py3.12.egg-info/SOURCES.txt
+[1.483s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages/sound_interfaces-0.1.0-py3.12.egg-info/dependency_links.txt
+[1.512s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages/sound_interfaces-0.1.0-py3.12.egg-info/top_level.txt
+[1.534s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages/sound_interfaces/__init__.py
+[1.554s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages/sound_interfaces/_sound_interfaces_s.ep.rosidl_typesupport_c.c
+[1.574s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages/sound_interfaces/_sound_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c
+[1.595s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages/sound_interfaces/_sound_interfaces_s.ep.rosidl_typesupport_introspection_c.c
+[1.618s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages/sound_interfaces/msg/__init__.py
+[1.638s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages/sound_interfaces/msg/_sound_event.py
+[1.659s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages/sound_interfaces/msg/_sound_event_s.c
+[1.679s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages/sound_interfaces/sound_interfaces_s__rosidl_typesupport_c.so
+[1.701s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages/sound_interfaces/sound_interfaces_s__rosidl_typesupport_fastrtps_c.so
+[1.724s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages/sound_interfaces/sound_interfaces_s__rosidl_typesupport_introspection_c.so
+[1.746s] -- Up-to-date symlink: /home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages/sound_interfaces/sound_interfaces_s__rosidl_typesupport_fastrtps_c.so
+[1.746s] -- Up-to-date symlink: /home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages/sound_interfaces/sound_interfaces_s__rosidl_typesupport_introspection_c.so
+[1.747s] -- Up-to-date symlink: /home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages/sound_interfaces/sound_interfaces_s__rosidl_typesupport_c.so
+[1.747s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/msg/SoundEvent.idl
+[1.769s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/msg/SoundEvent.msg
+[1.789s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/ament_index/resource_index/package_run_dependencies/sound_interfaces
+[1.814s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/ament_index/resource_index/parent_prefix_path/sound_interfaces
+[1.834s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/environment/ament_prefix_path.sh
+[1.854s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/environment/ament_prefix_path.dsv
+[1.875s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/environment/path.sh
+[1.896s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/environment/path.dsv
+[1.929s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/local_setup.bash
+[1.954s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/local_setup.sh
+[1.979s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/local_setup.zsh
+[2.005s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/local_setup.dsv
+[2.027s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/package.dsv
+[2.047s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/ament_index/resource_index/packages/sound_interfaces
+[2.067s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/cmake/rosidl_cmake-extras.cmake
+[2.090s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/cmake/ament_cmake_export_dependencies-extras.cmake
+[2.115s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/cmake/ament_cmake_export_include_directories-extras.cmake
+[2.136s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/cmake/ament_cmake_export_libraries-extras.cmake
+[2.157s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/cmake/ament_cmake_export_targets-extras.cmake
+[2.178s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake
+[2.198s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake
+[2.223s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/cmake/sound_interfacesConfig.cmake
+[2.244s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/cmake/sound_interfacesConfig-version.cmake
+[2.265s] -- Symlinking: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/package.xml
+[2.286s] -- Up-to-date: /home/user/sound_lidar_ws/install/sound_interfaces/lib/libsound_interfaces__rosidl_generator_c.so
+[2.286s] -- Up-to-date: /home/user/sound_lidar_ws/install/sound_interfaces/lib/libsound_interfaces__rosidl_typesupport_fastrtps_c.so
+[2.287s] -- Up-to-date: /home/user/sound_lidar_ws/install/sound_interfaces/lib/libsound_interfaces__rosidl_typesupport_introspection_c.so
+[2.287s] -- Up-to-date: /home/user/sound_lidar_ws/install/sound_interfaces/lib/libsound_interfaces__rosidl_typesupport_c.so
+[2.288s] -- Up-to-date: /home/user/sound_lidar_ws/install/sound_interfaces/lib/libsound_interfaces__rosidl_typesupport_fastrtps_cpp.so
+[2.288s] -- Up-to-date: /home/user/sound_lidar_ws/install/sound_interfaces/lib/libsound_interfaces__rosidl_typesupport_introspection_cpp.so
+[2.288s] -- Up-to-date: /home/user/sound_lidar_ws/install/sound_interfaces/lib/libsound_interfaces__rosidl_typesupport_cpp.so
+[2.356s] Listing '/home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages/sound_interfaces'...
+[2.356s] Compiling '/home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages/sound_interfaces/__init__.py'...
+[2.356s] Listing '/home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages/sound_interfaces/msg'...
+[2.356s] Compiling '/home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages/sound_interfaces/msg/__init__.py'...
+[2.356s] Compiling '/home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages/sound_interfaces/msg/_sound_event.py'...
+[2.370s] -- Up-to-date: /home/user/sound_lidar_ws/install/sound_interfaces/lib/libsound_interfaces__rosidl_generator_py.so
+[2.370s] -- Up-to-date: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/cmake/export_sound_interfaces__rosidl_generator_cExport.cmake
+[2.370s] -- Up-to-date: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/cmake/export_sound_interfaces__rosidl_generator_cExport-noconfig.cmake
+[2.370s] -- Up-to-date: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/cmake/export_sound_interfaces__rosidl_typesupport_fastrtps_cExport.cmake
+[2.371s] -- Up-to-date: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/cmake/export_sound_interfaces__rosidl_typesupport_fastrtps_cExport-noconfig.cmake
+[2.371s] -- Up-to-date: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/cmake/sound_interfaces__rosidl_typesupport_introspection_cExport.cmake
+[2.371s] -- Up-to-date: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/cmake/sound_interfaces__rosidl_typesupport_introspection_cExport-noconfig.cmake
+[2.371s] -- Up-to-date: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/cmake/sound_interfaces__rosidl_typesupport_cExport.cmake
+[2.371s] -- Up-to-date: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/cmake/sound_interfaces__rosidl_typesupport_cExport-noconfig.cmake
+[2.371s] -- Up-to-date: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/cmake/export_sound_interfaces__rosidl_generator_cppExport.cmake
+[2.371s] -- Up-to-date: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/cmake/export_sound_interfaces__rosidl_typesupport_fastrtps_cppExport.cmake
+[2.371s] -- Up-to-date: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/cmake/export_sound_interfaces__rosidl_typesupport_fastrtps_cppExport-noconfig.cmake
+[2.371s] -- Up-to-date: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/cmake/sound_interfaces__rosidl_typesupport_introspection_cppExport.cmake
+[2.371s] -- Up-to-date: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/cmake/sound_interfaces__rosidl_typesupport_introspection_cppExport-noconfig.cmake
+[2.372s] -- Up-to-date: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/cmake/sound_interfaces__rosidl_typesupport_cppExport.cmake
+[2.372s] -- Up-to-date: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/cmake/sound_interfaces__rosidl_typesupport_cppExport-noconfig.cmake
+[2.372s] -- Up-to-date: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/cmake/export_sound_interfaces__rosidl_generator_pyExport.cmake
+[2.372s] -- Up-to-date: /home/user/sound_lidar_ws/install/sound_interfaces/share/sound_interfaces/cmake/export_sound_interfaces__rosidl_generator_pyExport-noconfig.cmake
+[2.376s] Invoked command in '/home/user/sound_lidar_ws/build/sound_interfaces' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/user/sound_lidar_ws/install/sound_localizer:/home/user/sound_lidar_ws/install/lidar_focus:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/user/sound_lidar_ws/build/sound_interfaces

@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "sound_interfaces__py",
+		"source" : "/home/user/sound_lidar_ws/build/sound_interfaces/sound_interfaces__py"
+	}
+}

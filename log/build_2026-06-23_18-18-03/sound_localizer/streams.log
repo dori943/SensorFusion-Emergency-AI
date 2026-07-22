@@ -1,0 +1,19 @@
+[2.253s] Invoking command in '/home/user/sound_lidar_ws/build/sound_localizer': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/user/sound_lidar_ws/build/sound_localizer/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/user/sound_lidar_ws/install/sound_localizer/lib/python3.12/site-packages:/home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages:/home/user/sound_lidar_ws/build/sound_localizer:/home/user/sound_lidar_ws/install/sound_localizer/lib/python3.12/site-packages:/home/user/sound_lidar_ws/build/lidar_focus:/home/user/sound_lidar_ws/install/lidar_focus/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/user/sound_lidar_ws/build/sound_localizer/build --no-deps symlink_data
+[2.830s] running develop
+[3.272s] running egg_info
+[3.323s] writing sound_localizer.egg-info/PKG-INFO
+[3.323s] writing dependency_links to sound_localizer.egg-info/dependency_links.txt
+[3.331s] writing entry points to sound_localizer.egg-info/entry_points.txt
+[3.331s] writing requirements to sound_localizer.egg-info/requires.txt
+[3.331s] writing top-level names to sound_localizer.egg-info/top_level.txt
+[3.455s] reading manifest file 'sound_localizer.egg-info/SOURCES.txt'
+[3.457s] writing manifest file 'sound_localizer.egg-info/SOURCES.txt'
+[3.499s] running build_ext
+[3.499s] Creating /home/user/sound_lidar_ws/install/sound_localizer/lib/python3.12/site-packages/sound-localizer.egg-link (link to .)
+[3.502s] Installing sound_localizer_node script to /home/user/sound_lidar_ws/install/sound_localizer/lib/sound_localizer
+[3.502s] 
+[3.502s] Installed /home/user/sound_lidar_ws/build/sound_localizer
+[3.503s] running symlink_data
+[3.504s] symbolically linking /home/user/sound_lidar_ws/build/sound_localizer/resource/sound_localizer -> /home/user/sound_lidar_ws/install/sound_localizer/share/ament_index/resource_index/packages
+[3.504s] error: [Errno 17] File exists: '/home/user/sound_lidar_ws/build/sound_localizer/resource/sound_localizer' -> '/home/user/sound_lidar_ws/install/sound_localizer/share/ament_index/resource_index/packages/sound_localizer'
+[3.757s] Invoked command in '/home/user/sound_lidar_ws/build/sound_localizer' returned '1': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/user/sound_lidar_ws/build/sound_localizer/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/user/sound_lidar_ws/install/sound_localizer/lib/python3.12/site-packages:/home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages:/home/user/sound_lidar_ws/build/sound_localizer:/home/user/sound_lidar_ws/install/sound_localizer/lib/python3.12/site-packages:/home/user/sound_lidar_ws/build/lidar_focus:/home/user/sound_lidar_ws/install/lidar_focus/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/user/sound_lidar_ws/build/sound_localizer/build --no-deps symlink_data

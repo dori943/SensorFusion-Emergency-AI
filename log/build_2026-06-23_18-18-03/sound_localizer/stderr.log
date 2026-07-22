@@ -1,0 +1,1 @@
+error: [Errno 17] File exists: '/home/user/sound_lidar_ws/build/sound_localizer/resource/sound_localizer' -> '/home/user/sound_lidar_ws/install/sound_localizer/share/ament_index/resource_index/packages/sound_localizer'

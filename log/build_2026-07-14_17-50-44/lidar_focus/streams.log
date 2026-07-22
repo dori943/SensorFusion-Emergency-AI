@@ -1,0 +1,25 @@
+[3.852s] Invoking command in '/home/user/sound_lidar_ws/build/lidar_focus': AMENT_PREFIX_PATH=/home/user/sound_lidar_ws/install/sound_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/user/sound_lidar_ws/install/sound_interfaces:${CMAKE_PREFIX_PATH} DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/user/sound_lidar_ws/install/sound_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/user/sound_lidar_ws/build/lidar_focus/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/user/sound_lidar_ws/install/lidar_focus/lib/python3.12/site-packages:/home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/user/sound_lidar_ws/build/lidar_focus/build --no-deps symlink_data
+[4.398s] running develop
+[4.701s] running egg_info
+[4.728s] writing lidar_focus.egg-info/PKG-INFO
+[4.728s] writing dependency_links to lidar_focus.egg-info/dependency_links.txt
+[4.730s] writing entry points to lidar_focus.egg-info/entry_points.txt
+[4.731s] writing requirements to lidar_focus.egg-info/requires.txt
+[4.733s] writing top-level names to lidar_focus.egg-info/top_level.txt
+[4.799s] reading manifest file 'lidar_focus.egg-info/SOURCES.txt'
+[4.801s] writing manifest file 'lidar_focus.egg-info/SOURCES.txt'
+[4.830s] running build_ext
+[4.830s] Creating /home/user/sound_lidar_ws/install/lidar_focus/lib/python3.12/site-packages/lidar-focus.egg-link (link to .)
+[4.832s] Installing eval_logger_node script to /home/user/sound_lidar_ws/install/lidar_focus/lib/lidar_focus
+[4.832s] Installing fall_detection_node script to /home/user/sound_lidar_ws/install/lidar_focus/lib/lidar_focus
+[4.832s] Installing ground_removal_node script to /home/user/sound_lidar_ws/install/lidar_focus/lib/lidar_focus
+[4.833s] Installing human_bbox_node script to /home/user/sound_lidar_ws/install/lidar_focus/lib/lidar_focus
+[4.833s] Installing lidar_focus_node script to /home/user/sound_lidar_ws/install/lidar_focus/lib/lidar_focus
+[4.833s] Installing r_calibration_node script to /home/user/sound_lidar_ws/install/lidar_focus/lib/lidar_focus
+[4.833s] Installing sound_localizer_node script to /home/user/sound_lidar_ws/install/lidar_focus/lib/lidar_focus
+[4.833s] Installing sound_motion_roi_node script to /home/user/sound_lidar_ws/install/lidar_focus/lib/lidar_focus
+[4.834s] Installing sound_source_marker_node script to /home/user/sound_lidar_ws/install/lidar_focus/lib/lidar_focus
+[4.834s] 
+[4.834s] Installed /home/user/sound_lidar_ws/build/lidar_focus
+[4.834s] running symlink_data
+[5.039s] Invoked command in '/home/user/sound_lidar_ws/build/lidar_focus' returned '0': AMENT_PREFIX_PATH=/home/user/sound_lidar_ws/install/sound_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/user/sound_lidar_ws/install/sound_interfaces:${CMAKE_PREFIX_PATH} DEBUGINFOD_URLS=https://debuginfod.ubuntu.com LD_LIBRARY_PATH=/home/user/sound_lidar_ws/install/sound_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/user/sound_lidar_ws/build/lidar_focus/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/user/sound_lidar_ws/install/lidar_focus/lib/python3.12/site-packages:/home/user/sound_lidar_ws/install/sound_interfaces/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/user/sound_lidar_ws/build/lidar_focus/build --no-deps symlink_data

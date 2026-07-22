@@ -1,0 +1,24 @@
+running develop
+running egg_info
+writing lidar_focus.egg-info/PKG-INFO
+writing dependency_links to lidar_focus.egg-info/dependency_links.txt
+writing entry points to lidar_focus.egg-info/entry_points.txt
+writing requirements to lidar_focus.egg-info/requires.txt
+writing top-level names to lidar_focus.egg-info/top_level.txt
+reading manifest file 'lidar_focus.egg-info/SOURCES.txt'
+writing manifest file 'lidar_focus.egg-info/SOURCES.txt'
+running build_ext
+Creating /home/user/sound_lidar_ws/install/lidar_focus/lib/python3.12/site-packages/lidar-focus.egg-link (link to .)
+Installing eval_logger_node script to /home/user/sound_lidar_ws/install/lidar_focus/lib/lidar_focus
+Installing ground_removal_node script to /home/user/sound_lidar_ws/install/lidar_focus/lib/lidar_focus
+Installing human_bbox_node script to /home/user/sound_lidar_ws/install/lidar_focus/lib/lidar_focus
+Installing lidar_focus_node script to /home/user/sound_lidar_ws/install/lidar_focus/lib/lidar_focus
+Installing r_calibration_node script to /home/user/sound_lidar_ws/install/lidar_focus/lib/lidar_focus
+Installing sound_motion_roi_node script to /home/user/sound_lidar_ws/install/lidar_focus/lib/lidar_focus
+Installing sound_source_marker_node script to /home/user/sound_lidar_ws/install/lidar_focus/lib/lidar_focus
+
+Installed /home/user/sound_lidar_ws/build/lidar_focus
+running symlink_data
+symbolically linking /home/user/sound_lidar_ws/build/lidar_focus/resource/lidar_focus -> /home/user/sound_lidar_ws/install/lidar_focus/share/ament_index/resource_index/packages
+symbolically linking /home/user/sound_lidar_ws/build/lidar_focus/package.xml -> /home/user/sound_lidar_ws/install/lidar_focus/share/lidar_focus
+symbolically linking /home/user/sound_lidar_ws/build/lidar_focus/launch/sound_lidar.launch.py -> /home/user/sound_lidar_ws/install/lidar_focus/share/lidar_focus/launch

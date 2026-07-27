@@ -1,3 +1,5 @@
+
+
 """
 fall_detection_node.py
 ─────────────────────────────
@@ -15,7 +17,7 @@ fall_detection_node.py
 
     1) 사전 기립 자세
        — 낙상 전에 verticality가 충분히 높게 유지되어 실제로 서 있었는가.
-    2) 수평 속도 급증 후 급감 또는 bbox 중심의 빠른 z축 하강 후 정지
+    2) 수평 속도 급증 또는 bbox 중심의 빠른 z축 하강
        — 걷다가 넘어지는 동작과 제자리에서 무너지는 동작을 함께 검출한다.
          속도는 최근 여러 구간의 중앙값을 사용해 트래킹 좌표 튐을 줄인다.
     3) PCA 주축(verticality) 급락
@@ -30,7 +32,7 @@ fall_detection_node.py
   1)+2)와 (3 또는 4) 조건이 겹치면 FALL_CANDIDATE로 올리고, 이후 PCA로
   일정 시간 "누운 자세 + 정지 상태"가 유지되면 FALL_CONFIRMED로
   확정한다(단순 순간 휘청임/재빨리 앉기와 구분하기 위한 확인 지연).
-  확정 뒤 사람이 다시 일어나 움직이면 자동으로 NORMAL로 복귀한다.
+  확정 뒤 사람이 다시 일어나 기립 자세를 유지하면 자동으로 NORMAL로 복귀한다.
 
 입력:
   /human_tracks (std_msgs/Float32MultiArray)
@@ -85,14 +87,12 @@ EVENT_CODE_ACTIVE_NORMAL = 3
 class TrackHistory:
     """트랙 하나의 최근 시계열(시각, 위치, 크기, PCA 형태)을 보관."""
 
-    __slots__ = ("samples", "state", "state_since", "still_since",
-                 "last_seen")
+    __slots__ = ("samples", "state", "state_since", "last_seen")
 
     def __init__(self, now_sec: float):
         self.samples = deque()   # (t, cx, cy, cz, sz, verticality)
         self.state = STATE_NORMAL
         self.state_since = now_sec      # 현재 state로 바뀐 시각
-        self.still_since = None         # CANDIDATE 진입 후 "정지+누움"이 끊기지 않고 유지된 시작 시각
         self.last_seen = now_sec        # /human_tracks에 마지막으로 잡힌 시각 (트랙 청소용)
 
 
@@ -114,10 +114,9 @@ class FallDetectionNode(Node):
         self.declare_parameter('motion_speed_threshold', 0.15)   # m/s, 이 이상이면 "움직였다"
         self.declare_parameter('motion_lookback_sec', 2.0)       # 이 기간 내 이동 여부를 확인
 
-        # ── 2) 속도 급증 후 급감 ──
+        # ── 2) 낙상성 속도 급증 ──
         self.declare_parameter('speed_spike_threshold', 0.8)     # m/s, 낙상성 순간 속도
         self.declare_parameter('speed_spike_lookback_sec', 1.2)  # 스파이크를 찾는 최근 창
-        self.declare_parameter('speed_drop_ratio', 0.25)         # 스파이크 대비 현재 속도가 이 비율 밑이면 "급감"
         self.declare_parameter('speed_median_samples', 5)        # 순간 좌표 튐을 줄일 속도 중앙값 구간 수
         self.declare_parameter('vertical_fall_speed_threshold', 0.5)  # m/s, bbox 중심의 낙상성 하강 속도
         self.declare_parameter('confirm_vertical_speed_max', 0.15)    # m/s, 확정 시 z축 정지 속도 상한
@@ -136,8 +135,8 @@ class FallDetectionNode(Node):
         # ── 상태 확정/해제 ──
         self.declare_parameter('candidate_timeout_sec', 4.0)     # 이 시간 내 확정 못 하면 오탐으로 보고 NORMAL 복귀
         self.declare_parameter('confirm_stillness_sec', 1.5)     # 누운+정지가 이만큼 유지되면 CONFIRMED
-        self.declare_parameter('confirm_speed_max', 0.2)         # "정지"로 볼 속도 상한 (m/s)
-        self.declare_parameter('recovery_speed_threshold', 0.3)  # CONFIRMED 상태에서 이 이상 속도 + 아래 조건이면 회복으로 간주
+        self.declare_parameter('confirm_lying_ratio', 0.7)       # 확인 구간 중 누운 자세 최소 비율
+        self.declare_parameter('confirm_speed_max', 0.2)         # 확인 구간의 허용 수평 변위 환산 속도 (m/s)
         self.declare_parameter('recovery_verticality_min', 0.6)  # 다시 이 이상 서면 회복 신호
         self.declare_parameter('recovery_hold_sec', 1.0)         # 회복 신호가 이만큼 유지돼야 NORMAL 복귀 (순간 오검출 방지)
 
@@ -162,6 +161,7 @@ class FallDetectionNode(Node):
 
         self._histories: dict[int, TrackHistory] = {}
         self._recovery_since: dict[int, float] = {}  # CONFIRMED 트랙별 "회복 신호 지속 시작 시각"
+        self._trigger_log_times: dict[int, float] = {}  # 후보 진입 실패 로그 제한용
 
         self.create_subscription(
             Float32MultiArray, self.tracks_topic, self._on_tracks, 10)
@@ -258,6 +258,16 @@ class FallDetectionNode(Node):
         for tid in stale:
             del self._histories[tid]
             self._recovery_since.pop(tid, None)
+            self._trigger_log_times.pop(tid, None)
+
+    def _log_trigger_blocked(self, tid: int, now: float, detail: str):
+        """누운 자세인데 후보가 되지 못한 이유를 트랙별 초당 한 번 출력."""
+        last_log = self._trigger_log_times.get(tid)
+        if last_log is not None and (now - last_log) < 1.0:
+            return
+        self._trigger_log_times[tid] = now
+        self.get_logger().info(
+            f'[FALL TRIGGER BLOCKED] track {tid} | {detail}')
 
     # ────────────────────────────────────────────────────
     def _windowed_samples(self, hist: TrackHistory, now: float, lookback_sec: float):
@@ -327,11 +337,11 @@ class FallDetectionNode(Node):
 
         if hist.state == STATE_NORMAL:
             triggered, confidence = self._check_fall_trigger(
-                hist, now, cur_speed, cur_vertical_speed)
+                tid, hist, now, cur_speed, cur_vertical_speed)
             if triggered:
                 hist.state = STATE_CANDIDATE
                 hist.state_since = now
-                hist.still_since = None
+                self._trigger_log_times.pop(tid, None)
                 self.get_logger().warn(
                     f'[FALL CANDIDATE] track {tid} 감지 '
                     f'(speed={cur_speed:.2f}m/s, V={verticality}, conf={confidence:.2f})')
@@ -339,28 +349,47 @@ class FallDetectionNode(Node):
             return 0.0, STATE_NORMAL
 
         if hist.state == STATE_CANDIDATE:
-            # 계속 "누운 + 정지" 상태인지 확인 → 유지되면 CONFIRMED로 승격
+            # 프레임 간 bbox 중심 속도는 라이다 스캔 밀도에 따라 크게 튄다.
+            # 후보 진입 후 구간의 앞/뒤 중심 중앙값을 비교해 장기 변위로
+            # 정지를 판정하고, 같은 구간에서 누운 자세 비율을 확인한다.
             v_lying_max = self.get_parameter('verticality_lying_max').value
+            lying_ratio_min = self.get_parameter('confirm_lying_ratio').value
             speed_max = self.get_parameter('confirm_speed_max').value
             vertical_speed_max = self.get_parameter(
                 'confirm_vertical_speed_max').value
-            is_still_and_lying = (
-                cur_speed <= speed_max
-                and cur_vertical_speed <= vertical_speed_max
-                and verticality is not None
-                and verticality <= v_lying_max
+            confirm_dur = self.get_parameter('confirm_stillness_sec').value
+            candidate_samples = [
+                s for s in hist.samples if s[0] >= hist.state_since
+            ]
+            valid_verticalities = [
+                s[5] for s in candidate_samples if s[5] is not None
+            ]
+            lying_ratio = (
+                sum(v <= v_lying_max for v in valid_verticalities)
+                / len(valid_verticalities)
+                if valid_verticalities else 0.0
             )
 
-            if is_still_and_lying:
-                if hist.still_since is None:
-                    hist.still_since = now
-            else:
-                # 정지/누움이 한 번이라도 끊기면 다시 처음부터 카운트
-                # (걸어서 지나가다 순간적으로 트리거 조건에 걸린 오탐 배제)
-                hist.still_since = None
+            is_stable = False
+            horizontal_displacement = float('inf')
+            vertical_displacement = float('inf')
+            if len(candidate_samples) >= 3:
+                segment_size = max(1, len(candidate_samples) // 3)
+                start_center = np.median(
+                    [s[1:4] for s in candidate_samples[:segment_size]], axis=0)
+                end_center = np.median(
+                    [s[1:4] for s in candidate_samples[-segment_size:]], axis=0)
+                horizontal_displacement = float(np.hypot(
+                    end_center[0] - start_center[0],
+                    end_center[1] - start_center[1]))
+                vertical_displacement = float(abs(end_center[2] - start_center[2]))
+                is_stable = (
+                    horizontal_displacement <= speed_max * confirm_dur
+                    and vertical_displacement <= vertical_speed_max * confirm_dur
+                )
 
-            confirm_dur = self.get_parameter('confirm_stillness_sec').value
-            if hist.still_since is not None and (now - hist.still_since) >= confirm_dur:
+            if ((now - hist.state_since) >= confirm_dur
+                    and lying_ratio >= lying_ratio_min and is_stable):
                 hist.state = STATE_CONFIRMED
                 hist.state_since = now
                 self.get_logger().error(
@@ -372,17 +401,18 @@ class FallDetectionNode(Node):
                 # 일정 시간 안에 확정되지 않음 → 순간적인 휘청임 등 오탐으로 판단, 복귀
                 hist.state = STATE_NORMAL
                 hist.state_since = now
-                hist.still_since = None
-                self.get_logger().info(f'[FALL CANDIDATE 해제] track {tid} 타임아웃, 정상 복귀')
+                self.get_logger().info(
+                    f'[FALL CANDIDATE 해제] track {tid} 타임아웃, 정상 복귀 '
+                    f'(lying={lying_ratio:.0%}, '
+                    f'd_xy={horizontal_displacement:.2f}m, '
+                    f'd_z={vertical_displacement:.2f}m)')
                 return 0.0, STATE_NORMAL
 
             return 0.6, STATE_CANDIDATE
 
         if hist.state == STATE_CONFIRMED:
             v_min = self.get_parameter('recovery_verticality_min').value
-            speed_min = self.get_parameter('recovery_speed_threshold').value
-            recovering = (cur_speed >= speed_min) and (
-                verticality is not None and verticality >= v_min)
+            recovering = verticality is not None and verticality >= v_min
 
             hold = self.get_parameter('recovery_hold_sec').value
             if recovering:
@@ -392,7 +422,6 @@ class FallDetectionNode(Node):
                 elif (now - since) >= hold:
                     hist.state = STATE_NORMAL
                     hist.state_since = now
-                    hist.still_since = None
                     self._recovery_since.pop(tid, None)
                     self.get_logger().info(f'[FALL 회복] track {tid} 다시 일어남 → 정상 복귀')
                     return 0.0, STATE_NORMAL
@@ -404,18 +433,25 @@ class FallDetectionNode(Node):
         return 0.0, STATE_NORMAL
 
     # ────────────────────────────────────────────────────
-    def _check_fall_trigger(self, hist: TrackHistory, now: float,
+    def _check_fall_trigger(self, tid: int, hist: TrackHistory, now: float,
                             cur_speed: float, cur_vertical_speed: float):
         """NORMAL → CANDIDATE 진입 조건 판정.
 
         조건 = 사전에 서 있었음 AND
-               ((수평 이동 후 급정지) OR (bbox 중심 급하강 후 정지)) AND
+               (수평 속도 급증 OR bbox 중심 급하강) AND
                (verticality 급락 OR 높이 급감)
         confidence는 만족한 신호 개수에 비례해 0.5~1.0 사이로 산출.
         """
         median_samples = max(1, int(
             self.get_parameter('speed_median_samples').value))
         if len(hist.samples) < median_samples + 1:
+            current_v = hist.samples[-1][5]
+            lying_max = self.get_parameter('verticality_lying_max').value
+            if current_v is not None and current_v <= lying_max:
+                self._log_trigger_blocked(
+                    tid, now,
+                    f'history | samples={len(hist.samples)}/'
+                    f'{median_samples + 1}, V={current_v:.2f}')
             return False, 0.0
 
         # 낙상 전에 실제로 서 있던 트랙인지 확인한다. 현재 샘플은 제외한다.
@@ -426,11 +462,26 @@ class FallDetectionNode(Node):
             s[5] for s in list(hist.samples)[:-1] if s[5] is not None
         ]
         if len(prior_verticalities) < standing_min_samples:
+            current_v = hist.samples[-1][5]
+            lying_max = self.get_parameter('verticality_lying_max').value
+            if current_v is not None and current_v <= lying_max:
+                self._log_trigger_blocked(
+                    tid, now,
+                    f'standing_history | valid_samples='
+                    f'{len(prior_verticalities)}/{standing_min_samples}, '
+                    f'V={current_v:.2f}')
             return False, 0.0
         sorted_verticalities = np.sort(prior_verticalities)
         standing_baseline = float(np.median(
             sorted_verticalities[len(sorted_verticalities) // 2:]))
         if standing_baseline < standing_min:
+            current_v = hist.samples[-1][5]
+            lying_max = self.get_parameter('verticality_lying_max').value
+            if current_v is not None and current_v <= lying_max:
+                self._log_trigger_blocked(
+                    tid, now,
+                    f'standing | baseline={standing_baseline:.2f} '
+                    f'< {standing_min:.2f}, V={current_v:.2f}')
             return False, 0.0
 
         # 사전 수평 이동 여부. 제자리 낙상은 아래의 z축 하강 신호로 통과한다.
@@ -440,28 +491,33 @@ class FallDetectionNode(Node):
         motion_thresh = self.get_parameter('motion_speed_threshold').value
         was_moving = any(v >= motion_thresh for _, v in speeds)
 
-        # 수평 속도 급증 후 급감 또는 bbox 중심의 빠른 하강 후 정지를 찾는다.
+        # 낙상 동작 중에는 아직 속도가 높으므로 여기서 정지를 함께 요구하지
+        # 않는다. 정지는 CANDIDATE 진입 후 확인 구간에서 별도로 검증한다.
         spike_lookback = self.get_parameter('speed_spike_lookback_sec').value
         spike_samples = self._windowed_samples(hist, now, spike_lookback)
         motion_speeds = self._smoothed_motion_speeds(spike_samples)
         peak_speed = max((s[1] for s in motion_speeds), default=0.0)
         peak_downward_speed = max((s[3] for s in motion_speeds), default=0.0)
         spike_thresh = self.get_parameter('speed_spike_threshold').value
-        drop_ratio = self.get_parameter('speed_drop_ratio').value
-        horizontal_spike_then_drop = (
+        horizontal_fall_motion = (
             was_moving
             and peak_speed >= spike_thresh
-            and cur_speed <= peak_speed * drop_ratio
         )
         vertical_fall_thresh = self.get_parameter(
             'vertical_fall_speed_threshold').value
-        vertical_stop_thresh = self.get_parameter(
-            'confirm_vertical_speed_max').value
-        vertical_fall_then_stop = (
-            peak_downward_speed >= vertical_fall_thresh
-            and cur_vertical_speed <= vertical_stop_thresh
-        )
-        if not (horizontal_spike_then_drop or vertical_fall_then_stop):
+        vertical_fall_motion = peak_downward_speed >= vertical_fall_thresh
+        if not (horizontal_fall_motion or vertical_fall_motion):
+            current_v = hist.samples[-1][5]
+            lying_max = self.get_parameter('verticality_lying_max').value
+            if current_v is not None and current_v <= lying_max:
+                self._log_trigger_blocked(
+                    tid, now,
+                    f'motion | was_moving={was_moving}, '
+                    f'peak_xy={peak_speed:.2f}/{spike_thresh:.2f}m/s, '
+                    f'cur_xy={cur_speed:.2f}m/s, '
+                    f'peak_down={peak_downward_speed:.2f}/'
+                    f'{vertical_fall_thresh:.2f}m/s, '
+                    f'cur_z={cur_vertical_speed:.2f}m/s')
             return False, 0.0
 
         # PCA verticality 급락: 단일 최고값 대신 서 있던 구간의 강건한 기준을 쓴다.
@@ -471,12 +527,14 @@ class FallDetectionNode(Node):
         current_verticality = hist.samples[-1][5]
         prior_v_values = [s[5] for s in v_samples[:-1] if s[5] is not None]
         verticality_dropped = False
+        verticality_baseline = float('nan')
+        verticality_drop = float('nan')
         if current_verticality is not None and prior_v_values:
             sorted_values = np.sort(prior_v_values)
-            baseline = float(np.median(
+            verticality_baseline = float(np.median(
                 sorted_values[len(sorted_values) // 2:]))
-            verticality_dropped = (
-                baseline - current_verticality) >= v_drop_thresh
+            verticality_drop = verticality_baseline - current_verticality
+            verticality_dropped = verticality_drop >= v_drop_thresh
 
         # bbox 높이 급감: 현재값을 제외한 상위 절반의 중앙값을 기준으로 쓴다.
         h_window = self.get_parameter('height_drop_window_sec').value
@@ -485,16 +543,25 @@ class FallDetectionNode(Node):
         prior_sz_values = [s[4] for s in h_samples[:-1] if s[4] > 1e-3]
         current_sz = hist.samples[-1][4]
         height_dropped = False
+        height_baseline = float('nan')
+        height_drop_fraction = 0.0
         if len(prior_sz_values) >= 3:
             sorted_heights = np.sort(prior_sz_values)
             height_baseline = float(np.median(
                 sorted_heights[len(sorted_heights) // 2:]))
-            height_dropped = (
-                (height_baseline - current_sz) / height_baseline
-                >= h_drop_ratio
-            )
+            height_drop_fraction = (
+                height_baseline - current_sz) / height_baseline
+            height_dropped = height_drop_fraction >= h_drop_ratio
 
         if not (verticality_dropped or height_dropped):
+            self._log_trigger_blocked(
+                tid, now,
+                f'posture | V={current_verticality}, '
+                f'V_base={verticality_baseline:.2f}, '
+                f'V_drop={verticality_drop:.2f}/'
+                f'{v_drop_thresh:.2f}, H={current_sz:.2f}m, '
+                f'H_base={height_baseline:.2f}m, '
+                f'H_drop={height_drop_fraction:.0%}/{h_drop_ratio:.0%}')
             return False, 0.0
 
         # confidence: 기본 0.5(속도 신호) + 자세 신호 각각 +0.25
@@ -578,4 +645,5 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
+
 

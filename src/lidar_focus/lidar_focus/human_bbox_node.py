@@ -7,6 +7,7 @@ from std_msgs.msg import ColorRGBA, Float32MultiArray
 import sensor_msgs_py.point_cloud2 as pc2
 import numpy as np
 from scipy.spatial import KDTree
+from collections import deque
 
 
 def read_points(msg):
@@ -140,9 +141,19 @@ class HumanBBoxNode(Node):
         self.declare_parameter('refetch_enabled', True)
         self.declare_parameter('refetch_source_topic', '/ground_removed_cloud')
         self.declare_parameter('refetch_margin', 0.15)       # bbox 확장 여유 (m)
-        self.declare_parameter('refetch_max_age_sec', 0.5)   # 캐시가 이보다 오래되면 미사용
-        self._refetch_points = None   # 최신 /ground_removed_cloud 프레임 캐시
-        self._refetch_stamp = 0.0
+        self.declare_parameter('refetch_max_age_sec', 0.5)   # 이보다 오래된 프레임은 미사용
+
+        # ── 멀티프레임 누적 refetch ──────────────────────
+        # 비반복 스캔 라이다는 프레임마다 서로 다른 지점을 찍으므로, 단일
+        # 프레임 대신 최근 N프레임을 버퍼에 쌓아 bbox 영역 포인트를 누적
+        # 수집하면 사람 위 포인트 밀도가 N배 가까이 올라간다 (raw가 조밀해
+        # 보이는 것도 RViz의 프레임 잔상 누적 효과와 같은 원리).
+        # 걷는 사람은 프레임 수 × 주기만큼 잔상이 생기지만(4프레임@10Hz ≈
+        # 0.4초, 보행 1m/s 기준 ~40cm) bbox+margin 영역 안에서만 뽑으므로
+        # 번짐은 그 안으로 제한된다. 1로 두면 기존 단일 프레임 동작과 동일.
+        self.declare_parameter('refetch_accumulate_frames', 4)
+        self.declare_parameter('refetch_dedup_voxel', 0.03)  # 누적 중복 제거 복셀 (m), 0이면 끔
+        self._refetch_buffer = deque(maxlen=16)  # (stamp_sec, points) — 실사용 개수는 파라미터로 제한
 
         # ── 트래킹 파라미터 ──────────────────────────────
         self.declare_parameter('track_max_match_dist', 0.8)
@@ -258,20 +269,42 @@ class HumanBBoxNode(Node):
         pts = read_points(msg)
         if len(pts) == 0:
             return
-        self._refetch_points = pts
-        self._refetch_stamp = self.get_clock().now().nanoseconds / 1e9
-
-    def _refetch_cluster(self, cluster):
-        """검출된 클러스터의 bbox(+margin) 안 포인트를 원본 클라우드에서
-        다시 가져온다. 원본이 없거나 오래됐거나 오히려 점이 줄면 클러스터
-        그대로 반환 (항상 안전한 fallback)."""
-        if not self.get_parameter('refetch_enabled').value:
-            return cluster
-        raw = self._refetch_points
-        if raw is None:
-            return cluster
         now = self.get_clock().now().nanoseconds / 1e9
-        if (now - self._refetch_stamp) > self.get_parameter('refetch_max_age_sec').value:
+        self._refetch_buffer.append((now, pts))
+
+    def _refetch_snapshot(self):
+        """최근 refetch_accumulate_frames개(그리고 max_age 이내) 프레임을
+        하나로 합친 누적 클라우드. 콜백당 한 번만 만들어 재사용한다.
+        사용할 프레임이 없으면 None."""
+        if not self.get_parameter('refetch_enabled').value:
+            return None
+        if not self._refetch_buffer:
+            return None
+        n_frames = max(1, int(self.get_parameter('refetch_accumulate_frames').value))
+        max_age = float(self.get_parameter('refetch_max_age_sec').value)
+        # 누적 시에는 "가장 오래 허용되는 프레임"이 N×주기만큼 과거이므로
+        # max_age를 프레임 수에 비례해 늘려 판정한다.
+        now = self.get_clock().now().nanoseconds / 1e9
+        frames = [pts for (t, pts) in list(self._refetch_buffer)[-n_frames:]
+                  if (now - t) <= max_age * n_frames]
+        if not frames:
+            return None
+        if len(frames) == 1:
+            return frames[0]
+        return np.vstack(frames)
+
+    def _voxel_dedup(self, points, voxel_size):
+        if voxel_size <= 0 or len(points) == 0:
+            return points
+        voxel_idx = np.floor(points / voxel_size).astype(np.int32)
+        _, unique_idx = np.unique(voxel_idx, axis=0, return_index=True)
+        return points[unique_idx]
+
+    def _refetch_cluster(self, cluster, raw):
+        """검출된 클러스터의 bbox(+margin) 안 포인트를 누적 원본 클라우드에서
+        다시 가져온다. 누적으로 인한 중복은 복셀 dedupe로 정리한다.
+        원본이 없거나 오히려 점이 줄면 클러스터 그대로 반환 (안전 fallback)."""
+        if raw is None:
             return cluster
 
         margin = float(self.get_parameter('refetch_margin').value)
@@ -279,6 +312,8 @@ class HumanBBoxNode(Node):
         mx = cluster.max(axis=0) + margin
         in_box = np.all((raw >= mn) & (raw <= mx), axis=1)
         restored = raw[in_box]
+        restored = self._voxel_dedup(
+            restored, float(self.get_parameter('refetch_dedup_voxel').value))
         # 복원 결과가 기존보다 빈약하면(타이밍 어긋남 등) 원래 클러스터 유지
         if len(restored) <= len(cluster):
             return cluster
@@ -525,8 +560,10 @@ class HumanBBoxNode(Node):
         track_ids = self.tracker.update(centers)
 
         # 사람 포인트클라우드 — 배경차감으로 깎인 팔다리를 원본(배경차감 이전)
-        # 클라우드에서 bbox 영역 재수집으로 복원해 발행한다.
-        display_clusters = [self._refetch_cluster(c) for c in human_clusters]
+        # 최근 N프레임 누적 클라우드에서 bbox 영역 재수집으로 복원해 발행한다.
+        raw_snapshot = self._refetch_snapshot()
+        display_clusters = [self._refetch_cluster(c, raw_snapshot)
+                            for c in human_clusters]
         all_points = np.vstack(display_clusters)
         self.pub_cloud.publish(pc2.create_cloud_xyz32(msg.header, all_points))
 

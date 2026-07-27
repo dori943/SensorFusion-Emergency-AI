@@ -16,6 +16,7 @@ lidar_focus/fall_detection_node.py
 lidar_focus/ground_removal_node.py
 lidar_focus/human_bbox_node.py
 lidar_focus/r_calibration_node.py
+lidar_focus/record_float32_frames.py
 lidar_focus.egg-info/PKG-INFO
 lidar_focus.egg-info/SOURCES.txt
 lidar_focus.egg-info/dependency_links.txt

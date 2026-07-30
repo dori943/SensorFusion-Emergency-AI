@@ -29,12 +29,5 @@ labels: bug
 * [ ]
 
 
-## 🖥️ 환경 정보 (Environment)
-- Hardware: Raspberry Pi 5 (RAM: )
-- ROS2 Distro:
-- 관련 노드:
-- 관련 센서:
-
-
 ## 📎 로그 / 스크린샷 (선택)
 <!-- ros2 topic echo, rviz 캡처 등 -->

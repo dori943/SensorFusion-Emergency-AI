@@ -1,5 +1,3 @@
-
-
 """
 fall_detection_node.py
 ─────────────────────────────
@@ -47,7 +45,8 @@ fall_detection_node.py
       포맷: 6개씩 반복 [track_id,cx,cy,cz,confidence,state_code]
       state_code: 1=CANDIDATE(의심), 2=CONFIRMED(확정),
                   3=ACTIVE(낙상 아님, 최근 실제 이동 중 — 배경 흡수 방지용,
-                  protect_active_normal=True일 때만 발행)
+                  protect_active_normal=True일 때만 발행),
+                  4=RECOVERED(회복, 보호영역 즉시 해제용 1회 이벤트)
       해당 트랙이 없으면 빈 배열([]) 퍼블리시.
       (정지 상태인 NORMAL 트랙은 여기 포함되지 않는다 — 예를 들어
        사람으로 오분류된 정지 물체가 계속 배경 흡수를 면제받지
@@ -82,6 +81,7 @@ STATE_CONFIRMED = 2
 # 낙상 상태머신의 실제 state는 아니고, /fall_events 출력 전용 코드.
 # NORMAL이지만 최근에 실제로 이동한 트랙(=배경 흡수 방지 대상)을 표시.
 EVENT_CODE_ACTIVE_NORMAL = 3
+EVENT_CODE_RECOVERED = 4
 
 
 class TrackHistory:
@@ -142,6 +142,8 @@ class FallDetectionNode(Node):
 
         # ── 트랙 청소 ──
         self.declare_parameter('track_timeout_sec', 5.0)  # 이 시간 이상 /human_tracks에서 안 보이면 이력 삭제
+        self.declare_parameter('track_reassociate_sec', 2.0)   # 낙상 중 ID 변경을 이어 붙일 최대 시간차
+        self.declare_parameter('track_reassociate_dist', 1.0)  # 이전/새 트랙 중심의 최대 xy 거리
 
         # ── ACTIVE_NORMAL(정상 이동 중) 보호영역 발행 여부 ──
         # bg_subtraction_node는 이 토픽에 실린 트랙 주변 protection_radius(기본 1.0m)
@@ -160,6 +162,7 @@ class FallDetectionNode(Node):
         self.frame_id = self.get_parameter('frame_id').value
 
         self._histories: dict[int, TrackHistory] = {}
+        self._track_aliases: dict[int, int] = {}  # raw track_id -> 고정 logical track_id
         self._recovery_since: dict[int, float] = {}  # CONFIRMED 트랙별 "회복 신호 지속 시작 시각"
         self._trigger_log_times: dict[int, float] = {}  # 후보 진입 실패 로그 제한용
 
@@ -201,6 +204,8 @@ class FallDetectionNode(Node):
     def _on_tracks(self, msg: Float32MultiArray):
         now = self._now()
         tracks = self._parse_tracks(msg)
+        self._reassociate_histories(tracks, now)
+        tracks = self._normalize_tracks(tracks)
         seen_ids = set()
 
         events = []  # (track_id, cx, cy, cz, confidence, state_code)
@@ -220,7 +225,12 @@ class FallDetectionNode(Node):
 
             confidence, state = self._update_state(tid, hist, now)
 
-            if state != STATE_NORMAL:
+            marker_state = state
+            if state == EVENT_CODE_RECOVERED:
+                events += [float(tid), float(cx), float(cy), float(cz),
+                           0.0, float(EVENT_CODE_RECOVERED)]
+                marker_state = STATE_NORMAL
+            elif state != STATE_NORMAL:
                 events += [float(tid), float(cx), float(cy), float(cz),
                            float(confidence), float(state)]
             elif (self.get_parameter('protect_active_normal').value
@@ -234,7 +244,7 @@ class FallDetectionNode(Node):
                 # 부작용이 있다. 기본은 False.
                 events += [float(tid), float(cx), float(cy), float(cz),
                            0.0, float(EVENT_CODE_ACTIVE_NORMAL)]
-            markers_info.append((tid, cx, cy, cz, sz, state))
+            markers_info.append((tid, cx, cy, cz, sz, marker_state))
 
         # 이번 프레임에 안 보인 트랙은 last_seen만 유지, 오래 안 보이면 정리
         self._cleanup_stale(now, seen_ids)
@@ -259,6 +269,118 @@ class FallDetectionNode(Node):
             del self._histories[tid]
             self._recovery_since.pop(tid, None)
             self._trigger_log_times.pop(tid, None)
+        if stale:
+            stale_set = set(stale)
+            self._track_aliases = {
+                raw_tid: logical_tid
+                for raw_tid, logical_tid in self._track_aliases.items()
+                if logical_tid not in stale_set
+            }
+
+    def _resolve_track_id(self, raw_tid: int) -> int:
+        """트래커의 raw ID를 낙상 상태머신의 고정 logical ID로 변환."""
+        return self._track_aliases.get(raw_tid, raw_tid)
+
+    def _normalize_tracks(self, tracks):
+        """같은 logical ID의 관측은 이전 중심에 가장 가까운 하나만 사용."""
+        grouped = {}
+        for track in tracks:
+            logical_tid = self._resolve_track_id(track[0])
+            normalized = (logical_tid, *track[1:])
+            grouped.setdefault(logical_tid, []).append(normalized)
+
+        result = []
+        for logical_tid, candidates in grouped.items():
+            if len(candidates) == 1:
+                result.append(candidates[0])
+                continue
+
+            hist = self._histories.get(logical_tid)
+            if hist is None or not hist.samples:
+                result.append(candidates[0])
+                continue
+
+            _, old_x, old_y, *_rest = hist.samples[-1]
+            result.append(min(
+                candidates,
+                key=lambda track: np.hypot(track[1] - old_x, track[2] - old_y)))
+        return result
+
+    def _has_standing_evidence(self, hist: TrackHistory) -> bool:
+        values = [s[5] for s in hist.samples if s[5] is not None]
+        min_samples = int(self.get_parameter('standing_min_samples').value)
+        if len(values) < min_samples:
+            return False
+        sorted_values = np.sort(values)
+        baseline = float(np.median(
+            sorted_values[len(sorted_values) // 2:]))
+        return baseline >= self.get_parameter('standing_verticality_min').value
+
+    def _reassociate_histories(self, tracks, now: float):
+        """새 raw ID를 기존 logical ID의 alias로 연결한다.
+
+        TrackHistory 자체를 ID 사이에서 이동하지 않으므로 이전 raw ID가 다시
+        나타나도 역방향 승계가 발생하지 않는다.
+        """
+        incoming_ids = {
+            self._resolve_track_id(track[0]) for track in tracks
+        }
+        max_age = self.get_parameter('track_reassociate_sec').value
+        max_dist = self.get_parameter('track_reassociate_dist').value
+        lying_max = self.get_parameter('verticality_lying_max').value
+        used_sources = set()
+
+        for raw_tid, cx, cy, _cz, _sx, _sy, _sz, verticality, _planarity in tracks:
+            if verticality < 0.0 or verticality > lying_max:
+                continue
+
+            tid = self._resolve_track_id(raw_tid)
+            if tid != raw_tid:
+                continue
+
+            target = self._histories.get(raw_tid)
+            if target is not None and (
+                    target.state != STATE_NORMAL
+                    or self._has_standing_evidence(target)):
+                continue
+
+            matches = []
+            for old_tid, hist in list(self._histories.items()):
+                if (old_tid == raw_tid or old_tid in incoming_ids
+                        or old_tid in used_sources
+                        or not hist.samples
+                        or (now - hist.last_seen) > max_age):
+                    continue
+                if (hist.state == STATE_NORMAL
+                        and not self._has_standing_evidence(hist)):
+                    continue
+
+                _, old_x, old_y, *_rest = hist.samples[-1]
+                distance = float(np.hypot(cx - old_x, cy - old_y))
+                if distance <= max_dist:
+                    state_priority = 0 if hist.state != STATE_NORMAL else 1
+                    matches.append((state_priority, distance, old_tid, hist))
+
+            if not matches:
+                continue
+
+            _, distance, old_tid, source = min(matches, key=lambda m: m[:2])
+            if target is not None:
+                del self._histories[raw_tid]
+                self._recovery_since.pop(raw_tid, None)
+                self._trigger_log_times.pop(raw_tid, None)
+                self._track_aliases = {
+                    alias: logical
+                    for alias, logical in self._track_aliases.items()
+                    if logical != raw_tid
+                }
+
+            self._track_aliases[raw_tid] = old_tid
+            used_sources.add(old_tid)
+            self.get_logger().warn(
+                f'[FALL TRACK REASSOCIATE] raw track {raw_tid} -> '
+                f'logical track {old_tid} '
+                f'(distance={distance:.2f}m, state={source.state})')
 
     def _log_trigger_blocked(self, tid: int, now: float, detail: str):
         """누운 자세인데 후보가 되지 못한 이유를 트랙별 초당 한 번 출력."""
@@ -350,16 +472,18 @@ class FallDetectionNode(Node):
 
         if hist.state == STATE_CANDIDATE:
             # 프레임 간 bbox 중심 속도는 라이다 스캔 밀도에 따라 크게 튄다.
-            # 후보 진입 후 구간의 앞/뒤 중심 중앙값을 비교해 장기 변위로
+            # 최근 확인 구간의 앞/뒤 중심 중앙값을 비교해 장기 변위로
             # 정지를 판정하고, 같은 구간에서 누운 자세 비율을 확인한다.
+            # 후보 진입 순간의 낙하 이동은 정지 판정에 포함하지 않는다.
             v_lying_max = self.get_parameter('verticality_lying_max').value
             lying_ratio_min = self.get_parameter('confirm_lying_ratio').value
             speed_max = self.get_parameter('confirm_speed_max').value
             vertical_speed_max = self.get_parameter(
                 'confirm_vertical_speed_max').value
             confirm_dur = self.get_parameter('confirm_stillness_sec').value
+            confirm_window_start = max(hist.state_since, now - confirm_dur)
             candidate_samples = [
-                s for s in hist.samples if s[0] >= hist.state_since
+                s for s in hist.samples if s[0] >= confirm_window_start
             ]
             valid_verticalities = [
                 s[5] for s in candidate_samples if s[5] is not None
@@ -424,7 +548,7 @@ class FallDetectionNode(Node):
                     hist.state_since = now
                     self._recovery_since.pop(tid, None)
                     self.get_logger().info(f'[FALL 회복] track {tid} 다시 일어남 → 정상 복귀')
-                    return 0.0, STATE_NORMAL
+                    return 0.0, EVENT_CODE_RECOVERED
             else:
                 self._recovery_since.pop(tid, None)
 
@@ -645,5 +769,4 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
-
 

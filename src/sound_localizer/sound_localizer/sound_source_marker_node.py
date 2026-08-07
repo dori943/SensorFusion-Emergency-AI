@@ -3,7 +3,7 @@ sound_source_marker_node.py
 ─────────────────────────────
 목적:
   LiDAR는 항상 360도 전체 스캔으로 human_bbox_node가 사람 트랙을 계속
-  추적하고 있는 상태에서, ReSpeaker Mic Array v3.0(sound_localizer_node)이
+  추적하고 있는 상태에서, ReSpeaker Mic Array(sound_localizer_node)가
   보내는 소리 방향(angle)을 받아 "지금 소리가 난 방향에 있는 사람 트랙"을
   찾아 표시만 하는 노드.
 
@@ -19,8 +19,9 @@ sound_source_marker_node.py
       포맷: 7개씩 반복 [cx, cy, cz, sx, sy, sz, track_id]
 
   /sound_events        (sound_interfaces/SoundEvent)
-      sound_localizer_node(ReSpeaker)가 퍼블리시.
-      angle(-180~180), confidence, amplitude, is_active
+      sound_localizer_node(ReSpeaker, 6채널 4.0.0 펌웨어)가 퍼블리시.
+      angle: XVF3000 하드웨어 DOA(0~359°)를 -180~180°로 변환한 값.
+      confidence, amplitude, is_active(XVF3000 VOICEACTIVITY) 포함.
 
 출력:
   /sound_source_track  (std_msgs/Float32MultiArray)
@@ -36,7 +37,15 @@ sound_source_marker_node.py
   소리 방향 fallback 표시(_publish_direction_only)와 sound_timeout_sec 타임아웃
   체크가 정확한 주기로 동작해야 하므로, 자체 타이머(EVAL_HZ)로 주기적으로
   최신 캐시된 트랙 리스트를 대상으로 매칭/발행을 수행한다.
+
+좌표계 보정:
+  ReSpeaker의 DOA 0°(마이크 어레이 기준 정면)와 LiDAR x축 정면이 다르게
+  장착된 경우 mic_to_lidar_offset_deg로 보정한다. 마이크가 뒤집혀(거울상)
+  장착돼 회전 방향 자체가 LiDAR와 반대인 경우 invert_sound_angle=True로
+  부호를 뒤집는다. (오프셋만으로는 회전 방향 반전을 보정할 수 없음)
 """
+
+import math
 
 import numpy as np
 
@@ -100,6 +109,9 @@ class SoundSourceMarkerNode(Node):
         # 장착된 경우 보정용 오프셋 (도). sound_localizer_node의
         # angle_offset과는 별개로, "마이크-라이다 간 상대 장착각" 보정용.
         self.declare_parameter('mic_to_lidar_offset_deg', 0.0)
+        # 마이크 어레이의 각도 증가 방향(회전 방향)이 LiDAR 좌표계(x→y, CCW)와
+        # 반대인 장착이면 True. 부호 반전은 오프셋 적용 "전"에 수행된다.
+        self.declare_parameter('invert_sound_angle', False)
         # 매칭되는 트랙이 없을 때, 방향 표시용 화살표를 그릴 가상 거리 (m)
         self.declare_parameter('fallback_marker_range_m', 3.0)
         # 트랙 소스(/protected_regions) 자체가 이 시간 이상 안 들어오면
@@ -149,12 +161,20 @@ class SoundSourceMarkerNode(Node):
 
     # ────────────────────────────────────────────────────
     def _on_sound(self, msg: SoundEvent):
+        # 각도가 유효하지 않으면(NaN 등) 방향 정보로 사용할 수 없음
+        if not math.isfinite(msg.angle):
+            return
+
         min_conf = self.get_parameter('min_confidence').value
         if not msg.is_active or msg.confidence < min_conf:
             return
 
+        angle = float(msg.angle)
+        if self.get_parameter('invert_sound_angle').value:
+            angle = -angle
+
         offset = self.get_parameter('mic_to_lidar_offset_deg').value
-        self._sound_angle = (float(msg.angle) + offset + 180.0) % 360.0 - 180.0
+        self._sound_angle = (angle + offset + 180.0) % 360.0 - 180.0
         self._sound_confidence = float(msg.confidence)
         self._last_sound_time = self.get_clock().now()
 

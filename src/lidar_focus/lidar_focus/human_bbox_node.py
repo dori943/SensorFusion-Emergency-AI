@@ -155,36 +155,6 @@ class HumanBBoxNode(Node):
         self.declare_parameter('refetch_dedup_voxel', 0.03)  # 누적 중복 제거 복셀 (m), 0이면 끔
         self._refetch_buffer = deque(maxlen=16)  # (stamp_sec, points) — 실사용 개수는 파라미터로 제한
 
-        # ── 트랙 기반 검출 히스테리시스 (구제/rescue) ────
-        # "트랙 생성은 엄격하게, 유지는 관대하게" 원칙.
-        # 낙상 순간의 어중간한 자세(높이 0.5~0.7m 등)는 서있음/누움 필터를
-        # 모두 통과하지 못해 검출이 끊기고, 그 공백 동안 /human_tracks에
-        # 증거(속도 스파이크·verticality 급락)가 기록되지 않아 fall_detection이
-        # CANDIDATE 트리거를 놓친다. 필터에서 탈락한 클러스터라도
-        # "최근(rescue_max_age_sec) 실제로 검출됐던 트랙의 반경(rescue_radius)
-        # 안"이면 사람으로 구제해 검출을 이어준다.
-        #
-        # 부작용 방지 3중 장치:
-        #  1) 최근 실검출 트랙 근처에서만 동작 — 가구가 새 트랙을 만들 수 없음
-        #  2) 트랙당 '가장 가까운 1개' 클러스터만 구제 — 배경 조각 여러 개가
-        #     한꺼번에 살아나 bbox가 난립하는 것 차단
-        #  3) 느슨한 크기 sanity(높이·수평 크기 상한) 통과분만
-        self.declare_parameter('rescue_enabled', True)
-        self.declare_parameter('rescue_radius', 0.6)       # 트랙 중심과의 최대 BEV 거리 (m)
-        self.declare_parameter('rescue_max_age_sec', 1.0)  # 트랙의 마지막 실검출 이후 허용 시간 (s)
-        self.declare_parameter('rescue_max_extent', 2.5)   # 구제 클러스터 수평 크기 상한 (m)
-        self._recent_tracks = {}  # tid -> {'center': np.ndarray(3,), 't': sec}
-
-        # ── 마커 유지 (coasting) ─────────────────────────
-        # 비반복 스캔 특성상 검출은 한두 프레임씩 간헐적으로 끊긴다.
-        # 미검출 프레임에 마커 발행을 멈추면(기존 동작) lifetime 만료 →
-        # 재검출 시 DELETEALL → 다시 그림 순서로 RViz에서 bbox가 심하게
-        # 깜빡인다. 트랙별 마지막 bbox를 기억해 두고, 검출이 끊겨도
-        # marker_hold_sec 동안 반투명으로 유지 발행해 깜빡임을 없앤다.
-        # (표시 전용 — /human_tracks, /human_cloud 등 후단 출력에는 실검출만 나감)
-        self.declare_parameter('marker_hold_sec', 1.0)
-        self._last_boxes = {}  # tid -> {'center','size','feats','posture','t'}
-
         # ── 트래킹 파라미터 ──────────────────────────────
         self.declare_parameter('track_max_match_dist', 0.8)
         self.declare_parameter('track_max_missed', 10)
@@ -350,78 +320,6 @@ class HumanBBoxNode(Node):
         return restored
 
     # ──────────────────────────────────────────────────────
-    # 트랙 기반 검출 히스테리시스 (필터 탈락 클러스터 구제)
-    # ──────────────────────────────────────────────────────
-    def _rescue_near_tracks(self, rejected, human_clusters,
-                            human_feats, human_postures):
-        """필터 탈락 클러스터 중 최근 트랙 근처의 것을 사람으로 구제.
-
-        human_clusters/feats/postures 리스트에 직접 append하고
-        구제된 개수를 반환한다. (파라미터 설명은 __init__ 선언부 참고)
-        """
-        now = self.get_clock().now().nanoseconds / 1e9
-        max_age = float(self.get_parameter('rescue_max_age_sec').value)
-        radius = float(self.get_parameter('rescue_radius').value)
-        max_extent = float(self.get_parameter('rescue_max_extent').value)
-        h_low = self.get_parameter('lying_height_min').value
-        h_min = self.get_parameter('person_height_min').value
-        h_max = self.get_parameter('person_height_max').value
-        pts_min = self.get_parameter('person_points_min').value
-        pca_min = self.get_parameter('pca_min_points').value
-
-        recent = [(tid, info) for tid, info in self._recent_tracks.items()
-                  if (now - info['t']) <= max_age]
-        if not recent:
-            return 0
-
-        # 이번 프레임 실검출이 이미 커버하는 트랙은 구제 불필요
-        det_centers = [(c.min(axis=0) + c.max(axis=0)) / 2.0
-                       for c in human_clusters]
-        covered = set()
-        for tid, info in recent:
-            for dc in det_centers:
-                if np.hypot(dc[0] - info['center'][0],
-                            dc[1] - info['center'][1]) <= radius:
-                    covered.add(tid)
-                    break
-
-        rescued = 0
-        used = set()
-        for tid, info in recent:
-            if tid in covered:
-                continue
-            # 이 트랙에 가장 가까운 탈락 클러스터 '1개만' 구제
-            best_i, best_d = None, None
-            for i, c in enumerate(rejected):
-                if i in used or len(c) < pts_min:
-                    continue
-                mn, mx = c.min(axis=0), c.max(axis=0)
-                dz = mx[2] - mn[2]
-                dxy = max(mx[0] - mn[0], mx[1] - mn[1])
-                # 느슨한 sanity: 사람일 수 있는 크기 범위만
-                if not (h_low <= dz < h_max and dxy < max_extent):
-                    continue
-                center = (mn + mx) / 2.0
-                d = float(np.hypot(center[0] - info['center'][0],
-                                   center[1] - info['center'][1]))
-                if d <= radius and (best_d is None or d < best_d):
-                    best_i, best_d = i, d
-            if best_i is None:
-                continue
-
-            c = rejected[best_i]
-            used.add(best_i)
-            feats = (self.compute_pca_features(c) if len(c) >= pca_min
-                     else (None, None, None))
-            dz = float(c[:, 2].max() - c[:, 2].min())
-            posture = 'standing' if dz >= h_min else 'lying'
-            human_clusters.append(c)
-            human_feats.append(feats)
-            human_postures.append(posture)
-            rescued += 1
-        return rescued
-
-    # ──────────────────────────────────────────────────────
     # DBSCAN (Pi5 최적화: 일괄 이웃 질의 + 불리언 집합)
     # ──────────────────────────────────────────────────────
     def dbscan(self, points, eps, min_points):
@@ -549,18 +447,14 @@ class HumanBBoxNode(Node):
     # ──────────────────────────────────────────────────────
     # BBox 마커 생성
     # ──────────────────────────────────────────────────────
-    def make_bbox_marker(self, center, size, marker_id, header,
-                         shape_feats=(None, None, None), posture='standing',
-                         held=False):
-        """center/size 기반 bbox+텍스트 마커 생성.
-
-        held=True는 '검출이 잠시 끊겨 마지막 위치를 유지 표시 중'이라는
-        뜻으로, 반투명 처리해 실검출과 시각적으로 구분한다.
-        """
-        center = np.asarray(center, dtype=float)
-        size = np.asarray(size, dtype=float)
-        dx, dy, dz = float(size[0]), float(size[1]), float(size[2])
-        max_z = float(center[2] + dz / 2.0)
+    def make_bbox_marker(self, cluster, marker_id, header,
+                         shape_feats=(None, None, None), posture='standing'):
+        min_pt = cluster.min(axis=0)
+        max_pt = cluster.max(axis=0)
+        center = (min_pt + max_pt) / 2.0
+        dx = max_pt[0] - min_pt[0]
+        dy = max_pt[1] - min_pt[1]
+        dz = max_pt[2] - min_pt[2]
 
         # 낙상 '판정'은 fall_detection_node 전담. 여기서는 자세를 색으로만
         # 구분한다 (서있음=초록, 누움=주황 — RViz 디버깅용).
@@ -568,8 +462,6 @@ class HumanBBoxNode(Node):
             color = ColorRGBA(r=1.0, g=0.55, b=0.0, a=0.5)
         else:
             color = ColorRGBA(r=0.0, g=1.0, b=0.2, a=0.4)
-        if held:
-            color.a *= 0.45  # 유지 표시는 반투명
 
         bbox = Marker()
         bbox.header = header
@@ -595,14 +487,12 @@ class HumanBBoxNode(Node):
         text.action = Marker.ADD
         text.pose.position.x = float(center[0])
         text.pose.position.y = float(center[1])
-        text.pose.position.z = max_z + 0.2
+        text.pose.position.z = float(max_pt[2]) + 0.2
         text.pose.orientation.w = 1.0
         text.scale.z = 0.2
-        text.color = ColorRGBA(r=1.0, g=1.0, b=1.0, a=0.6 if held else 1.0)
+        text.color = ColorRGBA(r=1.0, g=1.0, b=1.0, a=1.0)
 
         tag = 'LYING ' if posture == 'lying' else ''
-        if held:
-            tag += '(hold) '
         verticality, planarity, _ = shape_feats
         if verticality is not None:
             text.text = (f'P{marker_id} {tag}H:{dz:.1f}m W:{dx:.1f}m '
@@ -614,54 +504,11 @@ class HumanBBoxNode(Node):
         return bbox, text
 
     # ──────────────────────────────────────────────────────
-    # 마커 발행 (coasting: 검출 공백 프레임에도 마지막 bbox 유지)
-    # ──────────────────────────────────────────────────────
-    def publish_markers(self, header, fresh):
-        """fresh: [(tid, center, size, feats, posture)] — 이번 프레임 실검출.
-
-        실검출은 즉시 갱신하고, 직전 검출로부터 marker_hold_sec 이내인
-        트랙은 마지막 bbox를 반투명(hold)으로 계속 발행한다. 미검출
-        프레임에도 반드시 호출해야 깜빡임이 사라진다.
-        """
-        now = self.get_clock().now().nanoseconds / 1e9
-        hold = float(self.get_parameter('marker_hold_sec').value)
-
-        for tid, center, size, feats, posture in fresh:
-            self._last_boxes[tid] = dict(
-                center=np.asarray(center, dtype=float),
-                size=np.asarray(size, dtype=float),
-                feats=feats, posture=posture, t=now)
-
-        # 유지 시간이 지난 트랙 제거
-        for tid in [t for t, b in self._last_boxes.items()
-                    if (now - b['t']) > hold]:
-            del self._last_boxes[tid]
-
-        marker_array = MarkerArray()
-        clear = Marker()
-        clear.header = header
-        clear.action = Marker.DELETEALL
-        marker_array.markers.append(clear)
-
-        fresh_ids = {f[0] for f in fresh}
-        for tid, box in self._last_boxes.items():
-            bbox, text = self.make_bbox_marker(
-                box['center'], box['size'], tid, header,
-                shape_feats=box['feats'], posture=box['posture'],
-                held=(tid not in fresh_ids))
-            marker_array.markers.append(bbox)
-            marker_array.markers.append(text)
-
-        self.pub_bbox.publish(marker_array)
-
-    # ──────────────────────────────────────────────────────
     # 메인 콜백
     # ──────────────────────────────────────────────────────
     def callback(self, msg):
         points = read_points(msg)
         if len(points) < 10:
-            if self.calibrated:
-                self.publish_markers(msg.header, [])  # 유지 마커만 발행
             return
 
         # 부팅타임 캘리브레이션 중이면 통계만 누적
@@ -680,40 +527,26 @@ class HumanBBoxNode(Node):
             clusters.append(points[labels == label])
 
         if not clusters:
-            # 미검출 프레임에도 유지(hold) 마커는 계속 발행 → 깜빡임 방지
-            self.publish_markers(msg.header, [])
             return
 
         # 사람 크기/형태 필터
         human_clusters = []
         human_feats = []
         human_postures = []
-        rejected_clusters = []
         for c in clusters:
             ok, feats, posture = self.is_human(c)
             if ok:
                 human_clusters.append(c)
                 human_feats.append(feats)
                 human_postures.append(posture)
-            else:
-                rejected_clusters.append(c)
-
-        # 트랙 기반 히스테리시스: 최근 트랙 근처의 탈락 클러스터 구제
-        # (낙상 순간의 어중간한 자세로 검출이 끊기는 것을 막는 핵심 로직)
-        rescued_n = 0
-        if self.get_parameter('rescue_enabled').value and rejected_clusters:
-            rescued_n = self._rescue_near_tracks(
-                rejected_clusters, human_clusters, human_feats, human_postures)
 
         if not human_clusters:
-            self.publish_markers(msg.header, [])  # 위와 동일 — 유지 마커 발행
             return
 
         n_lying = sum(1 for p in human_postures if p == 'lying')
         self.get_logger().info(
             f'Detected {len(human_clusters)} person(s)'
-            + (f' ({n_lying} lying)' if n_lying else '')
-            + (f' ({rescued_n} rescued)' if rescued_n else ''))
+            + (f' ({n_lying} lying)' if n_lying else ''))
 
         # bbox 중심/크기 계산 (트래킹 + 퍼블리시 재사용)
         centers = []
@@ -725,18 +558,6 @@ class HumanBBoxNode(Node):
             sizes.append(max_pt - min_pt)
 
         track_ids = self.tracker.update(centers)
-
-        # 구제(rescue) 게이트용 최근 실검출 트랙 기록.
-        # 구제된 검출도 트랙에 반영되므로, 낙상처럼 여러 프레임 연속으로
-        # 어중간한 자세가 이어져도 트랙이 살아 있는 한 계속 구제된다.
-        now = self.get_clock().now().nanoseconds / 1e9
-        for tid, center in zip(track_ids, centers):
-            self._recent_tracks[tid] = {
-                'center': np.asarray(center, dtype=float), 't': now}
-        stale_horizon = float(self.get_parameter('rescue_max_age_sec').value) * 5.0
-        for tid in [t for t, i in self._recent_tracks.items()
-                    if (now - i['t']) > stale_horizon]:
-            del self._recent_tracks[tid]
 
         # 사람 포인트클라우드 — 배경차감으로 깎인 팔다리를 원본(배경차감 이전)
         # 최근 N프레임 누적 클라우드에서 bbox 영역 재수집으로 복원해 발행한다.
@@ -774,9 +595,21 @@ class HumanBBoxNode(Node):
         regions_msg.data = regions_data
         self.pub_protected_regions.publish(regions_msg)
 
-        # BBox 마커 — 실검출 + 유지(hold) 마커를 함께 발행 (깜빡임 방지)
-        fresh = list(zip(track_ids, centers, sizes, human_feats, human_postures))
-        self.publish_markers(msg.header, fresh)
+        # BBox 마커
+        marker_array = MarkerArray()
+        clear = Marker()
+        clear.header = msg.header
+        clear.action = Marker.DELETEALL
+        marker_array.markers.append(clear)
+
+        for tid, cluster, feats, posture in zip(
+                track_ids, human_clusters, human_feats, human_postures):
+            bbox, text = self.make_bbox_marker(
+                cluster, tid, msg.header, shape_feats=feats, posture=posture)
+            marker_array.markers.append(bbox)
+            marker_array.markers.append(text)
+
+        self.pub_bbox.publish(marker_array)
 
 
 def main(args=None):
@@ -793,3 +626,4 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
+

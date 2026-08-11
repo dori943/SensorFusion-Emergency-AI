@@ -28,9 +28,8 @@ fall_detection_node.py
          안에 크게 줄었는지 확인하는 보조 신호.
 
   1)+2)와 (3 또는 4) 조건이 겹치면 FALL_CANDIDATE로 올리고, 이후 PCA로
-  일정 시간 "누운 자세 + 정지 상태"가 유지됐을 때 LiDAR 신뢰도가 높거나
-  후보 시각 근처에 유효한 IMU 충격 증거가 있으면 FALL_CONFIRMED로 확정한다
-  (단순 순간 휘청임/재빨리 앉기와 구분하기 위한 확인 지연).
+  일정 시간 "누운 자세 + 정지 상태"가 유지되면 FALL_CONFIRMED로
+  확정한다(단순 순간 휘청임/재빨리 앉기와 구분하기 위한 확인 지연).
   확정 뒤 사람이 다시 일어나 기립 자세를 유지하면 자동으로 NORMAL로 복귀한다.
 
 입력:
@@ -38,10 +37,6 @@ fall_detection_node.py
       human_bbox_node가 퍼블리시.
       포맷: 9개씩 반복 [track_id,cx,cy,cz,sx,sy,sz,verticality,planarity]
       verticality/planarity가 -1.0이면 "PCA 미계산(정보 없음)"을 의미.
-
-  /imu/impact_peak (std_msgs/String)
-      IMU 낙상 증거 JSON. confidence는 융합 점수에 사용하고,
-      modality_data.peak_ratio는 충격 임계값 통과 여부에 사용한다.
 
 출력:
   /fall_events  (std_msgs/Float32MultiArray)
@@ -71,13 +66,12 @@ fall_detection_node.py
 """
 
 from collections import deque
-import json
 
 import numpy as np
 
 import rclpy
 from rclpy.node import Node
-from std_msgs.msg import Float32MultiArray, ColorRGBA, String
+from std_msgs.msg import Float32MultiArray, ColorRGBA
 from visualization_msgs.msg import Marker, MarkerArray
 
 
@@ -93,16 +87,13 @@ EVENT_CODE_RECOVERED = 4
 class TrackHistory:
     """트랙 하나의 최근 시계열(시각, 위치, 크기, PCA 형태)을 보관."""
 
-    __slots__ = ("samples", "state", "state_since", "last_seen",
-                 "candidate_confidence", "confirmed_confidence")
+    __slots__ = ("samples", "state", "state_since", "last_seen")
 
     def __init__(self, now_sec: float):
         self.samples = deque()   # (t, cx, cy, cz, sz, verticality)
         self.state = STATE_NORMAL
         self.state_since = now_sec      # 현재 state로 바뀐 시각
         self.last_seen = now_sec        # /human_tracks에 마지막으로 잡힌 시각 (트랙 청소용)
-        self.candidate_confidence = 0.0
-        self.confirmed_confidence = 0.0
 
 
 class FallDetectionNode(Node):
@@ -115,16 +106,6 @@ class FallDetectionNode(Node):
         self.declare_parameter('output_topic', '/fall_events')
         self.declare_parameter('marker_topic', '/fall_marker')
         self.declare_parameter('frame_id', 'unilidar_lidar')
-
-        # ── IMU 융합 ──
-        self.declare_parameter('imu_topic', '/imu/impact_peak')
-        self.declare_parameter('imu_buffer_sec', 4.0)
-        self.declare_parameter('imu_min_confidence', 0.7)
-        self.declare_parameter('imu_min_peak_ratio', 1.0)
-        self.declare_parameter('imu_before_candidate_sec', 1.5)
-        self.declare_parameter('imu_after_candidate_sec', 0.3)
-        self.declare_parameter('lidar_standalone_confidence', 0.85)
-        self.declare_parameter('imu_confidence_weight', 0.25)
 
         # ── 이력 버퍼 ──
         self.declare_parameter('history_window_sec', 3.0)     # 트랙별로 보관할 최대 이력 길이
@@ -162,10 +143,7 @@ class FallDetectionNode(Node):
         # ── 트랙 청소 ──
         self.declare_parameter('track_timeout_sec', 5.0)  # 이 시간 이상 /human_tracks에서 안 보이면 이력 삭제
         self.declare_parameter('track_reassociate_sec', 2.0)   # 낙상 중 ID 변경을 이어 붙일 최대 시간차
-        self.declare_parameter('track_reassociate_dist', 1.0)  # 이전/새 트랙 중심의 최대 xy 거리
-
-        # ── 진단 로그 ──
-        self.declare_parameter('diagnostic_log_interval_sec', 1.0)
+        self.declare_parameter('track_reassociate_dist', 0.6)  # 이전/새 트랙 중심의 최대 xy 거리
 
         # ── ACTIVE_NORMAL(정상 이동 중) 보호영역 발행 여부 ──
         # bg_subtraction_node는 이 토픽에 실린 트랙 주변 protection_radius(기본 1.0m)
@@ -182,19 +160,14 @@ class FallDetectionNode(Node):
         self.output_topic = self.get_parameter('output_topic').value
         self.marker_topic = self.get_parameter('marker_topic').value
         self.frame_id = self.get_parameter('frame_id').value
-        self.imu_topic = self.get_parameter('imu_topic').value
 
         self._histories: dict[int, TrackHistory] = {}
         self._track_aliases: dict[int, int] = {}  # raw track_id -> 고정 logical track_id
         self._recovery_since: dict[int, float] = {}  # CONFIRMED 트랙별 "회복 신호 지속 시작 시각"
         self._trigger_log_times: dict[int, float] = {}  # 후보 진입 실패 로그 제한용
-        self._diagnostic_log_times: dict[int, float] = {}
-        self._imu_evidence_buffer = deque()
 
         self.create_subscription(
             Float32MultiArray, self.tracks_topic, self._on_tracks, 10)
-        self.create_subscription(
-            String, self.imu_topic, self._on_imu_evidence, 10)
 
         self.pub_events = self.create_publisher(
             Float32MultiArray, self.output_topic, 10)
@@ -203,7 +176,6 @@ class FallDetectionNode(Node):
 
         self.get_logger().info(
             f'FallDetectionNode 시작 | tracks={self.tracks_topic} | '
-            f'imu={self.imu_topic} | '
             f'motion>={self.get_parameter("motion_speed_threshold").value}m/s '
             f'spike>={self.get_parameter("speed_spike_threshold").value}m/s '
             f'v_drop>={self.get_parameter("verticality_drop_threshold").value} '
@@ -214,75 +186,6 @@ class FallDetectionNode(Node):
     # ────────────────────────────────────────────────────
     def _now(self) -> float:
         return self.get_clock().now().nanoseconds / 1e9
-
-    def _on_imu_evidence(self, msg: String):
-        """공통 envelope 형식의 IMU 낙상 증거를 검증해 보관한다."""
-        try:
-            payload = json.loads(msg.data)
-            if (payload.get('event_type') != 'fall_evidence'
-                    or payload.get('modality') != 'imu'):
-                return
-
-            stamp = payload['ros_stamp']
-            modality_data = payload['modality_data']
-            sec = int(stamp['sec'])
-            nanosec = int(stamp['nanosec'])
-            confidence = float(payload['confidence'])
-            peak_ratio = float(modality_data['peak_ratio'])
-            boosted_score = float(modality_data['boosted_score'])
-            acc_mag_g = float(modality_data['acc_mag_g'])
-        except (json.JSONDecodeError, KeyError, TypeError, ValueError,
-                AttributeError):
-            self.get_logger().warning('잘못된 IMU fall_evidence JSON, 건너뜀')
-            return
-
-        values = (confidence, peak_ratio, boosted_score, acc_mag_g)
-        if (nanosec < 0 or nanosec >= 1_000_000_000
-                or not all(np.isfinite(value) for value in values)
-                or confidence < 0.0 or confidence > 1.0
-                or peak_ratio < 0.0):
-            self.get_logger().warning('범위를 벗어난 IMU fall_evidence, 건너뜀')
-            return
-
-        self._imu_evidence_buffer.append({
-            't_ros': sec + nanosec * 1e-9,
-            'sensor_id': str(payload.get('sensor_id', '')),
-            'confidence': confidence,
-            'peak_ratio': peak_ratio,
-            'boosted_score': boosted_score,
-            'acc_mag_g': acc_mag_g,
-        })
-        self._prune_imu_buffer(self._now())
-
-    def _prune_imu_buffer(self, now: float):
-        buffer_sec = self.get_parameter('imu_buffer_sec').value
-        self._imu_evidence_buffer = deque(
-            evidence for evidence in self._imu_evidence_buffer
-            if now - evidence['t_ros'] <= buffer_sec)
-
-    def _find_imu_evidence(self, candidate_time: float, now: float):
-        """LiDAR 후보 시각과 맞는 유효한 IMU 증거 중 가장 신뢰도 높은 값 반환."""
-        self._prune_imu_buffer(now)
-        before = self.get_parameter('imu_before_candidate_sec').value
-        after = self.get_parameter('imu_after_candidate_sec').value
-        min_confidence = self.get_parameter('imu_min_confidence').value
-        min_peak_ratio = self.get_parameter('imu_min_peak_ratio').value
-
-        matches = []
-        for evidence in self._imu_evidence_buffer:
-            # 양수면 IMU 충격이 LiDAR 후보보다 먼저 발생한 것이다.
-            delta = candidate_time - evidence['t_ros']
-            if (-after <= delta <= before
-                    and evidence['confidence'] >= min_confidence
-                    and evidence['peak_ratio'] >= min_peak_ratio):
-                matches.append(evidence)
-
-        if not matches:
-            return None
-        return max(
-            matches,
-            key=lambda evidence: (
-                evidence['confidence'], evidence['peak_ratio']))
 
     @staticmethod
     def _parse_tracks(msg: Float32MultiArray):
@@ -366,7 +269,6 @@ class FallDetectionNode(Node):
             del self._histories[tid]
             self._recovery_since.pop(tid, None)
             self._trigger_log_times.pop(tid, None)
-            self._diagnostic_log_times.pop(tid, None)
         if stale:
             stale_set = set(stale)
             self._track_aliases = {
@@ -467,7 +369,6 @@ class FallDetectionNode(Node):
                 del self._histories[raw_tid]
                 self._recovery_since.pop(raw_tid, None)
                 self._trigger_log_times.pop(raw_tid, None)
-                self._diagnostic_log_times.pop(raw_tid, None)
                 self._track_aliases = {
                     alias: logical
                     for alias, logical in self._track_aliases.items()
@@ -537,38 +438,6 @@ class FallDetectionNode(Node):
         _, horizontal, vertical_abs, _ = speeds[-1]
         return horizontal, vertical_abs
 
-    def _log_fall_signals(self, tid: int, hist: TrackHistory, now: float,
-                          cur_speed: float, cur_vertical_speed: float):
-        """후보 여부와 무관하게 낙상 판정 입력값을 트랙별로 제한 출력."""
-        interval = self.get_parameter('diagnostic_log_interval_sec').value
-        if interval <= 0.0:
-            return
-        last_log = self._diagnostic_log_times.get(tid)
-        if last_log is not None and (now - last_log) < interval:
-            return
-        self._diagnostic_log_times[tid] = now
-
-        lookback = self.get_parameter('speed_spike_lookback_sec').value
-        samples = self._windowed_samples(hist, now, lookback)
-        speeds = self._smoothed_motion_speeds(samples)
-        peak_speed = max((speed[1] for speed in speeds), default=0.0)
-        peak_downward_speed = max((speed[3] for speed in speeds), default=0.0)
-        _, _cx, _cy, _cz, height, verticality = hist.samples[-1]
-        state_name = {
-            STATE_NORMAL: 'NORMAL',
-            STATE_CANDIDATE: 'CANDIDATE',
-            STATE_CONFIRMED: 'CONFIRMED',
-        }.get(hist.state, str(hist.state))
-        verticality_text = (
-            f'{verticality:.2f}' if verticality is not None else 'N/A')
-
-        self.get_logger().info(
-            f'[FALL SIGNAL] track {tid} | state={state_name}, '
-            f'V={verticality_text}, H={height:.2f}m, '
-            f'xy_now={cur_speed:.2f}m/s, xy_peak={peak_speed:.2f}m/s, '
-            f'z_now={cur_vertical_speed:.2f}m/s, '
-            f'down_peak={peak_downward_speed:.2f}m/s')
-
     def _recently_moving(self, hist: TrackHistory, now: float) -> bool:
         """낙상 판정과 별개로, 최근 motion_lookback_sec 동안 실제로
         motion_speed_threshold 이상 이동한 적이 있는지만 본다.
@@ -587,8 +456,6 @@ class FallDetectionNode(Node):
 
         cur_speed, cur_vertical_speed = self._current_motion(hist)
         _, cx, cy, cz, sz, verticality = hist.samples[-1]
-        self._log_fall_signals(
-            tid, hist, now, cur_speed, cur_vertical_speed)
 
         if hist.state == STATE_NORMAL:
             triggered, confidence = self._check_fall_trigger(
@@ -596,8 +463,6 @@ class FallDetectionNode(Node):
             if triggered:
                 hist.state = STATE_CANDIDATE
                 hist.state_since = now
-                hist.candidate_confidence = confidence
-                hist.confirmed_confidence = 0.0
                 self._trigger_log_times.pop(tid, None)
                 self.get_logger().warn(
                     f'[FALL CANDIDATE] track {tid} 감지 '
@@ -647,43 +512,19 @@ class FallDetectionNode(Node):
                     and vertical_displacement <= vertical_speed_max * confirm_dur
                 )
 
-            lidar_posture_confirmed = (
-                (now - hist.state_since) >= confirm_dur
-                and lying_ratio >= lying_ratio_min
-                and is_stable
-            )
-            if lidar_posture_confirmed:
-                imu_hit = self._find_imu_evidence(hist.state_since, now)
-                lidar_threshold = self.get_parameter(
-                    'lidar_standalone_confidence').value
-                if (hist.candidate_confidence >= lidar_threshold
-                        or imu_hit is not None):
-                    fused_confidence = hist.candidate_confidence
-                    source = 'LiDAR'
-                    if imu_hit is not None:
-                        imu_weight = self.get_parameter(
-                            'imu_confidence_weight').value
-                        fused_confidence += imu_weight * imu_hit['confidence']
-                        source = (
-                            f'LiDAR+IMU(sensor={imu_hit["sensor_id"] or "unknown"}, '
-                            f'confidence={imu_hit["confidence"]:.2f}, '
-                            f'peak_ratio={imu_hit["peak_ratio"]:.2f})')
-
-                    hist.state = STATE_CONFIRMED
-                    hist.state_since = now
-                    hist.confirmed_confidence = min(fused_confidence, 1.0)
-                    self.get_logger().error(
-                        f'[FALL CONFIRMED] track {tid} 낙상 확정 '
-                        f'위치=({cx:.2f},{cy:.2f},{cz:.2f}) | {source} | '
-                        f'fused={hist.confirmed_confidence:.2f}')
-                    return hist.confirmed_confidence, STATE_CONFIRMED
+            if ((now - hist.state_since) >= confirm_dur
+                    and lying_ratio >= lying_ratio_min and is_stable):
+                hist.state = STATE_CONFIRMED
+                hist.state_since = now
+                self.get_logger().error(
+                    f'[FALL CONFIRMED] track {tid} 낙상 확정 위치=({cx:.2f},{cy:.2f},{cz:.2f})')
+                return 0.95, STATE_CONFIRMED
 
             timeout = self.get_parameter('candidate_timeout_sec').value
             if (now - hist.state_since) > timeout:
                 # 일정 시간 안에 확정되지 않음 → 순간적인 휘청임 등 오탐으로 판단, 복귀
                 hist.state = STATE_NORMAL
                 hist.state_since = now
-                hist.candidate_confidence = 0.0
                 self.get_logger().info(
                     f'[FALL CANDIDATE 해제] track {tid} 타임아웃, 정상 복귀 '
                     f'(lying={lying_ratio:.0%}, '
@@ -691,7 +532,7 @@ class FallDetectionNode(Node):
                     f'd_z={vertical_displacement:.2f}m)')
                 return 0.0, STATE_NORMAL
 
-            return hist.candidate_confidence, STATE_CANDIDATE
+            return 0.6, STATE_CANDIDATE
 
         if hist.state == STATE_CONFIRMED:
             v_min = self.get_parameter('recovery_verticality_min').value
@@ -705,15 +546,13 @@ class FallDetectionNode(Node):
                 elif (now - since) >= hold:
                     hist.state = STATE_NORMAL
                     hist.state_since = now
-                    hist.candidate_confidence = 0.0
-                    hist.confirmed_confidence = 0.0
                     self._recovery_since.pop(tid, None)
                     self.get_logger().info(f'[FALL 회복] track {tid} 다시 일어남 → 정상 복귀')
                     return 0.0, EVENT_CODE_RECOVERED
             else:
                 self._recovery_since.pop(tid, None)
 
-            return hist.confirmed_confidence, STATE_CONFIRMED
+            return 0.95, STATE_CONFIRMED
 
         return 0.0, STATE_NORMAL
 

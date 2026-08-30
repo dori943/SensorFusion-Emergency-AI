@@ -1,1 +1,0 @@
-/home/user/sound_lidar_ws/build/sound_interfaces/ament_cmake_export_libraries/ament_cmake_export_libraries-extras.cmake

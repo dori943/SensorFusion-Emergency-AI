@@ -1,6 +1,0 @@
-{
-  "package_name": "sound_interfaces",
-  "non_idl_tuples": [
-    "/home/user/sound_lidar_ws/src/sound_interfaces:msg/SoundEvent.msg"
-  ]
-}

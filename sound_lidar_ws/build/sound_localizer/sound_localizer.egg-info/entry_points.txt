@@ -1,2 +1,0 @@
-[console_scripts]
-sound_localizer_node = sound_localizer.sound_localizer_node:main

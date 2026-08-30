@@ -1,1 +1,0 @@
-/home/user/sound_lidar_ws/build/sound_interfaces/rosidl_cmake/rosidl_cmake_export_typesupport_targets-extras.cmake

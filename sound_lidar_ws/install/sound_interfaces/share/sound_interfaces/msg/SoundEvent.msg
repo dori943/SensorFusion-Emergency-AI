@@ -1,1 +1,0 @@
-/home/user/sound_lidar_ws/src/sound_interfaces/msg/SoundEvent.msg

@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>imu_fall_sos</name>
+  <version>0.1.0</version>
+  <description>
+    WT901BLECL 바닥 IMU 기반 낙상 증거(fall evidence) 및 SOS 두드리기 신호 감지.
+    하나의 BLE 연결과 공통 신호처리 파이프라인을 공유하는 두 개의 독립 검출기를
+    포함하며, 결과를 JSON(std_msgs/String)으로 /fall/evidence, /sos/detected에
+    각각 발행한다. 최종 판단은 emergency_fusion 패키지의 fall_fusion_node /
+    sos_fusion_node가 담당한다.
+  </description>
+  <maintainer email="user@example.com">user</maintainer>
+  <license>Apache-2.0</license>
+
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>python3-numpy</exec_depend>
+  <!-- bleak은 rosdep 표준 키가 없는 환경이 많습니다.
+       colcon build에서 못 찾는다는 에러가 나면 이 줄을 지우고
+       "pip install bleak"로 별도 설치하세요. -->
+  <exec_depend>python3-bleak</exec_depend>
+
+  <test_depend>ament_copyright</test_depend>
+  <test_depend>ament_flake8</test_depend>
+  <test_depend>ament_pep257</test_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

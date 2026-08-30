@@ -1,0 +1,34 @@
+# Python 가상환경 (venv, env 등)
+venv/
+.venv/
+env/
+.env/
+ENV/
+env.bak/
+venv.bak/
+
+# 로그 파일
+*.log
+logs/
+*.log.*
+.log/
+log/
+**/log/
+sound_lidar_ws/log/
+sound_lidar_ws/build/
+sound_lidar_ws/install/
+
+# 환경 변수 및 설정 파일 (보안 정보)
+.env
+.env.local
+.env.*.local
+
+# 파이썬 캐시 파일 및 컴파일 파일
+__pycache__/
+*.py[cod]
+*$py.class
+
+# IDE 및 에러 로그 (VSCode, PyCharm 등)
+.vscode/
+.idea/
+.DS_Store

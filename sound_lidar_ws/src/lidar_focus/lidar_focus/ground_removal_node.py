@@ -645,7 +645,7 @@ class BackgroundSubtractionNode(Node):
 
         포맷: 6개씩 반복 [track_id,cx,cy,cz,confidence,state_code]
         state_code: 1=CANDIDATE, 2=CONFIRMED, 3=ACTIVE(낙상 아니지만
-        최근 실제 이동 중)
+        최근 실제 이동 중), 4=RECOVERED(회복)
 
         CONFIRMED(state=2)만 보호영역으로 등록/갱신한다. CANDIDATE/ACTIVE는
         아직 낙상이 확정되지 않았거나 애초에 낙상이 아닌(이동 중) 트랙이라
@@ -661,6 +661,10 @@ class BackgroundSubtractionNode(Node):
             state = int(data[i + 5])
             if state == 2:
                 self._protected_zones[tid] = (float(cx), float(cy), float(cz), now)
+            elif state == 4 and tid in self._protected_zones:
+                del self._protected_zones[tid]
+                self.get_logger().info(
+                    f'[보호영역 즉시 해제] track {tid} (낙상 회복)')
 
         timeout = self.get_parameter('protection_timeout_sec').value
         stale = [tid for tid, (*_pos, t) in self._protected_zones.items()

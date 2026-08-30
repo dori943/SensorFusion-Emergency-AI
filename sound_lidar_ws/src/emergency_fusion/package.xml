@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>emergency_fusion</name>
+  <version>0.1.0</version>
+  <description>
+    LiDAR(lidar_focus) / mic array(sound_localizer) / IMU(imu_fall_sos)의
+    독립 이벤트를 모아 최종 낙상·SOS 알림을 판단하는 두 개의 독립 퓨전 노드.
+    fall_fusion_node: LiDAR CONFIRMED를 필수 조건으로, IMU/mic를 신뢰도 보강으로 사용.
+    sos_fusion_node : IMU SOS 패턴을 필수 조건으로, mic 구조신호 분류를 신뢰도 보강으로 사용.
+    두 노드는 서로를 참조하지 않으며 각각 /emergency/fall_alert, /emergency/sos_alert로
+    독립 발행한다 (다운스트림 alert_node가 OR로 합쳐서 알림을 울림).
+  </description>
+  <maintainer email="user@example.com">user</maintainer>
+  <license>Apache-2.0</license>
+
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+
+  <test_depend>ament_copyright</test_depend>
+  <test_depend>ament_flake8</test_depend>
+  <test_depend>ament_pep257</test_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

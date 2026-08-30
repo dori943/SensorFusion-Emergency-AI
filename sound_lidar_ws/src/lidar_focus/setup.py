@@ -24,6 +24,8 @@ setup(
             'sound_motion_roi_node = lidar_focus.sound_motion_roi_node:main',
             'ground_removal_node = lidar_focus.ground_removal_node:main',
             'human_bbox_node = lidar_focus.human_bbox_node:main',
+            'fall_detection_node = lidar_focus.fall_detection_node:main',
+            'incident_recorder_node = lidar_focus.incident_recorder_node:main',
         ],
     },
 )

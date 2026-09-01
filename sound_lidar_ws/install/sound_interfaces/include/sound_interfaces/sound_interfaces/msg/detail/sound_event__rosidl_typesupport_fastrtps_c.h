@@ -1,1 +1,0 @@
-/home/user/sound_lidar_ws/build/sound_interfaces/rosidl_typesupport_fastrtps_c/sound_interfaces/msg/detail/sound_event__rosidl_typesupport_fastrtps_c.h

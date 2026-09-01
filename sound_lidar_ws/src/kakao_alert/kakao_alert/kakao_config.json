@@ -1,0 +1,33 @@
+{
+  "kakao": {
+    "access_token": "Mq7hsLcVf92YZkavh4ZpwPcuJT4tv5xjAAAAAQoNG1kAAAGgMtbaTFv0-avl6D9k-avl6D9k",
+    "refresh_token": "SDk9fy3Yj5guRM8Nk1wkJ_K1t4ThFTpdAAAAAgoNFdgAAAGgMwfB-Fv0-avl6D9k",
+    "rest_api_key": "6d88b9da1dafe0d8a1a5cd8ec203ce66",
+    "client_secret": "oftkSC4flttFKp4t3lmnMxwcVDgPasWh",
+    "receiver_uuids": [
+      "WWFSYVVlUmpGd0FxQ3ZEc0JzX25bb1hpXGoM"
+    ],
+    "message_link_url": "https://developers.kakao.com"
+  },
+  "ros": {
+    "combined_result_topic": "",
+    "fall_result_topic": "/emergency/fall_alert",
+    "sos_result_topic": "/emergency/sos_alert",
+    "cooldown_sec": 30.0,
+    "critical_cooldown_sec": 15.0
+  },
+
+  "messages": {
+    "fall": "낙상이 감지되었습니다. 확인이 필요합니다.",
+    "fall_critical": "위급: 낙상 후 일어나지 못하고 있습니다. 즉시 확인해 주세요.",
+    "sos": "구조 요청 신호가 감지되었습니다."
+  },
+
+  "_notes": {
+    "combined_result_topic": "우리 시스템은 낙상/SOS를 별도 토픽으로 발행하므로 비워둔다. 값을 넣으면 그 토픽도 함께 구독한다.",
+    "receiver_uuids": "카카오 친구 메시지 API는 요청당 최대 5명.",
+    "cooldown_sec": "같은 종류의 알림 재발송 최소 간격. fall_fusion은 위급 시 3초마다 재발행하므로 이 값이 실제 카톡 빈도를 결정한다.",
+    "critical_cooldown_sec": "위급(critical) 전용 간격. confirmed에서 critical로 올라가는 첫 알림은 쿨다운과 무관하게 즉시 발송된다.",
+    "level_filter": "confirmed / critical 만 발송한다. pending(확정 전)과 resolved(회복 종료)는 발송하지 않는다."
+  }
+}

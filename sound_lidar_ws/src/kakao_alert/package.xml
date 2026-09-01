@@ -1,22 +1,25 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>lidar_focus</name>
+  <name>kakao_alert</name>
   <version>0.1.0</version>
-  <description>LiDAR point cloud filtering focused on sound direction</description>
+  <description>
+    emergency_fusion의 최종 낙상/SOS 판정을 받아 카카오톡으로 보호자에게
+    알림을 보내는 노드. requests(pip) 의존성과 토큰 설정 파일 때문에
+    융합 로직과 분리된 패키지로 유지한다.
+  </description>
   <maintainer email="user@example.com">user</maintainer>
   <license>Apache-2.0</license>
 
   <exec_depend>rclpy</exec_depend>
-  <exec_depend>sensor_msgs</exec_depend>
-  <exec_depend>sensor_msgs_py</exec_depend>
   <exec_depend>std_msgs</exec_depend>
-  <exec_depend>sound_interfaces</exec_depend>
-  <exec_depend>python3-numpy</exec_depend>
+  <!-- rosdep 키가 없는 환경에서는 pip install requests 로 설치 -->
+  <exec_depend>python3-requests</exec_depend>
 
   <test_depend>ament_copyright</test_depend>
   <test_depend>ament_flake8</test_depend>
   <test_depend>ament_pep257</test_depend>
+  <test_depend>python3-pytest</test_depend>
 
   <export>
     <build_type>ament_python</build_type>

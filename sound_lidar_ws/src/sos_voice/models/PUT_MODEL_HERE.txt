@@ -1,0 +1,7 @@
+이 폴더에 Colab에서 export한 model_distilled_quantized.pt 파일을 넣어주세요.
+
+경로 (Colab/Drive 쪽):
+/content/drive/MyDrive/2026채도/checkpoint/checkpoints_distilled_bigger_scilent/model_distilled_quantized.pt
+
+이 폴더 안에 정확히 이 파일명(model_distilled_quantized.pt)으로 넣으면,
+setup.py의 data_files와 emergency_detector_node.py의 자동 경로 탐색이 그대로 작동합니다.

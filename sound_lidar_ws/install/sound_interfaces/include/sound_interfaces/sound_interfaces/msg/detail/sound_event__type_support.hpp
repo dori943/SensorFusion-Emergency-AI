@@ -1,1 +1,0 @@
-/home/user/sound_lidar_ws/build/sound_interfaces/rosidl_generator_cpp/sound_interfaces/msg/detail/sound_event__type_support.hpp

@@ -1,1 +1,0 @@
-/home/user/sound_lidar_ws/src/lidar_focus/setup.py

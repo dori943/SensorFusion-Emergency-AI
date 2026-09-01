@@ -1,1 +1,0 @@
-/home/user/sound_lidar_ws/build/sound_interfaces/rosidl_typesupport_fastrtps_cpp/sound_interfaces/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h

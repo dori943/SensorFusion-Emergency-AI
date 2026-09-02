@@ -22,6 +22,10 @@ sound_lidar_ws/install/
 .env
 .env.local
 .env.*.local
+sound_lidar_ws/src/kakao_alert/kakao_alert/kakao_config.example.json
+sound_lidar_ws/src/kakao_alert/kakao_alert/kakao_config.json
+kakao_config.example.json
+kakao_config.json
 
 # 파이썬 캐시 파일 및 컴파일 파일
 __pycache__/
